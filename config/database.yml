@@ -43,14 +43,15 @@ test:
   adapter: postgresql
   encoding: unicode
   database: VLTS_test
+  host: localhost
   pool: 5
-  username: VLTS
-  password:
+  username: postgres
+  password: imgreat
 
 production:
   adapter: postgresql
   encoding: unicode
   database: VLTS_production
   pool: 5
-  username: VLTS
-  password:
+  username: postgres
+  password: imgreat
