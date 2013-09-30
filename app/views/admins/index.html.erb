@@ -1,0 +1,41 @@
+<h1>Listing admins</h1>
+
+<p class="navbar-text pull-right">
+<% if admin_signed_in? %>
+  <%= link_to 'Edit profile', edit_customer_registration_path, :class => 'navbar-link' %> |
+  <%= link_to "Logout", destroy_customer_session_path, method: :delete, :class => 'navbar-link'  %>
+<% else %>
+  <%= link_to "Sign up", new_customer_registration_path, :class => 'navbar-link'  %> |
+  <%= link_to "Login", new_customer_session_path, :class => 'navbar-link'  %>
+<% end %>
+
+
+<table>
+  <tr>
+    <th>Email</th>
+    <th>Password</th>
+    <th>Password confirmation</th>
+    <th>Remember me</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @admins.each do |admin| %>
+  <tr>
+    <td><%= admin.email %></td>
+    <td><%= admin.password %></td>
+    <td><%= admin.password_confirmation %></td>
+    <td><%= admin.remember_me %></td>
+    <td><%= link_to 'Show', admin %></td>
+    <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
+    <td><%= link_to 'Destroy', admin, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Admin', new_admin_path %>
+
+ <%= link_to 'New Cutomer', new_customer_path(:param1 => "1") %>

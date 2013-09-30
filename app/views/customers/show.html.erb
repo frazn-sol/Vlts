@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p class="navbar-text pull-right">
+<% if customer_signed_in? %>
+  <%= link_to 'Edit profile', edit_customer_registration_path, :class => 'navbar-link' %> |
+  <%= link_to "Logout", destroy_customer_session_path, method: :delete, :class => 'navbar-link'  %>
+<% else %>
+  <%= link_to "Sign up", new_customer_registration_path, :class => 'navbar-link'  %> |
+  <%= link_to "Login", new_customer_session_path, :class => 'navbar-link'  %>
+<% end %>
+
+<p>
+  <b>Email:</b>
+  <%= @customer.email %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%= @customer.password %>
+</p>
+
+<p>
+  <b>Password confirmation:</b>
+  <%= @customer.password_confirmation %>
+</p>
+
+<p>
+  <b>Remember me:</b>
+  <%= @customer.remember_me %>
+</p>
+
+
+<%= link_to 'Edit', edit_customer_path(@customer) %> |
+<%= link_to 'Back', customers_path %>
