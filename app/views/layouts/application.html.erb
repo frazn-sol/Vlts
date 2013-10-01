@@ -65,7 +65,9 @@
 <% if alert %>
   <p class="alert alert-error"><%= alert %></p>
 <% end %>
+<% if admin_signed_in? %> 
 <%= render "admins/sidebar" %>
+<%end%>
 <div id="content" class="span10">
   <%= yield %>
 </div>
