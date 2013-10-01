@@ -3,12 +3,12 @@ class AdminsController < ApplicationController
   # GET /admins
   # GET /admins.json
   def index
-    @admins = Admin.all
+    # @admins = Admin.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @admins }
-    end
+    # respond_to do |format|
+    #   format.html # index.html.erb
+    #   format.json { render json: @admins }
+    # end
   end
 
   # GET /admins/1
@@ -41,15 +41,16 @@ class AdminsController < ApplicationController
   # POST /admins
   # POST /admins.json
   def create
+    binding.pry
     @admin = Admin.new(params[:admin])
 
     respond_to do |format|
       if @admin.save
-        format.html { redirect_to @admin, notice: 'Admin was successfully created.' }
-        format.json { render json: @admin, status: :created, location: @admin }
+        flash[:message] = "Admin Created!"
+        redirect_to list_admins_admin_path
       else
-        format.html { render action: "new" }
-        format.json { render json: @admin.errors, status: :unprocessable_entity }
+        flash[:message] = "Sorry, Admin was not created"
+        render :new
       end
     end
   end
@@ -68,6 +69,10 @@ class AdminsController < ApplicationController
         format.json { render json: @admin.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def list_admins
+    @admins = Admin.all
   end
 
   # DELETE /admins/1

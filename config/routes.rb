@@ -10,7 +10,13 @@ VLTS::Application.routes.draw do
   devise_for :admins do
     get "/sign_out"  => "devise/sessions#destroy", :as => :destroy_admin_session
   end
-  resources :admins
+  
+  resources :admins do
+
+    member do 
+      get :list_admins
+    end
+  end
 
   # devise_for :users do
   #   get "/sign_out"  => "devise/sessions#destroy", :as => :destroy_user_session

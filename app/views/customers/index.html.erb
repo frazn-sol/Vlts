@@ -1,5 +1,5 @@
 <h1>Listing customers</h1>
-<p class="navbar-text pull-right">
+<!-- <p class="navbar-text pull-right">
 <% if customer_signed_in? %>
   <%= link_to 'Edit profile', edit_customer_registration_path, :class => 'navbar-link' %> |
   <%= link_to "Logout", destroy_customer_session_path, method: :delete, :class => 'navbar-link'  %>
@@ -7,7 +7,7 @@
   <%= link_to "Sign up", new_customer_registration_path, :class => 'navbar-link'  %> |
   <%= link_to "Login", new_customer_session_path, :class => 'navbar-link'  %>
 <% end %>
-
+ -->
 <table>
   <tr>
     <th>Email</th>
@@ -25,13 +25,17 @@
     <td><%= customer.password %></td>
     <td><%= customer.password_confirmation %></td>
     <td><%= customer.remember_me %></td>
+    <% if params[:flag]=='1'%>
     <td><%= link_to 'Show', customer %></td>
+    <% elsif params[:flag]=='3'%>
     <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
-    <td><%= link_to 'Destroy', customer, confirm: 'Are you sure?', method: :delete %></td>
+    <% elsif params[:flag]=='2'%>
+    <td><%= link_to 'Delete', customer, confirm: 'Are you sure?', method: :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Customer', new_customer_path %>
+<!-- 
+<%= link_to 'New Customer', new_customer_path %> -->

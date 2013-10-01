@@ -1,0 +1,30 @@
+<table>
+  <tr>
+    <th>Email</th>
+    <th>Password</th>
+    <th>Password confirmation</th>
+    <th>Remember me</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @admins.each do |admin| %>
+  <tr>
+    <td><%= admin.email %></td>
+    <td><%= admin.password %></td>
+    <td><%= admin.password_confirmation %></td>
+    <td><%= admin.remember_me %></td>
+    <% if params[:flag].blank?%>
+    <td><%= link_to 'Show', admin %></td>
+    <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
+    <% elsif params[:flag].present? %>
+      <td><%= link_to 'Delete', admin, confirm: 'Are you sure?', method: :delete %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br /><!-- 
+<%= link_to 'New Admin', new_admin_path %>
+<%= link_to 'New Cutomer', new_customer_path(:param1 => "1") %> -->
