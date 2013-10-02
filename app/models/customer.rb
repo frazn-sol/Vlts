@@ -4,6 +4,11 @@ class Customer < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  belongs_to :admin
+  has_many :vehicles
+
+  has_many :customers
+  belongs_to :customer
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :company_name, :company_address,
   				  :company_type, :company_phone, :company_website, :company_email

@@ -5,6 +5,7 @@ class AddDeviseToAdmins < ActiveRecord::Migration
       t.recoverable
       t.rememberable
       t.trackable
+      t.belongs_to :admin
     
       # t.encryptable
       # t.confirmable

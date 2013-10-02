@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Vehicle name:
+  = @vehicle.vehicle_name
+%p
+  %b Badge number:
+  = @vehicle.badge_number
+%p
+  %b Organization:
+  = @vehicle.organization
+%p
+  %b First name:
+  = @vehicle.first_name
+%p
+  %b Middle name:
+  = @vehicle.middle_name
+%p
+  %b Last name:
+  = @vehicle.last_name
+
+= link_to 'Edit', edit_vehicle_path(@vehicle)
+\|
+= link_to 'Back', vehicles_path

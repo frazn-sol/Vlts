@@ -4,9 +4,9 @@ class CustomersController < ApplicationController
   # GET /customers.json
   def index
     @customers = Customer.all
-
+    
     respond_to do |format|
-      format.html # index.html.erb
+      format.html {render layout: "custom"}
       format.json { render json: @customers }
     end
   end
@@ -17,7 +17,7 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html {render layout: "custom"}
       format.json { render json: @customer }
     end
   end
@@ -28,7 +28,7 @@ class CustomersController < ApplicationController
     @customer = Customer.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html {render layout: "custom"}
       format.json { render json: @customer }
     end
   end
@@ -41,6 +41,7 @@ class CustomersController < ApplicationController
   # POST /customers
   # POST /customers.json
   def create
+    binding.pry
     @customer = Customer.new(params[:customer])
 
     respond_to do |format|

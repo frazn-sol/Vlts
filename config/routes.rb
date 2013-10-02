@@ -1,6 +1,8 @@
 VLTS::Application.routes.draw do
   
   
+  resources :vehicles
+
   devise_for :customers do 
     get "/sign_out"  => "devise/sessions#destroy", :as => :destroy_customer_session 
   end

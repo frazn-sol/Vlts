@@ -1,0 +1,29 @@
+%h1 Listing vehicles
+
+%table
+  %tr
+    %th Vehicle name
+    %th Badge number
+    %th Organization
+    %th First name
+    %th Middle name
+    %th Last name
+    %th
+    %th
+    %th
+
+  - @vehicles.each do |vehicle|
+    %tr
+      %td= vehicle.vehicle_name
+      %td= vehicle.badge_number
+      %td= vehicle.organization
+      %td= vehicle.first_name
+      %td= vehicle.middle_name
+      %td= vehicle.last_name
+      %td= link_to 'Show', vehicle
+      %td= link_to 'Edit', edit_vehicle_path(vehicle)
+      %td= link_to 'Destroy', vehicle, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Vehicle', new_vehicle_path

@@ -65,8 +65,10 @@
 <% if alert %>
   <p class="alert alert-error"><%= alert %></p>
 <% end %>
-<% if admin_signed_in? %> 
+<% if params[:param1].present? %> 
   <%= render "admins/sidebar" %>
+<% elsif customer_signed_in? %> 
+  <%= render "customers/sidebar" %>
 <%end%>
 <div id="content" class="span10">
   <%= yield %>
