@@ -41,7 +41,6 @@ class AdminsController < ApplicationController
   # POST /admins
   # POST /admins.json
   def create
-    binding.pry
     @admin = Admin.new(params[:admin])
 
     respond_to do |format|
