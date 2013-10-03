@@ -67,5 +67,32 @@
 	padding-left: 365px;
 	margin-left: 100px;
 	margin-right: -83px;
+}
+
+.login{
+	margin-top: 22px;
+	margin-left: 156px;
+	width: 65px !important;
+	height: 30px !important;
+}
+
+.partial {
+	margin-top: -35px;
+	padding-bottom: 60px;
+}
+
+.header{
+margin-top: 40px;
+margin-bottom: 40px;
+margin-left: 50px;
+}
+
+.sticker{
+	margin-left: -80px;
+margin-bottom: -26px;
+}
+
+.textfield{
+	margin-top: 25px;
 
 }

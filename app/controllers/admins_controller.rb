@@ -47,7 +47,7 @@ class AdminsController < ApplicationController
     respond_to do |format|
       if @admin.save
         flash[:message] = "Admin Created!"
-        redirect_to list_admins_admin_path
+        redirect_to admins_path
       else
         flash[:message] = "Sorry, Admin was not created"
         render :new

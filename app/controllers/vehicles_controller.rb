@@ -36,6 +36,7 @@ class VehiclesController < ApplicationController
   # GET /vehicles/1/edit
   def edit
     @vehicle = Vehicle.find(params[:id])
+    render layout: "custom"
   end
 
   # POST /vehicles

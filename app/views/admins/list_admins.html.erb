@@ -3,7 +3,6 @@
     <th>Email</th>
     <th>Password</th>
     <th>Password confirmation</th>
-    <th>Remember me</th>
     <th></th>
     <th></th>
   </tr>
@@ -13,7 +12,6 @@
     <td><%= admin.email %></td>
     <td><%= admin.password %></td>
     <td><%= admin.password_confirmation %></td>
-    <td><%= admin.remember_me %></td>
     <% if params[:flag].blank?%>
     <td><%= link_to 'Show', admin %></td>
     <td><%= link_to 'Edit', edit_admin_path(admin) %></td>

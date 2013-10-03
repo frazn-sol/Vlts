@@ -43,7 +43,7 @@
         - elsif params[:flag]=="3"
           %td= link_to 'Edit', edit_vehicle_path(vehicle)
         - elsif params[:flag]=="2"  
-          %td= link_to 'Destroy', vehicle, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %td= link_to 'Delete', vehicle, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
   %br
 

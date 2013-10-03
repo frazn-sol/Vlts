@@ -46,6 +46,11 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
+        if (session[:flag]==true)
+          flash[:notice] = "Customer has been created successfully"
+          session[:flag] = false
+          redirect_to admins_path and return
+        end
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render json: @customer, status: :created, location: @customer }
       else
@@ -62,6 +67,11 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.update_attributes(params[:customer])
+        if (session[:flag]==true)
+          flash[:notice] = "Customer has been updated successfully"
+          session[:flag] = false
+          redirect_to admins_path and return
+        end
         format.html { redirect_to @customer, notice: 'Customer was successfully updated.' }
         format.json { head :no_content }
       else
@@ -76,7 +86,11 @@ class CustomersController < ApplicationController
   def destroy
     @customer = Customer.find(params[:id])
     @customer.destroy
-
+    if (session[:flag]==true)
+          flash[:notice] = "Customer has been deleted successfully"
+          session[:flag] = false
+          redirect_to admins_path and return
+        end
     respond_to do |format|
       format.html { redirect_to customers_url }
       format.json { head :no_content }
@@ -85,7 +99,10 @@ class CustomersController < ApplicationController
 
   private 
   def authenticate!
-    if params[:param1].present?
+    if ((params[:param1].present? || params[:customer].present? || params[:id].present?) && current_admin.present?)
+      if (params[:customer].present? || params[:id].present?)
+        session[:flag]=true
+      end
       authenticate_admin!
     else
       authenticate_customer!
