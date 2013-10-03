@@ -1,28 +1,57 @@
-= form_for @vehicle do |f|
-  - if @vehicle.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@vehicle.errors.count, "error")} prohibited this vehicle from being saved:"
-      %ul
-        - @vehicle.errors.full_messages.each do |msg|
-          %li= msg
+.form
+  = form_for @vehicle do |f|
+    - if @vehicle.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@vehicle.errors.count, "error")} prohibited this vehicle from being saved:"
+        %ul
+          - @vehicle.errors.full_messages.each do |msg|
+            %li= msg
+    .allign
+      .field
+        = f.label :vehicle_name
+        = f.text_field :vehicle_name
+    .allign    
+      .field
+        = f.label :badge_number
+        = f.text_field :badge_number
+    .allign    
+      .field
+        = f.label :organization
+        = f.text_field :organization
+    .allign
+      %h1.heading Driver's Info    
+    .allign    
+      .field
+        = f.label :first_name
+        = f.text_field :first_name
+    .allign    
+      .field
+        = f.label :middle_name
+        = f.text_field :middle_name
+    .allign    
+      .field
+        = f.label :last_name
+        = f.text_field :last_name      
+    .allign
+      .field
+        = f.label :visitor
+        .btn-group{data:{toggle: "buttons-radio"}}
+          %label.btn
+            = f.radio_button :visitor, "yes"
+            Yes
+          %label.btn
+            = f.radio_button :visitor, "no"
+            No
+    .allign
+      .field.shift
+        = f.label :flagged
+        .btn-group{data:{toggle: "buttons-radio"}}
+          %label.btn.blue
+            = f.radio_button :visitor, "blue"
+          %label.btn.red
+            = f.radio_button :visitor, "red"
+          %label.btn.green
+            = f.radio_button :visitor, "green"  
 
-  .field
-    = f.label :vehicle_name
-    = f.text_field :vehicle_name
-  .field
-    = f.label :badge_number
-    = f.text_field :badge_number
-  .field
-    = f.label :organization
-    = f.text_field :organization
-  .field
-    = f.label :first_name
-    = f.text_field :first_name
-  .field
-    = f.label :middle_name
-    = f.text_field :middle_name
-  .field
-    = f.label :last_name
-    = f.text_field :last_name
-  .actions
-    = f.submit 'Save'
+    .actions
+      = f.submit 'Save', {:class => "button"}          

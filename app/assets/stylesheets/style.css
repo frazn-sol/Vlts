@@ -1,0 +1,71 @@
+.allign{
+	display: inline-block;
+	float:left;
+	padding-right: 100px;
+	padding-top: 15px;
+}
+
+.button{
+	margin-top: 37px;
+	margin-left: 254px;
+	height: 35px;
+	width: 60px !important;
+}
+.heading{
+	padding-right: 700px;
+}
+.blue{
+	background-color: blue;
+	color: blue;
+	border-color: blue;
+}
+.red{
+	background-color: red;
+	color: red;
+	border-color: red;
+}
+.green{
+	background-color: green;
+	color: green;
+	border-color: green;
+}
+.shift{
+	margin-left: 92px;
+}
+
+.container-fluid{
+	border: 2px solid black;
+	margin: 0 auto;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+.button1{
+	margin-top: 40px;
+	margin-left: 60px;
+	width: 160px !important;
+	height: 30px !important;
+}
+.set{
+	width: 300px;
+}
+
+.search{
+	margin-top: 175px;
+	margin-left: -338px;
+	width: 160px !important;
+	height: 30px !important;
+}
+.style{
+	margin-top: 35px;
+
+}
+
+.border{
+	border:2px solid black;
+	margin-bottom: 30px;
+	margin-top: 30px;
+	padding-left: 365px;
+	margin-left: 100px;
+	margin-right: -83px;
+
+}

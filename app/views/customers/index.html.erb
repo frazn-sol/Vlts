@@ -8,23 +8,25 @@
   <%= link_to "Login", new_customer_session_path, :class => 'navbar-link'  %>
 <% end %>
  -->
-<table>
+<table border="2">
   <tr>
-    <th>Email</th>
-    <th>Password</th>
-    <th>Password confirmation</th>
-    <th>Remember me</th>
-    <th></th>
-    <th></th>
+    <th>Company Name</th>
+    <th>Company Address</th>
+    <th>Company Phone</th>
+    <th>Company Website</th>
+    <th>Company Type</th>
+    <th>Company Email</th>
     <th></th>
   </tr>
 
 <% @customers.each do |customer| %>
   <tr>
-    <td><%= customer.email %></td>
-    <td><%= customer.password %></td>
-    <td><%= customer.password_confirmation %></td>
-    <td><%= customer.remember_me %></td>
+    <td><%= customer.company_name %></td>
+    <td><%= customer.company_address %></td>
+    <td><%= customer.company_phone %></td>
+    <td><%= customer.company_website %></td>
+    <td><%= customer.company_type %></td>
+    <td><%= customer.company_email %></td>
     <% if params[:flag]=='1'%>
     <td><%= link_to 'Show', customer %></td>
     <% elsif params[:flag]=='3'%>

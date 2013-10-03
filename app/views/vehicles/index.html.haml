@@ -1,29 +1,50 @@
-%h1 Listing vehicles
+%h1 Search & Listing vehicles
 
-%table
-  %tr
-    %th Vehicle name
-    %th Badge number
-    %th Organization
-    %th First name
-    %th Middle name
-    %th Last name
-    %th
-    %th
-    %th
+.allign
+  .field.set
+    = label_tag 'Vehicles'
+    = text_field_tag 'name'
+.allign    
+  .field.set
+    = label_tag 'Organization'
+    = text_field_tag 'name'
+.allign    
+  .field.set
+    = label_tag "Driver's Name" 
+    = text_field_tag 'name'  
+.allign    
+  .field.set
+    = label_tag 'Badge'
+    = text_field_tag 'name'
+.actions
+  = button_tag 'Search', {:class => "search"}          
 
-  - @vehicles.each do |vehicle|
+.style
+  %table{:border => 2}
     %tr
-      %td= vehicle.vehicle_name
-      %td= vehicle.badge_number
-      %td= vehicle.organization
-      %td= vehicle.first_name
-      %td= vehicle.middle_name
-      %td= vehicle.last_name
-      %td= link_to 'Show', vehicle
-      %td= link_to 'Edit', edit_vehicle_path(vehicle)
-      %td= link_to 'Destroy', vehicle, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %th Vehicle name
+      %th Badge number
+      %th Organization
+      %th First name
+      %th Middle name
+      %th Last name
+      %th
 
-%br
+    - @vehicles.each do |vehicle|
+      %tr
+        %td= vehicle.vehicle_name
+        %td= vehicle.badge_number
+        %td= vehicle.organization
+        %td= vehicle.first_name
+        %td= vehicle.middle_name
+        %td= vehicle.last_name
+        - if params[:flag]=="1"
+          %td= link_to 'Show', vehicle
+        - elsif params[:flag]=="3"
+          %td= link_to 'Edit', edit_vehicle_path(vehicle)
+        - elsif params[:flag]=="2"  
+          %td= link_to 'Destroy', vehicle, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-= link_to 'New Vehicle', new_vehicle_path
+  %br
+
+// = link_to 'New Vehicle', new_vehicle_path
