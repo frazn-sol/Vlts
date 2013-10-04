@@ -3,10 +3,17 @@
   <tr>
     <th>Name</th>
     <th>Address1</th>
+    <th>Address2</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zipcode</th>
     <th>Phone1</th>
+    <th>Phone2</th>
     <th>Website</th>
-    <th>Username</th>
     <th>Email</th>
+    <th>Role</th>
+    <th>Username</th>
+    <th>Password Hint</th>
     <th></th>
     <th></th>
     <th></th>
@@ -16,10 +23,17 @@
   <tr>
     <td><%= customer.name %></td>
     <td><%= customer.address1 %></td>
+    <td><%= customer.address2 %></td>
+    <td><%= customer.city %></td>
+    <td><%= customer.state %></td>
+    <td><%= customer.zipcode %></td>
     <td><%= customer.phone1 %></td>
+    <td><%= customer.phone2 %></td>
     <td><%= customer.website %></td>
-    <td><%= customer.username %></td>
     <td><%= customer.email %></td>
+    <td><%= customer.role %></td>
+    <td><%= customer.username %></td>
+    <td><%= customer.passwordhint %></td>
     <td><%= link_to 'Show', customer %></td>
     <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
     <td><%= link_to 'Delete', customer, confirm: 'Are you sure?', method: :delete %></td>
