@@ -95,15 +95,5 @@ class CustomersController < ApplicationController
     end
   end
 
-  # private 
-  # def authenticate!
-  #   if ((params[:param1].present? || params[:customer].present? || params[:id].present?) && current_admin.present?)
-  #     if (params[:customer].present? || params[:id].present?)
-  #       session[:flag]=true
-  #     end
-  #     authenticate_admin!
-  #   else
-  #     authenticate_customer!
-  #   end
-  # end
+ 
 end
