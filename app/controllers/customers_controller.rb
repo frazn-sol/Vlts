@@ -48,9 +48,9 @@ class CustomersController < ApplicationController
           flash[:notice] = "Customer has been created successfully"
           # session[:flag] = false
           redirect_to admins_path and return
-        # end
-        flash[:notice] = 'Customer was successfully created.'
-        redirect_to customers_path and return
+        # # end
+        # flash[:notice] = 'Customer was successfully created.'
+        # redirect_to customers_path and return
       else
         format.html { render action: "new" }
         format.json { render json: @customer.errors, status: :unprocessable_entity }
