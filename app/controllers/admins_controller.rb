@@ -45,11 +45,11 @@ class AdminsController < ApplicationController
 
     respond_to do |format|
       if @admin.save
-        flash[:message] = "Admin Created!"
-        redirect_to admins_path
+        format.html { redirect_to @admin, notice: 'Admin was successfully created.' }
+        format.json { render json: @admin, status: :created, location: @admin }
       else
-        flash[:message] = "Sorry, Admin was not created"
-        render :new
+        format.html { render action: "new" }
+        format.json { render json: @admin.errors, status: :unprocessable_entity }
       end
     end
   end
