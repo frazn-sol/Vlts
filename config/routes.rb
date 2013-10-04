@@ -25,8 +25,7 @@ VLTS::Application.routes.draw do
   #   get "/sign_out"  => "devise/sessions#destroy", :as => :destroy_user_session
   # end
 
-  devise_for :admins, :controllers => { registrations: "registrations", passwords: "passwords" }
-  devise_for :customers, :controllers => { registrations: "registrations", passwords: "passwords" }
+  devise_for :admins, :controllers => { sessions: "sessions" }
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
