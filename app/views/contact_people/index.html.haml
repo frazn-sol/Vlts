@@ -1,0 +1,43 @@
+%h1 Listing contact_people
+
+%table
+  %tr
+    %th Name
+    %th Address1
+    %th Address2
+    %th City
+    %th State
+    %th Zipcode
+    %th Phone1
+    %th Phone2
+    %th Website
+    %th Email
+    %th Role
+    %th Username
+    %th Password
+    %th Passwordhint
+    %th
+    %th
+    %th
+
+  - @contact_people.each do |contact_person|
+    %tr
+      %td= contact_person.name
+      %td= contact_person.address1
+      %td= contact_person.address2
+      %td= contact_person.city
+      %td= contact_person.state
+      %td= contact_person.zipcode
+      %td= contact_person.phone1
+      %td= contact_person.phone2
+      %td= contact_person.website
+      %td= contact_person.email
+      %td= contact_person.role
+      %td= contact_person.username
+      %td= contact_person.password
+      %td= contact_person.passwordhint
+      %td= link_to 'Show', contact_person
+      %td= link_to 'Edit', edit_contact_person_path(contact_person)
+      %td= link_to 'Destroy', contact_person, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br

@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_filter :authenticate!
+  before_filter :authenticate!, :only=>[:index]
   # GET /customers
   # GET /customers.json
   def index
@@ -50,8 +50,8 @@ class CustomersController < ApplicationController
           session[:flag] = false
           redirect_to admins_path and return
         end
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
-        format.json { render json: @customer, status: :created, location: @customer }
+        flash[:notice] = 'Customer was successfully created.'
+        redirect_to customers_path and return
       else
         format.html { render action: "new" }
         format.json { render json: @customer.errors, status: :unprocessable_entity }

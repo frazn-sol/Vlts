@@ -1,6 +1,10 @@
 VLTS::Application.routes.draw do
   
-  root :to => "customers#index"
+  resources :contact_people
+
+  resources :business_managers
+
+  root :to => "admins#index"
   
   resources :vehicles
 

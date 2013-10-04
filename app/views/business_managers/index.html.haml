@@ -1,0 +1,45 @@
+%h1 Listing business_managers
+
+%table
+  %tr
+    %th Name
+    %th Address1
+    %th Address2
+    %th City
+    %th State
+    %th Zipcode
+    %th Phone1
+    %th Phone2
+    %th Website
+    %th Email
+    %th Role
+    %th Username
+    %th Password
+    %th Passwordhint
+    %th
+    %th
+    %th
+
+  - @business_managers.each do |business_manager|
+    %tr
+      %td= business_manager.name
+      %td= business_manager.address1
+      %td= business_manager.address2
+      %td= business_manager.city
+      %td= business_manager.state
+      %td= business_manager.zipcode
+      %td= business_manager.phone1
+      %td= business_manager.phone2
+      %td= business_manager.website
+      %td= business_manager.email
+      %td= business_manager.role
+      %td= business_manager.username
+      %td= business_manager.password
+      %td= business_manager.passwordhint
+      %td= link_to 'Show', business_manager
+      %td= link_to 'Edit', edit_business_manager_path(business_manager)
+      %td= link_to 'Destroy', business_manager, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+

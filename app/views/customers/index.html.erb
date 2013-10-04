@@ -1,23 +1,23 @@
-<h1>Listing customers</h1>
+ <h1>Listing customers</h1>
 <table border="2">
   <tr>
-    <th>Company Name</th>
-    <th>Company Address</th>
-    <th>Company Phone</th>
-    <th>Company Website</th>
-    <th>Company Type</th>
-    <th>Company Email</th>
+    <th>Name</th>
+    <th>Address1</th>
+    <th>Phone1</th>
+    <th>Website</th>
+    <th>Username</th>
+    <th>Email</th>
     <th></th>
   </tr>
 
 <% @customers.each do |customer| %>
   <tr>
-    <td><%= customer.company_name %></td>
-    <td><%= customer.company_address %></td>
-    <td><%= customer.company_phone %></td>
-    <td><%= customer.company_website %></td>
-    <td><%= customer.company_type %></td>
-    <td><%= customer.company_email %></td>
+    <td><%= customer.name %></td>
+    <td><%= customer.address1 %></td>
+    <td><%= customer.phone1 %></td>
+    <td><%= customer.website %></td>
+    <td><%= customer.username %></td>
+    <td><%= customer.email %></td>
     <% if params[:flag]=='1'%>
     <td><%= link_to 'Show', customer %></td>
     <% elsif params[:flag]=='3'%>
@@ -30,5 +30,4 @@
 </table>
 
 <br />
-<!-- 
-<%= link_to 'New Customer', new_customer_path %> -->
+ 

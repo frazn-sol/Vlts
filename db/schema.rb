@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131002153216) do
+ActiveRecord::Schema.define(:version => 20131004105013) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -32,6 +32,45 @@ ActiveRecord::Schema.define(:version => 20131002153216) do
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
 
+  create_table "business_managers", :force => true do |t|
+    t.string   "name"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zipcode"
+    t.integer  "phone1"
+    t.integer  "phone2"
+    t.string   "website"
+    t.string   "email"
+    t.string   "role"
+    t.string   "username"
+    t.string   "password"
+    t.string   "passwordhint"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "contact_people", :force => true do |t|
+    t.string   "name"
+    t.string   "companyname"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zipcode"
+    t.integer  "phone1"
+    t.integer  "phone2"
+    t.string   "website"
+    t.string   "email"
+    t.string   "role"
+    t.string   "username"
+    t.string   "password"
+    t.string   "passwordhint"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "customers", :force => true do |t|
     t.integer  "admin_id"
     t.integer  "customer_id"
@@ -49,12 +88,19 @@ ActiveRecord::Schema.define(:version => 20131002153216) do
     t.string   "last_sign_in_ip"
     t.string   "roles"
     t.string   "roles_mask"
-    t.string   "company_name"
-    t.string   "company_address"
-    t.string   "company_type"
-    t.string   "company_phone"
-    t.string   "company_email"
-    t.string   "company_website"
+    t.string   "name"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zipcode"
+    t.integer  "phone1"
+    t.integer  "phone2"
+    t.string   "website"
+    t.string   "role"
+    t.string   "username"
+    t.string   "password"
+    t.string   "passwordhint"
   end
 
   add_index "customers", ["email"], :name => "index_customers_on_email", :unique => true

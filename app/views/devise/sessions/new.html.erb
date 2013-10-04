@@ -1,18 +1,17 @@
-<div class = "border">
+
 <div class = "header"><h2>Login</h2> </div>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div class = "textfield">
-  <div class = "sticker"><%= f.label :email %></div>
+  <div class = "field">
+  <%= f.label :email %><br />
   <%= f.email_field :email %></div>
 
-  <div class = "textfield">
-  	<div class = "sticker"><%= f.label :password %></div>
+  	<div class = "field">
+  <%= f.label :password %><br />
   <%= f.password_field :password %></div>
 
   <%= f.submit "Login", :class => "login" %>
 <% end %>
 <div class = "partial">
 <%= render :partial => "devise/shared/links" %>
-</div>
 </div>

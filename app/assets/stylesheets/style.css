@@ -34,7 +34,6 @@
 }
 
 .container-fluid{
-	border: 2px solid black;
 	margin: 0 auto;
 	padding-top: 30px;
 	padding-bottom: 30px;
@@ -60,25 +59,26 @@
 
 }
 
-.border{
+/*.border{
 	border:2px solid black;
 	margin-bottom: 30px;
 	margin-top: 30px;
 	padding-left: 365px;
 	margin-left: 100px;
 	margin-right: -83px;
-}
+}*/
 
 .login{
 	margin-top: 22px;
-	margin-left: 156px;
+	margin-left: 234px;
 	width: 65px !important;
 	height: 30px !important;
 }
 
 .partial {
-	margin-top: -35px;
-	padding-bottom: 60px;
+	margin-top: -33px;
+padding-bottom: 60px;
+margin-left: 142px;
 }
 
 .header{
@@ -95,4 +95,48 @@ margin-bottom: -26px;
 .textfield{
 	margin-top: 25px;
 
+}
+/*dvonv*/
+/*.hello {
+display: block;
+width: 70px;
+height: 70px;
+border-radius: 48px;
+font-size: 15px;
+color: #fff;
+line-height: 66px;
+text-align: center;
+background: #000;
+margin-left: 300px;
+}
+*/
+
+.hello{
+	color:white;
+}
+textarea, .uneditable-input {
+margin-left: 0;
+height: 85px;
+}
+
+#content{
+	border:2px solid black;
+}
+
+form{
+	margin-left: 60px;
+}
+
+/*.field{
+	margin-bottom: -40px;
+}*/
+.name{
+	float:left;
+}
+
+label{
+	float: left;
+width: 100px;
+text-align: left;
+margin: 9px -10px;
 }
