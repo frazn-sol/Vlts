@@ -1,6 +1,6 @@
-%h1 Listing business_managers
+%h1.header Listing Business Managers
 
-%table
+%table{border: "2"}
   %tr
     %th Name
     %th Address1
@@ -38,7 +38,7 @@
       %td= business_manager.passwordhint
       %td= link_to 'Show', business_manager
       %td= link_to 'Edit', edit_business_manager_path(business_manager)
-      %td= link_to 'Destroy', business_manager, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to 'Delete', business_manager, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 

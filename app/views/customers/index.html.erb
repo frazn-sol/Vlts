@@ -1,4 +1,4 @@
- <h1>Listing customers</h1>
+ <div class = "header"><h1>Listing Customers</h1></div>
 <table border="2">
   <tr>
     <th>Name</th>
@@ -7,6 +7,8 @@
     <th>Website</th>
     <th>Username</th>
     <th>Email</th>
+    <th></th>
+    <th></th>
     <th></th>
   </tr>
 
@@ -18,11 +20,8 @@
     <td><%= customer.website %></td>
     <td><%= customer.username %></td>
     <td><%= customer.email %></td>
-    <% if params[:flag]=='1'%>
     <td><%= link_to 'Show', customer %></td>
-    <% elsif params[:flag]=='3'%>
     <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
-    <% elsif params[:flag]=='2'%>
     <td><%= link_to 'Delete', customer, confirm: 'Are you sure?', method: :delete %></td>
     <% end %>
   </tr>
