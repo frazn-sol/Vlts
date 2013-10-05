@@ -217,3 +217,9 @@ table{
 	margin-top: -70px;
 margin-left: 415px!important;
 }
+
+.navbar .btn-group {
+margin: 0;
+margin-top: -62px;
+padding: 5px 5px 6px;
+}
