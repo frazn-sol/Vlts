@@ -104,6 +104,7 @@ display: block;
 width: 70px;
 height: 70px;
 border-radius: 48px;
+padding: 10px;
 font-size: 10px;
 color: black;
 line-height: 66px;
@@ -222,8 +223,8 @@ table{
 }
 
 .shift1{
-	margin-top: -70px;
-margin-left: 415px!important;
+	margin-top: -90px;
+margin-left: 445px!important;
 }
 
 .navbar .btn-group {
