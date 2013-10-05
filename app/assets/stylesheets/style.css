@@ -115,7 +115,7 @@ height: 85px;
 }
 
 #content{
-	border:2px solid black;
+	border:2px solid white;
 }
 
 form{
@@ -192,16 +192,19 @@ margin-bottom: 15px;
 }
 
 th{
-	background:#CCCCCC;
+	background:#5CACEE;
+	color: black;
 }
 
 tr td{
 	text-align: center;
     background:#EEEEEE;
+    color:black;
 }
 tr:nth-child(odd) td{   
 	text-align: center; 
-    background:#CCCCCC;
+    background:#5CACEE;
+    color: black;
 }
 
 table{
@@ -222,4 +225,13 @@ margin-left: 415px!important;
 margin: 0;
 margin-top: -62px;
 padding: 5px 5px 6px;
+}
+
+a:hover {
+color: blue;
+text-decoration: underline;
+}
+
+a{
+	color: black;
 }
