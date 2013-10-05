@@ -95,5 +95,7 @@ class CustomersController < ApplicationController
     end
   end
 
- 
+  def management
+    @customer = Customer.all
+  end 
 end

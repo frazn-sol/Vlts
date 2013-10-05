@@ -14,100 +14,100 @@
   
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :class => "up" %>
   </div>
 
   <div class="field">
     <%= f.label :address1 %><br />
-    <%= f.text_area :address1 %>
+    <%= f.text_area :address1, :class => "up" %>
   </div>
   
 
   
   <div class="field">
     <%= f.label :address2 %><br />
-    <%= f.text_area :address2 %>
+    <%= f.text_area :address2, :class => "up" %>
   </div>
 
   
   <div class="field">
     <%= f.label :city %><br />
-    <%= f.text_field :city %>
+    <%= f.text_field :city, :class => "size up" %>
   </div>
   
 
   
-  <div class="field">
+  <div class="field location">
     <%= f.label :state %><br />
-    <%= f.text_field :state %>
+    <%= f.text_field :state, :class => "size1 up" %>
   </div>
   
 
   
   <div class="field">
     <%= f.label :zipcode %><br />
-    <%= f.text_field :zipcode %>
+    <%= f.text_field :zipcode, :class => "size up" %>
   </div>
   
 
   
   <div class="field">
     <%= f.label :phone1 %><br />
-    <%= f.text_field :phone1 %>
+    <%= f.text_field :phone1, :class => "up" %>
   </div>
   
 
   
   <div class="field">
     <%= f.label :phone2 %><br />
-    <%= f.text_field :phone2 %>
+    <%= f.text_field :phone2, :class => "up" %>
   </div>
   
 
   
   <div class="field">
     <%= f.label :website %><br />
-    <%= f.text_field :website %>
+    <%= f.text_field :website, :class => "up" %>
   </div>
   
   
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.text_field :email %>
+    <%= f.text_field :email, :class => "up" %>
   </div>
   
 
   
   <div class="field">
     <%= f.label :role %><br />
-    <%= f.select :role, options_for_select(%w[Admin Manager]) %>
+    <%= f.select :role, options_for_select(%w[Admin Manager]),{}, :class => "up" %>
   </div>
   
 
   
   <div class="field">
     <%= f.label :username %><br />
-    <%= f.text_field :username %>
+    <%= f.text_field :username, :class => "up" %>
   </div>
   
 
   
   <div class="field">
     <%= f.label :password %><br />
-    <%= f.password_field :password %>
+    <%= f.password_field :password, :class => "up" %>
   </div>
   
 
   
   <div class="field">
     <%= f.label :passwordhint %><br />
-    <%= f.text_field :passwordhint %>
+    <%= f.text_field :passwordhint, :class => "up" %>
   </div>
   
 
   
   <div class="actions">
-    <%= f.submit "Create Customer", :class => "button1"%>
+    <%= f.submit "Submit", :class => "button1"%>
   </div>
   
 <% end %>

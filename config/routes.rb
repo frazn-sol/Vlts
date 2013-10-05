@@ -6,13 +6,21 @@ VLTS::Application.routes.draw do
 
   root :to => "admins#index"
   
-  resources :vehicles
+  resources :vehicles do
+    member do
+      get :management
+    end
+  end
 
   devise_for :customers do 
     get "/sign_out"  => "devise/sessions#destroy", :as => :destroy_customer_session 
   end
 
-  resources :customers
+  resources :customers do
+    member do
+      get :management
+    end
+  end
 
   devise_for :admins do
     get "/sign_out"  => "devise/sessions#destroy", :as => :destroy_admin_session

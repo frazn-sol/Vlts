@@ -1,0 +1,53 @@
+  <div class = "header"><h1>Vehicle List</h1></div>
+ <div class = "envelope">
+ <div class = "allign1">
+ <div class="field">
+    <%= label_tag "Plaza" %><br />
+    <%= text_field_tag :name, value = nil, :class => "search1" %>
+  </div>
+  </div>
+
+
+  <div class = "allign1">
+  <div class="field">
+    <%= label_tag "Floor" %><br />
+    <%= text_field_tag :email, value = nil, :class => "search1" %>
+  </div>
+  </div>
+
+  <div class = "allign1">
+  <div class="field">
+    <%= label_tag "Number Plate" %><br />
+    <%= text_field_tag :contact_person, value = nil, :class => "search2 " %>
+  </div>
+  </div>
+
+</div>
+
+  <div class="actions">
+    <%= button_tag "Search", :class => "location1"%>
+  </div>
+
+<div class = scroll >
+  <table border="2">
+  <tr>
+    <th>Vehicle Id</th>
+    <th>Vehicle Name</th>
+    <th>Registration Number</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @vehicle.each do |vehicle| %>
+  <tr>
+    <td><%= vehicle.id %></td>
+    <td><%= vehicle.vehicle_name %></td>
+    <td><%= vehicle.badge_number %></td>
+    <td><%= link_to 'Show', vehicle %></td>
+    <td><%= link_to 'Edit', edit_vehicle_path(vehicle) %></td>
+    <td><%= link_to 'Delete', vehicle, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</div>
+</table>

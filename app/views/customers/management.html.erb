@@ -1,0 +1,55 @@
+  <div class = "header"><h1>Listing Customers</h1></div>
+ <div class = "envelope">
+ <div class = "allign1">
+ <div class="field">
+    <%= label_tag "Name" %><br />
+    <%= text_field_tag :name, value = nil, :class => "search1" %>
+  </div>
+  </div>
+
+
+  <div class = "allign1">
+  <div class="field">
+    <%= label_tag "Email" %><br />
+    <%= text_field_tag :email, value = nil, :class => "search1" %>
+  </div>
+  </div>
+
+  <div class = "allign1">
+  <div class="field">
+    <%= label_tag "Contact Person" %><br />
+    <%= text_field_tag :contact_person, value = nil, :class => "search2 " %>
+  </div>
+  </div>
+
+</div>
+
+  <div class="actions">
+    <%= button_tag "Search", :class => "location1"%>
+  </div>
+
+<div class = scroll >
+  <table border="2">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Contact Info</th>
+    <th>Designation</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @customer.each do |customer| %>
+  <tr>
+    <td><%= customer.name %></td>
+    <td><%= customer.email %></td>
+    <td><%= customer.phone1 %></td>
+    <td><%= customer.address1 %></td>
+    <td><%= link_to 'Show', customer %></td>
+    <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
+    <td><%= link_to 'Delete', customer, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</div>
+</table>

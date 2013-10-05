@@ -13,4 +13,5 @@ class Customer < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :address1, :address2,
                   :city, :state, :zipcode, :phone1, :phone2, :website, :role, :username, :passwordhint
   # attr_accessible :title, :body
+  attr_accessor :contact_person
 end

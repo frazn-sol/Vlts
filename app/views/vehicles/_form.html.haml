@@ -6,52 +6,21 @@
         %ul
           - @vehicle.errors.full_messages.each do |msg|
             %li= msg
-    .allign
-      .field
-        = f.label :vehicle_name
-        = f.text_field :vehicle_name
-    .allign    
-      .field
-        = f.label :badge_number
-        = f.text_field :badge_number
-    .allign    
-      .field
-        = f.label :organization
-        = f.text_field :organization
-    .allign
-      %h1.heading Driver's Info    
-    .allign    
-      .field
-        = f.label :first_name
-        = f.text_field :first_name
-    .allign    
-      .field
-        = f.label :middle_name
-        = f.text_field :middle_name
-    .allign    
-      .field
-        = f.label :last_name
-        = f.text_field :last_name      
-    .allign
-      .field
-        = f.label :visitor
-        .btn-group{data:{toggle: "buttons-radio"}}
-          %label.btn
-            = f.radio_button :visitor, "yes"
-            Yes
-          %label.btn
-            = f.radio_button :visitor, "no"
-            No
-    .allign
-      .field.shift
-        = f.label :flagged
-        .btn-group{data:{toggle: "buttons-radio"}}
-          %label.btn.blue
-            = f.radio_button :visitor, "blue"
-          %label.btn.red
-            = f.radio_button :visitor, "red"
-          %label.btn.green
-            = f.radio_button :visitor, "green"  
+    .field
+      = f.label :vehicle_name
+      = f.text_field :vehicle_name   
+    .field
+      = f.label :registration_no
+      = f.text_field :badge_number    
+    .field
+      = f.label :driver
+      = f.text_field :organization          
+    .field
+      = f.label :floor
+      = f.select :first_name, options_for_select(%w[Floor1 Floor2 Floor3])
+    .field
+      = f.label :slot
+      = f.select :last_name, options_for_select(%w[Slot1 Slot2 Slot3 Slot4]) 
 
     .actions
       = f.submit 'Save', {:class => "button"}          
