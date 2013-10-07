@@ -105,7 +105,7 @@ width: 70px;
 height: 70px;
 border-radius: 48px;
 padding: 10px;
-font-size: 10px;
+font-size: 9px;
 color: black;
 line-height: 66px;
 text-align: center;
@@ -139,7 +139,6 @@ label{
 width: 100px;
 text-align: left;
 margin: 9px -10px;
-color: white;
 }
 
 .label_tag{
@@ -193,30 +192,30 @@ margin-left: 97px;
 
 .location1{
 	margin-top: 66px;
-margin-left: -113px;
-margin-bottom: 15px;
+	margin-left: -113px;
+	margin-bottom: 15px;
 }
 
-th{
-	background:#5CACEE;
-	color: black;
+/*th{
+	background:#dddddd;
+	text-align: center;
 }
 
 tr td{
 	text-align: center;
     background:#EEEEEE;
-    color:black;
 }
 tr:nth-child(odd) td{   
 	text-align: center; 
-    background:#5CACEE;
-    color: black;
+    background:#dddddd;
 }
 
 table{
-	width:100%;
+	width:auto;
 	overflow: auto;
-}
+	border-spacing: 0;
+	border-color: gray;
+}*/
 
 .scroll{
 	overflow-y: auto; 
@@ -224,23 +223,11 @@ table{
 
 .shift1{
 	margin-top: -90px;
-margin-left: 445px!important;
+	margin-left: 445px!important;
 }
 
 .navbar .btn-group {
 margin: 0;
 margin-top: -62px;
 padding: 5px 5px 6px;
-}
-
-a:hover {
-color: blue;
-text-decoration: underline;
-}
-
-a{
-	color: black;
-}
-.ajax-link{
-	color: white;
 }

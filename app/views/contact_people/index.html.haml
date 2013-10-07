@@ -1,41 +1,36 @@
-%h1.header Listing Contact Persons
-
-%table{border: "2"}
-  %tr
-    %th Name
-    %th Address1
-    %th Address2
-    %th City
-    %th State
-    %th Zipcode
-    %th Phone1
-    %th Phone2
-    %th Website
-    %th Email
-    %th Role
-    %th Username
-    %th Passwordhint
-    %th
-    %th
-    %th
-
-  - @contact_people.each do |contact_person|
-    %tr
-      %td= contact_person.name
-      %td= contact_person.address1
-      %td= contact_person.address2
-      %td= contact_person.city
-      %td= contact_person.state
-      %td= contact_person.zipcode
-      %td= contact_person.phone1
-      %td= contact_person.phone2
-      %td= contact_person.website
-      %td= contact_person.email
-      %td= contact_person.role
-      %td= contact_person.username
-      %td= contact_person.passwordhint
-      %td= link_to 'Show', contact_person
-      %td= link_to 'Edit', edit_contact_person_path(contact_person)
-      %td= link_to 'Delete', contact_person, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user
+        Contact Persons
+    .box-content
+      %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+        %thead
+          %tr
+            %th Name
+            %th Address1
+            %th Phone1
+            %th Website
+            %th Email
+            %th Role
+            %th Username
+            %th Password Hint
+            %th Actions
+        - @contact_people.each do |conatact_person|
+          %tbody
+            %tr
+              %td= conatact_person.name
+              %td.center= "#{conatact_person.address1} "+ "#{conatact_person.city} "+ "#{conatact_person.state} "+ "#{conatact_person.zipcode}"
+              %td.center= conatact_person.phone1
+              %td.center= conatact_person.website
+              %td.center= conatact_person.email
+              %td.center= conatact_person.role
+              %td.center= conatact_person.username
+              %td.center= conatact_person.passwordhint
+              %td.center
+                = link_to 'Show', conatact_person, :class => "btn btn-success"
+                = link_to 'Edit', edit_conatact_person_path(conatact_person), :class => "btn btn-info"
+                = link_to 'Delete', conatact_person, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
+  / /span
+/ /row

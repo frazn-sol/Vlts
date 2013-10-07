@@ -1,43 +1,36 @@
-%h1.header Listing Business Managers
-
-%table{border: "2"}
-  %tr
-    %th Name
-    %th Address1
-    %th Address2
-    %th City
-    %th State
-    %th Zipcode
-    %th Phone1
-    %th Phone2
-    %th Website
-    %th Email
-    %th Role
-    %th Username
-    %th Passwordhint
-    %th
-    %th
-    %th
-
-  - @business_managers.each do |business_manager|
-    %tr
-      %td= business_manager.name
-      %td= business_manager.address1
-      %td= business_manager.address2
-      %td= business_manager.city
-      %td= business_manager.state
-      %td= business_manager.zipcode
-      %td= business_manager.phone1
-      %td= business_manager.phone2
-      %td= business_manager.website
-      %td= business_manager.email
-      %td= business_manager.role
-      %td= business_manager.username
-      %td= business_manager.passwordhint
-      %td= link_to 'Show', business_manager
-      %td= link_to 'Edit', edit_business_manager_path(business_manager)
-      %td= link_to 'Delete', business_manager, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user
+        Business Managers
+    .box-content
+      %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+        %thead
+          %tr
+            %th Name
+            %th Address1
+            %th Phone1
+            %th Website
+            %th Email
+            %th Role
+            %th Username
+            %th Password Hint
+            %th Actions
+        - @business_managers.each do |business_manager|
+          %tbody
+            %tr
+              %td= business_manager.name
+              %td.center= "#{business_manager.address1} "+ "#{business_manager.city} "+"#{business_manager.state} "+ "#{business_manager.zipcode}"
+              %td.center= business_manager.phone1
+              %td.center= business_manager.website
+              %td.center= business_manager.email
+              %td.center= business_manager.role
+              %td.center= business_manager.username
+              %td.center= business_manager.passwordhint
+              %td.center
+                = link_to 'Show', business_manager, :class => "btn btn-success"
+                = link_to 'Edit', edit_business_manager_path(business_manager), :class => "btn btn-info"
+                = link_to 'Delete', business_manager, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
+  / /span
+/ /row

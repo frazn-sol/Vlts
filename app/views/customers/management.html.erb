@@ -28,28 +28,32 @@
     <%= button_tag "Search", :class => "location1"%>
   </div>
 
-<div class = scroll >
-  <table border="2">
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Contact Info</th>
-    <th>Designation</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+ <div class="box-content">
+                        <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                          <thead>
+                              <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>ContactInfo</th>
+                                <th>Designation</th>
+                                <th>Actions</th>
+                              </tr>
+                          </thead>   
+                          <% @customer.each do |customer| %>
+                          <tbody>
+                            <tr>
+                                <td><%= customer.name %></td>
+                                <td class="center"><%= customer.name %></td>
+                                <td class="center"><%= customer.email %></td>
+                                <td class="center"><%= customer.phone1 %></td>
+                                <td class="center">
+                                    <%= link_to 'Show', customer, :class => "btn btn-success" %>  
+                                    <%= link_to 'Edit', edit_customer_path(customer), :class => "btn btn-info" %> 
+                                    <%= link_to 'Delete', customer, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger" %>
+                                </td>
+                            </tr>
+                            <% end %>
 
-<% @customer.each do |customer| %>
-  <tr>
-    <td><%= customer.name %></td>
-    <td><%= customer.email %></td>
-    <td><%= customer.phone1 %></td>
-    <td><%= customer.address1 %></td>
-    <td><%= link_to 'Show', customer %></td>
-    <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
-    <td><%= link_to 'Delete', customer, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</div>
-</table>
+                          </tbody>
+                      </table>            
+                    </div>
