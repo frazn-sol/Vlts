@@ -17,20 +17,20 @@
             %th Username
             %th Password Hint
             %th Actions
-        - @contact_people.each do |conatact_person|
+        - @contact_people.each do |contact_person|
           %tbody
             %tr
               %td= conatact_person.name
-              %td.center= "#{conatact_person.address1} "+ "#{conatact_person.city} "+ "#{conatact_person.state} "+ "#{conatact_person.zipcode}"
-              %td.center= conatact_person.phone1
-              %td.center= conatact_person.website
-              %td.center= conatact_person.email
-              %td.center= conatact_person.role
-              %td.center= conatact_person.username
-              %td.center= conatact_person.passwordhint
+              %td.center= "#{contact_person.address1} "+ "#{contact_person.city} "+ "#{contact_person.state} "+ "#{contact_person.zipcode}"
+              %td.center= contact_person.phone1
+              %td.center= contact_person.website
+              %td.center= contact_person.email
+              %td.center= contact_person.role
+              %td.center= contact_person.username
+              %td.center= contact_person.passwordhint
               %td.center
-                = link_to 'Show', conatact_person, :class => "btn btn-success"
-                = link_to 'Edit', edit_conatact_person_path(conatact_person), :class => "btn btn-info"
-                = link_to 'Delete', conatact_person, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
+                = link_to 'Show', contact_person, :class => "btn btn-success"
+                = link_to 'Edit', edit_contact_person_path(contact_person), :class => "btn btn-info"
+                = link_to 'Delete', contact_person, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
   / /span
 / /row
