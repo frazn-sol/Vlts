@@ -30,6 +30,7 @@ VLTS::Application.routes.draw do
 
     member do 
       get :list_admins
+      get :charts
     end
   end
 

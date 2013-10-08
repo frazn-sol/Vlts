@@ -1,5 +1,10 @@
-  <div class = "header"><h1>Listing Customers</h1></div>
- <div class = "envelope">
+<div class="row-fluid sortable">        
+    <div class="box span12">
+        <div class="box-header well" data-original-title>
+            <h2><i class="icon-user"></i> Customers</h2>
+        </div>
+        <div class="box-content">
+         <div class = "envelope">
  <div class = "allign1">
  <div class="field">
     <%= label_tag "Name" %><br />
@@ -47,9 +52,9 @@
                                 <td class="center"><%= customer.email %></td>
                                 <td class="center"><%= customer.phone1 %></td>
                                 <td class="center">
-                                    <%= link_to 'Show', customer, :class => "btn btn-success" %>  
-                                    <%= link_to 'Edit', edit_customer_path(customer), :class => "btn btn-info" %> 
-                                    <%= link_to 'Delete', customer, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger" %>
+                                    <%= link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, customer, :class => "btn btn-success" %>    
+                                    <%= link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_customer_path(customer), :class => "btn btn-info" %>
+                                    <%= link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, customer, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger" %>
                                 </td>
                             </tr>
                             <% end %>
@@ -57,3 +62,4 @@
                           </tbody>
                       </table>            
                     </div>
+                  </div>

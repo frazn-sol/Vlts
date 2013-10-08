@@ -1,18 +1,23 @@
-%p#notice= notice
-
-%p
-  %b Vehicle name:
-  = @vehicle.vehicle_name
-%p
-  %b Registration number:
-  = @vehicle.badge_number
-%p
-  %b Driver:
-  = @vehicle.organization
-%p
-  %b Floor:
-  = @vehicle.first_name
-%p
-  %b Slot:
-  = @vehicle.last_name
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-warning-sign
+        Vehicles
+    .box-content
+      %p
+        %b Vehicle name:
+        = @vehicle.vehicle_name
+      %p
+        %b Registration number:
+        = @vehicle.badge_number
+      %p
+        %b Driver:
+        = @vehicle.organization
+      %p
+        %b Floor:
+        = @vehicle.first_name
+      %p
+        %b Slot:
+        = @vehicle.last_name
 

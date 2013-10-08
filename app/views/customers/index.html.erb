@@ -30,9 +30,9 @@
                                 <td class="center"><%= customer.username %></td>
                                 <td class="center"><%= customer.passwordhint %></td>                              
                                 <td class="center">
-                                    <%= link_to 'Show', customer, :class => "btn btn-success" %>    
-                                    <%= link_to 'Edit', edit_customer_path(customer), :class => "btn btn-info" %>
-                                    <%= link_to 'Delete', customer, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger" %>
+                                    <%= link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, customer, :class => "btn btn-success" %>    
+                                    <%= link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_customer_path(customer), :class => "btn btn-info" %>
+                                    <%= link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, customer, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger" %>
                                 </td>
                             </tr>
                             <% end %>

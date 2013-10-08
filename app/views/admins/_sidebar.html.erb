@@ -6,7 +6,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <a class="brand" href="/"> <%= image_tag "logo20.png" %> <span>VLTS</span></a>
+        <%= image_tag "logo1.png", {:class => "logo"} %>
         <a href="/customers/new" class="hello">Add Customers</a>
         <a href="/vehicles/new" class="hello shift1">Add Vehicles</a>
         <!-- theme selector starts -->
@@ -73,7 +73,7 @@
       <div class="span2 main-menu-span">
         <div class="well nav-collapse sidebar-nav">
           <ul class="nav nav-tabs nav-stacked main-menu">
-            <li class="nav-header hidden-tablet"></li>
+            <li><a class="ajax-link" href="/admins/1/charts"><i class="icon-list-alt"></i><span class="hidden-tablet"> View Stats</span></a></li>
             <li><a class="ajax-link" href="/business_managers/new"><i class="icon-home"></i><span class="hidden-tablet"> Business Managers</span></a></li>
             <li><a class="ajax-link" href="/business_managers"><i class="icon-home"></i><span class="hidden-tablet">View Business Managers</span></a></li>
             <li><a class="ajax-link" href="/contact_people/new"><i class="icon-eye-open"></i><span class="hidden-tablet"> Contact Person</span></a></li>

@@ -1,49 +1,52 @@
-%h1 Search & Listing vehicles
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-warning-sign
+        Vehicles
+    .box-content
+      .allign
+        .field.set
+          = label_tag 'Vehicles'
+          = text_field_tag 'name'
+      .allign    
+        .field.set
+          = label_tag 'Organization'
+          = text_field_tag 'name'
+      .allign    
+        .field.set
+          = label_tag "Driver's Name" 
+          = text_field_tag 'name'  
+      .allign    
+        .field.set
+          = label_tag 'Badge'
+          = text_field_tag 'name'
+      .actions
+        = button_tag 'Search', {:class => "search"}          
 
-.allign
-  .field.set
-    = label_tag 'Vehicles'
-    = text_field_tag 'name'
-.allign    
-  .field.set
-    = label_tag 'Organization'
-    = text_field_tag 'name'
-.allign    
-  .field.set
-    = label_tag "Driver's Name" 
-    = text_field_tag 'name'  
-.allign    
-  .field.set
-    = label_tag 'Badge'
-    = text_field_tag 'name'
-.actions
-  = button_tag 'Search', {:class => "search"}          
+      .style
+        %table{:border => 2}
+          %tr
+            %th Vehicle name
+            %th Badge number
+            %th Organization
+            %th First name
+            %th Middle name
+            %th Last name
+            %th
 
-.style
-  %table{:border => 2}
-    %tr
-      %th Vehicle name
-      %th Badge number
-      %th Organization
-      %th First name
-      %th Middle name
-      %th Last name
-      %th
+          - @vehicles.each do |vehicle|
+            %tr
+              %td= vehicle.vehicle_name
+              %td= vehicle.badge_number
+              %td= vehicle.organization
+              %td= vehicle.first_name
+              %td= vehicle.middle_name
+              %td= vehicle.last_name
+              %td
+                = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, business_manager, :class => "btn btn-success"
+                = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_business_manager_path(business_manager), :class => "btn btn-info"
+                = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, business_manager, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
 
-    - @vehicles.each do |vehicle|
-      %tr
-        %td= vehicle.vehicle_name
-        %td= vehicle.badge_number
-        %td= vehicle.organization
-        %td= vehicle.first_name
-        %td= vehicle.middle_name
-        %td= vehicle.last_name
-        - if params[:flag]=="1"
-          %td= link_to 'Show', vehicle
-        - elsif params[:flag]=="3"
-          %td= link_to 'Edit', edit_vehicle_path(vehicle)
-        - elsif params[:flag]=="2"  
-          %td= link_to 'Delete', vehicle, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-  %br
+        %br
 
