@@ -13,8 +13,6 @@
                                 <th>Website</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th>Username</th>
-                                <th>Password Hint</th>
                                 <th>Actions</th>
                               </tr>
                           </thead>   
@@ -26,9 +24,7 @@
                                 <td class="center"><%= customer.phone1 %></td>
                                 <td class="center"><%= customer.website %></td>
                                 <td class="center"><%= customer.email %></td>
-                                <td class="center"><%= customer.role %></td>
-                                <td class="center"><%= customer.username %></td>
-                                <td class="center"><%= customer.passwordhint %></td>                              
+                                <td class="center"><%= customer.role %></td>                 
                                 <td class="center">
                                     <%= link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, customer, :class => "btn btn-success" %>    
                                     <%= link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_customer_path(customer), :class => "btn btn-info" %>

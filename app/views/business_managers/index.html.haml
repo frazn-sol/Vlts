@@ -14,8 +14,6 @@
             %th Website
             %th Email
             %th Role
-            %th Username
-            %th Password Hint
             %th Actions
         - @business_managers.each do |business_manager|
           %tbody
@@ -26,8 +24,6 @@
               %td.center= business_manager.website
               %td.center= business_manager.email
               %td.center= business_manager.role
-              %td.center= business_manager.username
-              %td.center= business_manager.passwordhint
               %td.center
                 = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, business_manager, :class => "btn btn-success"
                 = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_business_manager_path(business_manager), :class => "btn btn-info"
