@@ -4,7 +4,7 @@ VLTS::Application.routes.draw do
 
   resources :business_managers
 
-  root :to => "admins#index"
+  root :to => "admins#charts"
   
   resources :vehicles do
     member do

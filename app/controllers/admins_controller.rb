@@ -88,4 +88,5 @@ class AdminsController < ApplicationController
 
   def charts
   end
+  
 end

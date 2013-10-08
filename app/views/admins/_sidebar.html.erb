@@ -7,8 +7,8 @@
           <span class="icon-bar"></span>
         </a>
         <%= image_tag "logo1.png", {:class => "logo"} %>
-        <a href="/customers/new" class="hello">Add Customers</a>
-        <a href="/vehicles/new" class="hello shift1">Add Vehicles</a>
+        <a href="/customers/new" class="hello"><span>Add Customers</span></a>
+        <a href="/vehicles/new" class="hello shift1"><span>Add Vehicles</span></a>
         <!-- theme selector starts -->
         <!-- <div class="btn-group pull-right theme-container" >
           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -68,11 +68,11 @@
         
       <div class="container-fluid">
     <div class="row-fluid">
-        
       <!-- left menu starts -->
       <div class="span2 main-menu-span">
         <div class="well nav-collapse sidebar-nav">
           <ul class="nav nav-tabs nav-stacked main-menu">
+            <li class="nav-header hidden-tablet box-header"><i class="icon-tasks icon-white"></i><span class="hidden-tablet"> Admin Pannel</span></li>
             <li><a class="ajax-link" href="/admins/1/charts"><i class="icon-list-alt"></i><span class="hidden-tablet"> View Stats</span></a></li>
             <li><a class="ajax-link" href="/business_managers/new"><i class="icon-home"></i><span class="hidden-tablet"> Business Managers</span></a></li>
             <li><a class="ajax-link" href="/business_managers"><i class="icon-home"></i><span class="hidden-tablet">View Business Managers</span></a></li>
@@ -97,7 +97,6 @@
           <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label> -->
         </div><!--/.well -->
       </div><!--/span-->
-   
       <!-- left menu ends -->
       
       <noscript>
