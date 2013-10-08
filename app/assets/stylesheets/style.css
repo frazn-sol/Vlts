@@ -134,7 +134,7 @@ form{
 	float:left;
 }
 
-label{
+form label{
 	float: left;
 width: 100px;
 text-align: left;
@@ -169,7 +169,7 @@ margin-left: 186px;
 
 .search1{
 	width: 140px;
-margin-top: -47px;
+margin-top: -70px;
 margin-left: 42px;
 }
 
@@ -186,7 +186,7 @@ margin-left: 42px;
 
 .search2{
 	width: 140px;
-margin-top: -47px;
+margin-top: -70px;
 margin-left: 97px;
 }
 
@@ -249,4 +249,8 @@ padding: 0px 0!important;
 
 .span12{
 	margin-top: -2px!important;
+}
+
+.clear{
+	clear:both;
 }
