@@ -16,7 +16,7 @@ VLTS::Application.routes.draw do
     end
   end
 
-  root :to => "admins#charts"
+  root :to => "home#vlts"
   
   resources :vehicles do
     member do
