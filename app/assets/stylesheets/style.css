@@ -297,3 +297,18 @@ position: relative;
 li.box-header {
 	border-bottom: 3px solid #ffffff;
 }
+
+.alert .close {
+position: relative;
+top: -2px;
+right: -21px;
+line-height: 18px;
+color: white!important;
+}
+
+.alert{
+font-size: 13px;
+text-align: center;
+background-color: #333333;
+color: #ffffff;
+}

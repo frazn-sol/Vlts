@@ -1,8 +1,20 @@
 VLTS::Application.routes.draw do
   
+  resources :floors
+
+  resources :plazas
+
+  resources :slots
+
   resources :contact_people
 
   resources :business_managers
+
+  resources :home do
+    collection do
+      get :vlts
+    end
+  end
 
   root :to => "admins#charts"
   

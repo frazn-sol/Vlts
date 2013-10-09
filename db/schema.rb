@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131005075128) do
+ActiveRecord::Schema.define(:version => 20131009151401) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -104,6 +104,33 @@ ActiveRecord::Schema.define(:version => 20131005075128) do
 
   add_index "customers", ["email"], :name => "index_customers_on_email", :unique => true
   add_index "customers", ["reset_password_token"], :name => "index_customers_on_reset_password_token", :unique => true
+
+  create_table "floors", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "plaza_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "plazas", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "location"
+    t.string   "latitude"
+    t.string   "longitude"
+    t.integer  "customer_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "slots", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "floor_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "vehicles", :force => true do |t|
     t.string   "vehicle_name"

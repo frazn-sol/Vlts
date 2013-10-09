@@ -16,6 +16,7 @@ class CreateContactPeople < ActiveRecord::Migration
       t.string :username
       t.string :password
       t.string :passwordhint
+      t.belongs_to :customer
 
       t.timestamps
     end

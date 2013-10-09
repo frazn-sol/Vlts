@@ -59,10 +59,10 @@
   </div>
 
   <% if notice %>
-  <p class="alert alert-notice"><%= notice %></p>
+  <%= render partial: "admins/flash_messages", flash: flash %> 
 <% end %>
 <% if alert %>
-  <p class="alert alert-error"><%= alert %></p>
+  <%= render partial: "admins/flash_messages", flash: flash %> 
 <% end %>
   <!-- topbar ends -->
         

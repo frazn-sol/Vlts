@@ -18,7 +18,6 @@ class SessionsController < Devise::SessionsController
   end
 
   def destroy
-    binding.pry
    super
   end
 
