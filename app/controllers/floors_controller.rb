@@ -80,4 +80,8 @@ class FloorsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def management
+    @floors = Floor.all
+  end
 end

@@ -40,7 +40,7 @@
 }
 .button1{
 	margin-top: 12px;
-	margin-left: 170px;
+	margin-left: 115px;
 }
 .set{
 	width: 300px;
@@ -311,4 +311,22 @@ font-size: 13px;
 text-align: center;
 background-color: #333333;
 color: #ffffff;
+}
+
+.search3{
+	width: 140px;
+	margin-top: -40px;
+	margin-left: 105px;
+}
+
+.search4{
+	width: 140px;
+	margin-top: -40px;
+	margin-left: 50px;
+}
+
+.location2{
+		margin-top: 12px;
+	margin-left: 60px;
+	margin-bottom: 15px;
 }

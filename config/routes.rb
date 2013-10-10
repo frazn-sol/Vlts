@@ -1,8 +1,16 @@
 VLTS::Application.routes.draw do
   
-  resources :floors
+  resources :floors do 
+     collection do
+      get :management
+    end
+  end
 
-  resources :plazas
+  resources :plazas do 
+    collection do
+      get :management
+    end
+  end
 
   resources :slots
 
@@ -19,7 +27,7 @@ VLTS::Application.routes.draw do
   root :to => "home#vlts"
   
   resources :vehicles do
-    member do
+    collection do
       get :management
     end
   end
@@ -29,7 +37,7 @@ VLTS::Application.routes.draw do
   end
 
   resources :customers do
-    member do
+    collection do
       get :management
     end
   end
@@ -39,10 +47,11 @@ VLTS::Application.routes.draw do
   end
   
   resources :admins do
-
+    collection do
+      get :charts
+    end
     member do 
       get :list_admins
-      get :charts
     end
   end
 

@@ -80,4 +80,8 @@ class PlazasController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def management
+    @plazas = Plaza.all
+  end
 end

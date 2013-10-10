@@ -1,0 +1,20 @@
+<%= form_for(resource, :html => {:class => "form-horizontal"}, :as => resource_name, :method => "post", :url => session_path(resource_name)) do |f| %>
+		<h2>User Login</h2>
+		<label>Username</label>
+		<br>
+		<%= f.email_field :email, :class => "inputlogin", :id => "txtUsername" %>
+		<br>
+		<label>Password</label>
+		<br>						
+		<%= f.password_field :password, :class => "inputlogin", :id => "txtPassword" %>
+		<br>
+		<ul style="width: 112px; float: left">
+	       <li><a href="#">Forgot Password?</a></li>
+
+	    </ul>
+
+		<p class="center span5">
+			
+		<%= image_submit_tag("btnlogin.jpg", :id => "btnLogin") %>
+		</p>
+		<% end %>
