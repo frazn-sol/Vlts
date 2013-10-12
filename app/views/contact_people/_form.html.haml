@@ -90,7 +90,7 @@
   },{
     name: 'contact_person[email]',
     display: 'required',    
-    rules: 'valid_email'
+    rules: 'required'
   },{
     name: 'contact_person[role]',
     display: 'required',    
@@ -109,5 +109,11 @@
     rules: 'required'
   }], function(errors, event) {
     if (errors.length > 0) {
+    var colour;
+    for (var i=0; i< errors.length; i++)
+    {
+      colour = errors[i].id;
+      $("#"+colour).css("border","2px solid red");
+    }
     }  
   });

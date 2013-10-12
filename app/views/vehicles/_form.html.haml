@@ -27,8 +27,7 @@
 
 :javascript
   var validator = new FormValidator('new_vehicle', [{
-    name: 'vehicle[vehicle_name]',
-    display: 'required',    
+    name: 'vehicle[vehicle_name]',    
     rules: 'required'
   }, {
     name: 'vehicle[badge_number]',
@@ -42,8 +41,7 @@
     for (var i=0; i< errors.length; i++)
     {
       colour = errors[i].id;
-      $("#colour").css("border","2px solid red");
+      $("#"+colour).css("border","2px solid red");
     }
-    return false;
     }  
   });
