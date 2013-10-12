@@ -12,6 +12,12 @@
   .field
     = f.label :description
     = f.text_area :description
+  .field
+    = f.label :plaza
+    = f.collection_select :plaza_id, Plaza.all, :id, :name  
+  .field
+    = f.label :number_of_slots
+    = f.number_field :numberofslots
   .actions
     = f.submit 'Create Floors', {:class => "button1"}
 
@@ -22,6 +28,9 @@
     rules: 'required'
   }, {
     name: 'floor[description]',
+    rules: 'required'
+  }, {
+    name: 'floor[numberofslots]',
     rules: 'required'
   }], function(errors, event) {
     if (errors.length > 0) {

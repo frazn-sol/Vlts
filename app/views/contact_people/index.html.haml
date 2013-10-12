@@ -13,7 +13,6 @@
             %th Phone1
             %th Website
             %th Email
-            %th Role
             %th Actions
         - @contact_people.each do |contact_person|
           %tbody
@@ -23,7 +22,6 @@
               %td.center= contact_person.phone1
               %td.center= contact_person.website
               %td.center= contact_person.email
-              %td.center= contact_person.role
               %td.center
                 = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, contact_person, :class => "btn btn-success"
                 = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_contact_person_path(contact_person), :class => "btn btn-info"

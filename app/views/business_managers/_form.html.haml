@@ -37,9 +37,6 @@
     = f.label :email
     = f.text_field :email
   .field
-    = f.label :role
-    = f.select :role, options_for_select(%w[Admin Manager]) 
-  .field
     = f.label :username
     = f.text_field :username
   .field
@@ -89,10 +86,6 @@
     rules: 'required'
   },{
     name: 'business_manager[email]',
-    display: 'required',    
-    rules: 'required'
-  },{
-    name: 'business_manager[role]',
     display: 'required',    
     rules: 'required'
   },{

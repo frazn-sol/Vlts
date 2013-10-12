@@ -10,6 +10,9 @@
     = f.label :name
     = f.text_field :name
   .field
+    = f.label :customer
+    = f.collection_select :customer_id, Customer.all, :id, :name  
+  .field
     = f.label :address1
     = f.text_area :address1
   .field
@@ -36,9 +39,6 @@
   .field
     = f.label :email
     = f.text_field :email
-  .field
-    = f.label :role
-    = f.select :role, options_for_select(%w[Admin Manager]) 
   .field
     = f.label :username
     = f.text_field :username
@@ -89,10 +89,6 @@
     rules: 'required'
   },{
     name: 'contact_person[email]',
-    display: 'required',    
-    rules: 'required'
-  },{
-    name: 'contact_person[role]',
     display: 'required',    
     rules: 'required'
   },{

@@ -79,13 +79,6 @@
 
   
   <div class="field">
-    <%= f.label :role %><br />
-    <%= f.select :role, options_for_select(%w[Admin Manager]),{}, :class => "up" %>
-  </div>
-  
-
-  
-  <div class="field">
     <%= f.label :username %><br />
     <%= f.text_field :username, :class => "up" %>
   </div>
@@ -150,10 +143,6 @@
     rules: 'required'
   },{
     name: 'customer[email]',
-    display: 'required',    
-    rules: 'required'
-  },{
-    name: 'customer[role]',
     display: 'required',    
     rules: 'required'
   },{

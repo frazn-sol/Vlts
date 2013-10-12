@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131009151401) do
+ActiveRecord::Schema.define(:version => 20131012151233) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -25,8 +25,6 @@ ActiveRecord::Schema.define(:version => 20131009151401) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "admin_id"
-    t.string   "roles"
-    t.string   "roles_mask"
   end
 
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
@@ -43,16 +41,17 @@ ActiveRecord::Schema.define(:version => 20131009151401) do
     t.integer  "phone2"
     t.string   "website"
     t.string   "email"
-    t.string   "role"
     t.string   "username"
     t.string   "password"
     t.string   "passwordhint"
+    t.integer  "admin_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
 
   create_table "contact_people", :force => true do |t|
     t.string   "name"
+    t.string   "companyname"
     t.string   "address1"
     t.string   "address2"
     t.string   "city"
@@ -62,17 +61,17 @@ ActiveRecord::Schema.define(:version => 20131009151401) do
     t.integer  "phone2"
     t.string   "website"
     t.string   "email"
-    t.string   "role"
     t.string   "username"
     t.string   "password"
     t.string   "passwordhint"
+    t.integer  "customer_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
 
   create_table "customers", :force => true do |t|
     t.integer  "admin_id"
-    t.integer  "customer_id"
+    t.integer  "business_manager_id"
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
     t.string   "email",                                 :default => "", :null => false
@@ -85,8 +84,6 @@ ActiveRecord::Schema.define(:version => 20131009151401) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "roles"
-    t.string   "roles_mask"
     t.string   "name"
     t.string   "address1"
     t.string   "address2"
@@ -96,7 +93,6 @@ ActiveRecord::Schema.define(:version => 20131009151401) do
     t.integer  "phone1"
     t.integer  "phone2"
     t.string   "website"
-    t.string   "role"
     t.string   "username"
     t.string   "password"
     t.string   "passwordhint"
@@ -109,8 +105,9 @@ ActiveRecord::Schema.define(:version => 20131009151401) do
     t.string   "name"
     t.string   "description"
     t.integer  "plaza_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "numberofslots"
   end
 
   create_table "plazas", :force => true do |t|
@@ -124,14 +121,6 @@ ActiveRecord::Schema.define(:version => 20131009151401) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "slots", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.integer  "floor_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "vehicles", :force => true do |t|
     t.string   "vehicle_name"
     t.string   "badge_number"
@@ -139,7 +128,6 @@ ActiveRecord::Schema.define(:version => 20131009151401) do
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"
-    t.integer  "customer_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end

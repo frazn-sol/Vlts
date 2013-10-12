@@ -7,7 +7,6 @@ class CreateVehicles < ActiveRecord::Migration
       t.string :first_name
       t.string :middle_name
       t.string :last_name
-      t.belongs_to :customer
       t.timestamps
     end
   end

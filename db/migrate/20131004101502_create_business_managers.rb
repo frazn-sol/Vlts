@@ -15,6 +15,7 @@ class CreateBusinessManagers < ActiveRecord::Migration
       t.string :username
       t.string :password
       t.string :passwordhint
+      t.belongs_to :admin
 
       t.timestamps
     end

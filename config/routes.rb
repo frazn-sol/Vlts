@@ -12,8 +12,6 @@ VLTS::Application.routes.draw do
     end
   end
 
-  resources :slots
-
   resources :contact_people
 
   resources :business_managers
