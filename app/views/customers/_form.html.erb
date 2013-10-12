@@ -111,3 +111,65 @@
   </div>
   
 <% end %>
+
+<script>
+  var validator = new FormValidator('new_customer', [{
+    name: 'customer[name]',
+    display: 'required',    
+    rules: 'required'
+  }, {
+    name: 'customer[address1]',
+    rules: 'required'
+  },{
+    name: 'customer[address2]',
+    display: 'required',    
+    rules: 'required'
+  },{
+    name: 'customer[city]',
+    display: 'required',    
+    rules: 'required'
+  },{
+    name: 'customer[state]',
+    display: 'required',    
+    rules: 'required'
+  },{
+    name: 'customer[zipcode]',
+    display: 'required',    
+    rules: 'required'
+  },{
+    name: 'customer[phone1]',
+    display: 'required',    
+    rules: 'required'
+  },{
+    name: 'customer[phone2]',
+    display: 'required',    
+    rules: 'required'
+  },{
+    name: 'customer[website]',
+    display: 'required',    
+    rules: 'required'
+  },{
+    name: 'customer[email]',
+    display: 'required',    
+    rules: 'valid_email'
+  },{
+    name: 'customer[role]',
+    display: 'required',    
+    rules: 'required'
+  },{
+    name: 'customer[username]',
+    display: 'required',    
+    rules: 'required'
+  },{
+    name: 'customer[password]',
+    display: 'required',    
+    rules: 'required'
+  },{
+    name: 'customer[passwordhint]',
+    display: 'required',    
+    rules: 'required'
+  }], function(errors, event) {
+    if (errors.length > 0) {
+    }  
+  });
+</script>

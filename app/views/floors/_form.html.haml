@@ -15,3 +15,15 @@
   .actions
     = f.submit 'Create Floors', {:class => "button1"}
 
+:javascript
+  var validator = new FormValidator('new_floor', [{
+    name: 'floor[name]',
+    display: 'required',    
+    rules: 'required'
+  }, {
+    name: 'floor[description]',
+    rules: 'required'
+  }], function(errors, event) {
+    if (errors.length > 0) {
+    }  
+  });
