@@ -1,0 +1,43 @@
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-warning-sign.icon-white
+        Plaza List
+    .box-content
+      .allign1
+        .field
+          = label_tag "Customer Name"
+          = text_field_tag :name, value = nil, :class => "search3"
+      .allign1
+        .field
+          = label_tag "Email"
+          = text_field_tag :email, value = nil, :class => "search4"
+      .allign1
+        .field
+          = label_tag "Contact Person"
+          = text_field_tag :contact_person, value = nil, :class => "search3 "
+      .actions
+        = button_tag "Search", :class => "location1"
+
+      %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+        %thead
+          %tr
+            %th Name
+            %th Description
+            %th Location
+            %th Latitude
+            %th Longitude
+            %th Actions
+
+          - @plazas.each do |plaza|
+            %tr
+              %td= plaza.name
+              %td.center= plaza.description
+              %td.center= plaza.location
+              %td.center= plaza.latitude
+              %td.center= plaza.longitude
+              %td.center
+                = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, plaza, :class => "btn btn-success"
+                = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_plaza_path(plaza), :class => "btn btn-info"
+                = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, plaza, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"

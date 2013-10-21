@@ -1,0 +1,22 @@
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Plazas
+    .box-content
+      %p
+        %b Name:
+        = @plaza.name
+      %p
+        %b Description:
+        = @plaza.description
+      %p
+        %b Location:
+        = @plaza.location
+      %p
+        %b Latitude:
+        = @plaza.latitude
+      %p
+        %b Longitude:
+        = @plaza.longitude

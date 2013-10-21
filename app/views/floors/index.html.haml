@@ -1,0 +1,22 @@
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Floors
+    .box-content
+      %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+        %thead
+          %tr
+            %th Name
+            %th Description
+            %th Actions
+
+          - @floors.each do |floor|
+            %tr
+              %td= floor.name
+              %td.center= floor.description
+              %td.center
+                = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, floor, :class => "btn btn-success"
+                = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_floor_path(floor), :class => "btn btn-info"
+                = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, floor, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"

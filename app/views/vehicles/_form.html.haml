@@ -1,0 +1,47 @@
+.form
+  = form_for @vehicle do |f|
+    - if @vehicle.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@vehicle.errors.count, "error")} prohibited this vehicle from being saved:"
+        %ul
+          - @vehicle.errors.full_messages.each do |msg|
+            %li= msg
+    .field
+      = f.label :vehicle_name
+      = f.text_field :vehicle_name   
+    .field
+      = f.label :registration_no
+      = f.text_field :badge_number    
+    .field
+      = f.label :driver
+      = f.text_field :organization          
+    .field
+      = f.label :floor
+      = f.select :first_name, options_for_select(%w[Floor1 Floor2 Floor3])
+    .field
+      = f.label :slot
+      = f.select :last_name, options_for_select(%w[Slot1 Slot2 Slot3 Slot4]) 
+
+    .actions
+      = f.submit 'Add Vehicle', {:class => "button1"}          
+
+:javascript
+  var validator = new FormValidator('new_vehicle', [{
+    name: 'vehicle[vehicle_name]',    
+    rules: 'required'
+  }, {
+    name: 'vehicle[badge_number]',
+    rules: 'required'
+  }, {
+    name: 'vehicle[organization]',
+    rules: 'required'
+  }], function(errors, event) {
+    if (errors.length > 0) {
+    var colour;
+    for (var i=0; i< errors.length; i++)
+    {
+      colour = errors[i].id;
+      $("#"+colour).css("border","2px solid red");
+    }
+    }  
+  });

@@ -1,0 +1,17 @@
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Floors
+    .box-content
+      %p
+        %b Name:
+        = @floor.name
+      %p
+        %b Description:
+        = @floor.description
+      %p
+        %b Description:
+        = @floor.numberofslots 
+

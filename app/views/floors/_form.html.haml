@@ -1,0 +1,44 @@
+= form_for @floor do |f|
+  - if @floor.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@floor.errors.count, "error")} prohibited this floor from being saved:"
+      %ul
+        - @floor.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :description
+    = f.text_area :description
+  .field
+    = f.label :plaza
+    = f.collection_select :plaza_id, Plaza.all, :id, :name  
+  .field
+    = f.label :number_of_slots
+    = f.number_field :numberofslots
+  .actions
+    = f.submit 'Create Floors', {:class => "button1"}
+
+:javascript
+  var validator = new FormValidator('new_floor', [{
+    name: 'floor[name]',
+    display: 'required',    
+    rules: 'required'
+  }, {
+    name: 'floor[description]',
+    rules: 'required'
+  }, {
+    name: 'floor[numberofslots]',
+    rules: 'required'
+  }], function(errors, event) {
+    if (errors.length > 0) {
+    var colour;
+    for (var i=0; i< errors.length; i++)
+    {
+      colour = errors[i].id;
+      $("#"+colour).css("border","2px solid red");
+    }
+    }  
+  });
