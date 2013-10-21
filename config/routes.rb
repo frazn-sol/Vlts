@@ -1,5 +1,11 @@
 VLTS::Application.routes.draw do
-  
+
+  devise_for :users do
+    get "/sign_out"  => "devise/sessions#destroy", :as => :destroy_user_session
+  end
+
+  resources :users
+
   resources :floors do 
      collection do
       get :management
@@ -30,18 +36,10 @@ VLTS::Application.routes.draw do
     end
   end
 
-  devise_for :customers do 
-    get "/sign_out"  => "devise/sessions#destroy", :as => :destroy_customer_session 
-  end
-
   resources :customers do
     collection do
       get :management
     end
-  end
-
-  devise_for :admins do
-    get "/sign_out"  => "devise/sessions#destroy", :as => :destroy_admin_session
   end
   
   resources :admins do
@@ -56,8 +54,7 @@ VLTS::Application.routes.draw do
   # devise_for :users do
   #   get "/sign_out"  => "devise/sessions#destroy", :as => :destroy_user_session
   # end
-
-  devise_for :admins, :controllers => { sessions: "sessions" }
+  
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

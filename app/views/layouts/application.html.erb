@@ -61,8 +61,8 @@
     
 <body>
   
-<% if admin_signed_in?  %> 
-  <%= render "admins/sidebar" %>
+<% if user_signed_in?  %> 
+  <%= render "users/sidebar" %>
 <%end%>
 <div id="content" class="span10">
   <%= yield %>

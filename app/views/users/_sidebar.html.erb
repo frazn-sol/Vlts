@@ -59,10 +59,10 @@
   </div>
 
   <% if notice %>
-  <%= render partial: "admins/flash_messages", flash: flash %> 
+  <%= render partial: "users/flash_messages", flash: flash %> 
 <% end %>
 <% if alert %>
-  <%= render partial: "admins/flash_messages", flash: flash %> 
+  <%= render partial: "users/flash_messages", flash: flash %> 
 <% end %>
   <!-- topbar ends -->
         
@@ -73,8 +73,8 @@
         <div class="well nav-collapse sidebar-nav">
           <ul class="nav nav-tabs nav-stacked main-menu">
             <li class="nav-header hidden-tablet box-header"><i class="icon-tasks icon-white"></i><span class="hidden-tablet"> Admin Pannel</span></li>
-            <li><a class="ajax-link" href="/business_managers/new"><i class="icon-home"></i><span class="hidden-tablet"> Business Managers</span></a></li>
-            <li><a class="ajax-link" href="/business_managers"><i class="icon-home"></i><span class="hidden-tablet">View Business Managers</span></a></li>
+            <li><a class="ajax-link" href="/users/new"><i class="icon-home"></i><span class="hidden-tablet"> Business Managers</span></a></li>
+            <li><a class="ajax-link" href="/users"><i class="icon-home"></i><span class="hidden-tablet">View Business Managers</span></a></li>
             <li><a class="ajax-link" href="/contact_people/new"><i class="icon-eye-open"></i><span class="hidden-tablet"> Contact Person</span></a></li>
             <li><a class="ajax-link" href="/contact_people"><i class="icon-eye-open"></i><span class="hidden-tablet">View Contact Person</span></a></li>
             <li><a class="ajax-link" href="/customers"><i class="icon-eye-open"></i><span class="hidden-tablet">View Customers</span></a></li>

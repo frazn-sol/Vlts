@@ -1,6 +1,6 @@
-class AddDeviseToCustomers < ActiveRecord::Migration
+class AddDeviseToUsers < ActiveRecord::Migration
   def self.up
-    change_table(:customers) do |t|
+    change_table(:users) do |t|
       t.database_authenticatable :null => false
       t.recoverable
       t.rememberable
@@ -16,11 +16,11 @@ class AddDeviseToCustomers < ActiveRecord::Migration
       # t.timestamps
     end
 
-    add_index :customers, :email,                :unique => true
-    add_index :customers, :reset_password_token, :unique => true
-    # add_index :customers, :confirmation_token,   :unique => true
-    # add_index :customers, :unlock_token,         :unique => true
-    # add_index :customers, :authentication_token, :unique => true
+    add_index :users, :email,                :unique => true
+    add_index :users, :reset_password_token, :unique => true
+    # add_index :users, :confirmation_token,   :unique => true
+    # add_index :users, :unlock_token,         :unique => true
+    # add_index :users, :authentication_token, :unique => true
   end
 
   def self.down

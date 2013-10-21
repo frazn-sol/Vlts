@@ -69,7 +69,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = "501228ad1e837032e486033aadc262d96b4011f9b133db0666c79c1bfb4576fb8719b7dcfa6012bf152a4bd94b9946bfc0e1cdf8a66b956f7690c3d8c66a3b76"
+  # config.pepper = "42221e73f4379744ede9cb3f230a2cc939b77db4a14bfbebacfe6e3129f9b6655ae8b09506acd14782d2195233eb2d54e229a05b60478e34e603d7e546f483ad"
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -176,7 +176,7 @@ Devise.setup do |config|
   # Configure sign_out behavior.
   # Sign_out action can be scoped (i.e. /users/sign_out affects only :user scope).
   # The default is true, which means any logout action will sign out all active scopes.
-   config.sign_out_all_scopes = false
+  # config.sign_out_all_scopes = true
 
   # ==> Navigation configuration
   # Lists the formats that should be treated as navigational. Formats like

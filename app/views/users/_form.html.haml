@@ -1,0 +1,36 @@
+= form_for @user, :url => "/users", :html => { :method => "post" } do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :first_name
+    = f.text_field :first_name
+  .field
+    = f.label :middle_name
+    = f.text_field :middle_name
+  .field
+    = f.label :last_name
+    = f.text_field :last_name
+  .field
+    = f.label :phone
+    = f.text_field :phone
+  .field
+    = f.label :cell
+    = f.text_field :cell
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :password
+    = f.password_field :password
+  .field
+    = f.label :passwordhint
+    = f.text_field :passwordhint  
+    = f.hidden_field :role, :value => "support"
+  .actions
+    = f.submit 'Create Business Manager', {:class => "button1"}
+
