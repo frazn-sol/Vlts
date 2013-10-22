@@ -21,16 +21,6 @@
   .field
     = f.label :cell
     = f.text_field :cell
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :password
-    = f.password_field :password
-  .field
-    = f.label :passwordhint
-    = f.text_field :passwordhint  
-    = f.hidden_field :role, :value => "support"
   .actions
-    = f.submit 'Create Support Staff', {:class => "button1"}
+    = f.submit 'Update Support Staff', {:class => "button1"}
 

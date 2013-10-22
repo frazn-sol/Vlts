@@ -1,0 +1,31 @@
+%h1 Listing customer_contacts
+
+%table
+  %tr
+    %th First name
+    %th Middle name
+    %th Last name
+    %th Designation
+    %th Phone
+    %th Cell
+    %th Email
+    %th
+    %th
+    %th
+
+  - @customer_contacts.each do |customer_contact|
+    %tr
+      %td= customer_contact.first_name
+      %td= customer_contact.middle_name
+      %td= customer_contact.last_name
+      %td= customer_contact.designation
+      %td= customer_contact.phone
+      %td= customer_contact.cell
+      %td= customer_contact.email
+      %td= link_to 'Show', customer_contact
+      %td= link_to 'Edit', edit_customer_contact_path(customer_contact)
+      %td= link_to 'Destroy', customer_contact, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Customer contact', new_customer_contact_path

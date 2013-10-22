@@ -11,24 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131021155217) do
-
-  create_table "admins", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.integer  "admin_id"
-  end
-
-  add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
-  add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
+ActiveRecord::Schema.define(:version => 20131022174124) do
 
   create_table "business_managers", :force => true do |t|
     t.string   "name"
@@ -69,37 +52,32 @@ ActiveRecord::Schema.define(:version => 20131021155217) do
     t.datetime "updated_at",   :null => false
   end
 
-  create_table "customers", :force => true do |t|
-    t.integer  "admin_id"
-    t.integer  "business_manager_id"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "name"
-    t.string   "address1"
-    t.string   "address2"
-    t.string   "city"
-    t.string   "state"
-    t.integer  "zipcode"
-    t.integer  "phone1"
-    t.integer  "phone2"
-    t.string   "website"
-    t.string   "username"
-    t.string   "password"
-    t.string   "passwordhint"
+  create_table "customer_contacts", :force => true do |t|
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.string   "designation"
+    t.string   "phone"
+    t.string   "cell"
+    t.string   "email"
+    t.integer  "customer_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
-  add_index "customers", ["email"], :name => "index_customers_on_email", :unique => true
-  add_index "customers", ["reset_password_token"], :name => "index_customers_on_reset_password_token", :unique => true
+  create_table "customers", :force => true do |t|
+    t.string   "company_name"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "state"
+    t.string   "zipcode"
+    t.string   "phone1"
+    t.string   "phone2"
+    t.string   "web"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "user_id"
+  end
 
   create_table "floors", :force => true do |t|
     t.string   "name"
@@ -142,6 +120,8 @@ ActiveRecord::Schema.define(:version => 20131021155217) do
     t.string   "last_sign_in_ip"
     t.string   "passwordhint"
     t.string   "employeeno"
+    t.integer  "parent_id"
+    t.integer  "customer_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -1,10 +1,19 @@
 VLTS::Application.routes.draw do
 
+  resources :customer_contacts
+
+  resources :customers
+
   devise_for :users do
     get "/sign_out"  => "devise/sessions#destroy", :as => :destroy_user_session
   end
 
-  resources :users
+  resources :users do
+    collection do
+      get :support
+      get :customer
+    end
+  end
 
   resources :floors do 
      collection do
@@ -17,8 +26,6 @@ VLTS::Application.routes.draw do
       get :management
     end
   end
-
-  resources :contact_people
 
   resources :business_managers
 

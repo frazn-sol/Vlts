@@ -1,24 +1,22 @@
-%p#notice= notice
-
-%p
-  %b First name:
-  = @user.first_name
-%p
-  %b Middle name:
-  = @user.middle_name
-%p
-  %b Last name:
-  = @user.last_name
-%p
-  %b Phone:
-  = @user.phone
-%p
-  %b Cell:
-  = @user.cell
-%p
-  %b Role:
-  = @user.role
-
-= link_to 'Edit', edit_user_path(@user)
-\|
-= link_to 'Back', users_path
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Support Staff
+    .box-content
+      %p
+        %b First name:
+        = @user.first_name
+      %p
+        %b Middle name:
+        = @user.middle_name
+      %p
+        %b Last name:
+        = @user.last_name
+      %p
+        %b Phone:
+        = @user.phone
+      %p
+        %b Cell:
+        = @user.cell

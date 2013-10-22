@@ -1,0 +1,38 @@
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Customers
+    .box-content
+      %p
+        %b Company name:
+        = @customer.company_name
+      %p
+        %b Address1:
+        = @customer.address1
+      %p
+        %b Address2:
+        = @customer.address2
+      %p
+        %b State:
+        = @customer.state
+      %p
+        %b Zipcode:
+        = @customer.zipcode
+      %p
+        %b Phone1:
+        = @customer.phone1
+      %p
+        %b Phone2:
+        = @customer.phone2
+      %p
+        %b Web:
+        = @customer.web
+      %p
+        %b Email:  
+        - @user.each do |user|
+          -if (user.customer_id == @customer.id)
+            = user.email
+
+
