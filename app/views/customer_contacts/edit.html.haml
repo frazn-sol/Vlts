@@ -1,7 +1,7 @@
-%h1 Editing customer_contact
-
-= render 'form'
-
-= link_to 'Show', @customer_contact
-\|
-= link_to 'Back', customer_contacts_path
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Customer Contact
+    .box-content= render 'form'

@@ -1,0 +1,83 @@
+  <div class="navbar ">
+    <div class="navbar-inner hello3">
+      <div class="container-fluid1">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <%= image_tag "logo1.png", {:class => "logo"} %>
+        <!-- theme selector ends -->
+        <%if current_user %>
+        <!-- user dropdown starts -->
+        <div class="btn-group pull-right hello4" >
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="icon-user"></i><span class="hidden-phone"> admin</span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Profile", user_path(current_user)%></li>
+            <li><%= link_to "Edit Profile", edit_user_path(current_user)%></li>
+            <li class="divider"></li>
+            <li><%= link_to "Logout", destroy_user_session_path, method: :delete%></li>
+          </ul>
+        </div>
+        <%end%>
+        <!-- user dropdown ends -->
+        
+        <!-- <div class="top-nav nav-collapse">
+          <ul class="nav">
+            <li><a href="#">Visit Site</a></li>
+            <li>
+              <form class="navbar-search pull-left">
+                <input placeholder="Search" class="search-query span2" name="query" type="text">
+              </form>
+            </li>
+          </ul>
+        </div> --><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+
+  <% if notice %>
+  <%= render partial: "users/flash_messages", flash: flash %> 
+<% end %>
+<% if alert %>
+  <%= render partial: "users/flash_messages", flash: flash %> 
+<% end %>
+  <!-- topbar ends -->
+        
+      <div class="container-fluid">
+    <div class="row-fluid">
+      <!-- left menu starts -->
+      <div class="span2 main-menu-span">
+        <div class="well nav-collapse sidebar-nav">
+          <ul class="nav nav-tabs nav-stacked main-menu">
+            <li class="nav-header hidden-tablet box-header"><i class="icon-tasks icon-white"></i><span class="hidden-tablet">Admin Pannel</span></li>
+            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">Location</span></a></li>
+            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">View Location</span></a></li>
+            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">Floor</span></a></li>
+            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">View Floor</span></a></li>
+            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">Vehicle</span></a></li>
+            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">View Vehicles</span></a></li>
+            <!-- <li class="nav-header hidden-tablet">Customers Section</li> -->
+            <li><a class="ajax-link" href="#"><i class="icon-align-justify"></i><span class="hidden-tablet"> Reports</span></a></li>
+            <!-- <li><a class="ajax-link" href="/customers?flag=1&param1=1"><i class="icon-calendar"></i><span class="hidden-tablet"> View Customers</span></a></li>
+            <li><a class="ajax-link" href="/customers?flag=2&param1=1"><i class="icon-th"></i><span class="hidden-tablet">Delete Customer</span></a></li>
+            <li><a class="ajax-link" href="/customers?flag=3&param1=1"><i class="icon-folder-open"></i><span class="hidden-tablet"> Edit customer Info</span></a></li> -->
+           <!--  <li><a href="tour.html"><i class="icon-globe"></i><span class="hidden-tablet"> Tour</span></a></li>
+ -->            <!-- <li><a class="ajax-link" href="icon.html"><i class="icon-star"></i><span class="hidden-tablet"> Icons</span></a></li>
+            <li><a href="error.html"><i class="icon-ban-circle"></i><span class="hidden-tablet"> Error Page</span></a></li>
+            <li><a href="login.html"><i class="icon-lock"></i><span class="hidden-tablet"> Login Page</span></a></li> -->
+          </ul>
+          <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label> -->
+        </div><!--/.well -->
+      </div><!--/span-->
+      <!-- left menu ends -->
+      
+      <noscript>
+        <div class="alert alert-block span10">
+          <h4 class="alert-heading">Warning!</h4>
+          <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+        </div>
+      </noscript>

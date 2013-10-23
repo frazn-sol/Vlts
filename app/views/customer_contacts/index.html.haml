@@ -1,31 +1,28 @@
-%h1 Listing customer_contacts
-
-%table
-  %tr
-    %th First name
-    %th Middle name
-    %th Last name
-    %th Designation
-    %th Phone
-    %th Cell
-    %th Email
-    %th
-    %th
-    %th
-
-  - @customer_contacts.each do |customer_contact|
-    %tr
-      %td= customer_contact.first_name
-      %td= customer_contact.middle_name
-      %td= customer_contact.last_name
-      %td= customer_contact.designation
-      %td= customer_contact.phone
-      %td= customer_contact.cell
-      %td= customer_contact.email
-      %td= link_to 'Show', customer_contact
-      %td= link_to 'Edit', edit_customer_contact_path(customer_contact)
-      %td= link_to 'Destroy', customer_contact, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Customer contact', new_customer_contact_path
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Customer Contact
+    .box-content
+      %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+        %thead
+          %tr
+            %th Name
+            %th Designation
+            %th Phone
+            %th Cell
+            %th Email
+            %th Actions
+        - @customer_contacts.each do |customer_conatct|
+          %tbody
+            %tr
+              %td= "#{customer_conatct.first_name} " + "#{customer_conatct.last_name}"
+              %td.center= customer_contact.designation
+              %td.center= customer_conatct.phone
+              %td.center= customer_conatct.cell
+              %td.center= customer_conatct.email
+              %td.center
+                = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, customer_conatct, :class => "btn btn-success"
+                = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_customer_conatct_path(customer_conatct), :class => "btn btn-info"
+                = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, customer_conatct, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"

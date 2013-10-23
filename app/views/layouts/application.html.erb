@@ -61,8 +61,14 @@
     
 <body>
   
-<% if user_signed_in?  %> 
-  <%= render "users/sidebar" %>
+<% if current_user.present? && current_user.role == "admin" %> 
+  <%= render "users/adminsidebar" %>
+<% elsif current_user.present? && current_user.role == "support" %> 
+  <%= render "users/supportsidebar" %>
+<% elsif current_user.present? && current_user.role == "customer" %> 
+  <%= render "users/customersidebar" %> 
+<% elsif current_user.present? && current_user.role == "supervisor" %> 
+  <%= render "users/supervisorsidebar" %>    
 <%end%>
 <div id="content" class="span10">
   <%= yield %>

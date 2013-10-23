@@ -41,6 +41,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    binding.pry
     @user = User.new(params[:user])
     @user.parent_id = current_user.id
     

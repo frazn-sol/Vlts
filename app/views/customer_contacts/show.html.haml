@@ -1,27 +1,29 @@
-%p#notice= notice
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Customer Contact
+    .box-content
+      %p
+        %b First name:
+        = @customer_contact.first_name
+      %p
+        %b Middle name:
+        = @customer_contact.middle_name
+      %p
+        %b Last name:
+        = @customer_contact.last_name
+      %p
+        %b Designation:
+        = @customer_contact.designation
+      %p
+        %b Phone:
+        = @customer_contact.phone
+      %p
+        %b Cell:
+        = @customer_contact.cell
+      %p
+        %b Email:
+        = @customer_contact.email
 
-%p
-  %b First name:
-  = @customer_contact.first_name
-%p
-  %b Middle name:
-  = @customer_contact.middle_name
-%p
-  %b Last name:
-  = @customer_contact.last_name
-%p
-  %b Designation:
-  = @customer_contact.designation
-%p
-  %b Phone:
-  = @customer_contact.phone
-%p
-  %b Cell:
-  = @customer_contact.cell
-%p
-  %b Email:
-  = @customer_contact.email
-
-= link_to 'Edit', edit_customer_contact_path(@customer_contact)
-\|
-= link_to 'Back', customer_contacts_path

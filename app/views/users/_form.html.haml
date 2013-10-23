@@ -5,7 +5,6 @@
       %ul
         - @user.errors.full_messages.each do |msg|
           %li= msg
-
   .field
     = f.label :first_name
     = f.text_field :first_name
@@ -29,8 +28,13 @@
     = f.password_field :password
   .field
     = f.label :passwordhint
-    = f.text_field :passwordhint  
-    = f.hidden_field :role, :value => "support"
+    = f.text_field :passwordhint
+    -if params[:params]=="1"    
+      = f.hidden_field :role, :value => "supervisor"
+    -elsif params[:params]=="2"   
+      = f.hidden_field :role, :value => "user"
+    -else    
+      = f.hidden_field :role, :value => "support"    
   .actions
     = f.submit 'Create Support Staff', {:class => "button1"}
 

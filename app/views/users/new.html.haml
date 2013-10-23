@@ -3,5 +3,10 @@
     .box-header.well{"data-original-title" => ""}
       %h2
         %i.icon-user.icon-white
-        Support Staff
+        -if params[:params]=="1"    
+          Supervisor
+        -elsif params[:params]=="2"   
+          User
+        -else       
+          Support Staff
     .box-content= render 'form'
