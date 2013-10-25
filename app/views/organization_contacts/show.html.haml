@@ -1,0 +1,28 @@
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        organization Contact
+    .box-content
+      %p
+        %b First name:
+        = @organization_contact.first_name
+      %p
+        %b Middle name:
+        = @organization_contact.middle_name
+      %p
+        %b Last name:
+        = @organization_contact.last_name
+      %p
+        %b Designation:
+        = @organization_contact.designation
+      %p
+        %b Phone:
+        = @organization_contact.phone
+      %p
+        %b Cell:
+        = @organization_contact.cell
+      %p
+        %b Email:
+        = @organization_contact.email

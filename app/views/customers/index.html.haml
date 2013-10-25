@@ -5,6 +5,7 @@
         %i.icon-user.icon-white
         Customers
     .box-content
+      = link_to "<i class=\"icon-plus icon-white\"></i> Customer".html_safe, new_customer_path, :class => "btn btn-success add"
       %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
         %thead
           %tr
@@ -13,18 +14,22 @@
             %th Phone1
             %th Website
             %th Email
+            %th Contacts            
             %th Actions
         - @customers.each do |customer|
-          %tbody
-            %tr
-              %td= customer.company_name
-              %td.center= "#{customer.address1} "+"#{customer.state} "+ "#{customer.zipcode}"
-              %td.center= customer.phone1
-              %td.center= customer.web
-              - @user.each do |user|
-                -if (user.customer_id == customer.id)
-                  %td.center= user.email
-              %td.center
-                = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, customer, :class => "btn btn-success"
-                = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_customer_path(customer), :class => "btn btn-info"
-                = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, customer, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
+          - if customer.user_id == current_user.id.to_s
+            %tbody
+              %tr
+                %td= customer.company_name
+                %td.center= "#{customer.address1} "+"#{customer.state} "+ "#{customer.zipcode}"
+                %td.center= customer.phone1
+                %td.center= customer.web
+                - @user.each do |user|
+                  -if (user.customer_id == customer.id)
+                    %td.center= user.email
+                %td.center
+                  = link_to "View All".html_safe, customer_contacts_path(:id => customer.id), :class => "btn btn-success"  
+                %td.center
+                  = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, customer, :class => "btn btn-success"
+                  = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_customer_path(customer), :class => "btn btn-info"
+                  = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, customer, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"

@@ -1,0 +1,34 @@
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Organizations
+    .box-content
+      %p
+        %b Company name:
+        = @organization.company_name
+      %p
+        %b Address1:
+        = @organization.address1
+      %p
+        %b Address2:
+        = @organization.address2
+      %p
+        %b State:
+        = @organization.state
+      %p
+        %b Zipcode:
+        = @organization.zipcode
+      %p
+        %b Phone1:
+        = @organization.phone1
+      %p
+        %b Phone2:
+        = @organization.phone2
+      %p
+        %b Web:
+        = @organization.web
+      %p
+        %b Email:
+        = @organization.email

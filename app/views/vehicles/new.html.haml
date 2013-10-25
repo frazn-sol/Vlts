@@ -1,8 +1,5 @@
-.row-fluid.sortable
-  .box.span12
-    .box-header.well{"data-original-title" => ""}
-      %h2
-        %i.icon-warning-sign.icon-white
-        Vehicles
-    .box-content= render 'form'
+%h1 New vehicle
 
+= render 'form'
+
+= link_to 'Back', vehicles_path

@@ -1,4 +1,4 @@
 class Floor < ActiveRecord::Base
-  attr_accessible :description, :name, :numberofslots, :plaza_id
-  belongs_to :plaza
+  belongs_to :location
+  attr_accessible :capacity, :description, :nickname, :occupied
 end

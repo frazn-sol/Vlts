@@ -7,9 +7,9 @@
           <span class="icon-bar"></span>
         </a>
         <%= image_tag "logo1.png", {:class => "logo"} %>
-        <a href="/users/new?params=1" class="hello"><span>Add Supervisor</span></a>
-        <a href="/users/new?params=2" class="hello hello1"><span>Add new User</span></a>
-        <a href="#" class="hello hello2"><span>Add Organization</span></a>
+        <a href="/users/supervisor" class="hello"><span>Supervisor</span></a>
+        <a href="/users/user" class="hello hello1"><span>User</span></a>
+        <a href="/organizations" class="hello hello2"><span>Organization</span></a>
       <!--   <a href="/vehicles/new" class="hello shift1"><span>Add Vehicles</span></a> -->
         <!-- theme selector starts -->
         <!-- <div class="btn-group pull-right theme-container" >
@@ -40,6 +40,7 @@
           <ul class="dropdown-menu">
             <li><%= link_to "Profile", user_path(current_user)%></li>
             <li><%= link_to "Edit Profile", edit_user_path(current_user)%></li>
+            <li><%= link_to "Change Password", edit_user_registration_path %></li>
             <li class="divider"></li>
             <li><%= link_to "Logout", destroy_user_session_path, method: :delete%></li>
           </ul>
@@ -76,12 +77,10 @@
         <div class="well nav-collapse sidebar-nav">
           <ul class="nav nav-tabs nav-stacked main-menu">
             <li class="nav-header hidden-tablet box-header"><i class="icon-tasks icon-white"></i><span class="hidden-tablet">Admin Pannel</span></li>
-            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">Location</span></a></li>
-            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">View Location</span></a></li>
-            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">Floor</span></a></li>
-            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">View Floor</span></a></li>
-            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">Vehicle</span></a></li>
-            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">View Vehicles</span></a></li>
+            <li><a class="ajax-link" href="/organization_contacts/new"><i class="icon-eye-open"></i><span class="hidden-tablet">Organization Contacts</span></a></li>
+            <li><a class="ajax-link" href="/locations"><i class="icon-eye-open"></i><span class="hidden-tablet">Location</span></a></li>
+            <li><a class="ajax-link" href="/floors"><i class="icon-eye-open"></i><span class="hidden-tablet">Floor</span></a></li>
+            <li><a class="ajax-link" href="/vehicles"><i class="icon-eye-open"></i><span class="hidden-tablet">Vehicle</span></a></li>
             <!-- <li class="nav-header hidden-tablet">Customers Section</li> -->
             <li><a class="ajax-link" href="#"><i class="icon-align-justify"></i><span class="hidden-tablet"> Reports</span></a></li>
             <!-- <li><a class="ajax-link" href="/customers?flag=1&param1=1"><i class="icon-calendar"></i><span class="hidden-tablet"> View Customers</span></a></li>

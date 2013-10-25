@@ -41,7 +41,6 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    binding.pry
     @user = User.new(params[:user])
     @user.parent_id = current_user.id
     
@@ -85,6 +84,14 @@ class UsersController < ApplicationController
   end
 
   def support
+    @users = User.all
+  end
+
+  def supervisor
+    @users = User.all
+  end
+
+  def user
     @users = User.all
   end
 end

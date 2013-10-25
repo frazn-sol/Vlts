@@ -7,8 +7,8 @@
           <span class="icon-bar"></span>
         </a>
         <%= image_tag "logo1.png", {:class => "logo"} %>
-        <a href="/customers/new" class="hello"><span>Add Customers</span></a>
-      <!--   <a href="/vehicles/new" class="hello shift1"><span>Add Vehicles</span></a> -->
+        <a href="/customers" class="hello"><span>Customers</span></a>
+        <a href="/users/support" class="hello shift1"><span>Support Staff</span></a>
         <!-- theme selector starts -->
         <!-- <div class="btn-group pull-right theme-container" >
           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -38,6 +38,7 @@
           <ul class="dropdown-menu">
             <li><%= link_to "Profile", user_path(current_user)%></li>
             <li><%= link_to "Edit Profile", edit_user_path(current_user)%></li>
+            <li><%= link_to "Change Password", edit_user_registration_path %></li>
             <li class="divider"></li>
             <li><%= link_to "Logout", destroy_user_session_path, method: :delete%></li>
           </ul>
@@ -74,10 +75,9 @@
         <div class="well nav-collapse sidebar-nav">
           <ul class="nav nav-tabs nav-stacked main-menu">
             <li class="nav-header hidden-tablet box-header"><i class="icon-tasks icon-white"></i><span class="hidden-tablet"> Admin Pannel</span></li>
-            <li><a class="ajax-link" href="/users/new"><i class="icon-home"></i><span class="hidden-tablet"> Support Staff</span></a></li>
-            <li><a class="ajax-link" href="/users/support"><i class="icon-home"></i><span class="hidden-tablet">View Support Staff</span></a></li>
+            <li><a class="ajax-link" href="/users/support"><i class="icon-home"></i><span class="hidden-tablet"> Support Staff</span></a></li>
+            <li><a class="ajax-link" href="/customers"><i class="icon-eye-open"></i><span class="hidden-tablet">Customer</span></a></li>
             <li><a class="ajax-link" href="/customer_contacts/new"><i class="icon-eye-open"></i><span class="hidden-tablet">Customer Contacts</span></a></li>
-            <li><a class="ajax-link" href="/customer_contacts"><i class="icon-eye-open"></i><span class="hidden-tablet">View Customer Contact</span></a></li>
             <!-- <li class="nav-header hidden-tablet">Customers Section</li> -->
             <li><a class="ajax-link" href="#"><i class="icon-align-justify"></i><span class="hidden-tablet"> Reports</span></a></li>
             <!-- <li><a class="ajax-link" href="/customers?flag=1&param1=1"><i class="icon-calendar"></i><span class="hidden-tablet"> View Customers</span></a></li>

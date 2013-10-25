@@ -5,6 +5,7 @@
         %i.icon-user.icon-white
         Support Staff
     .box-content
+      = link_to "<i class=\"icon-plus icon-white\"></i> Add Staff".html_safe, new_user_path, :class => "btn btn-success add"
       %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
         %thead
           %tr
@@ -15,7 +16,7 @@
             %th Email
             %th Actions
         - @users.each do |user|
-          - if user.role == "support" && user.parent_id == current_user.id
+          -if user.role == "support"
             %tbody
               %tr
                 %td= user.first_name

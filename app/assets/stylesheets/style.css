@@ -126,9 +126,6 @@ form{
 	margin-left: 60px;
 }
 
-/*.field{
-	margin-bottom: -40px;
-}*/
 .name{
 	float:left;
 }
@@ -347,4 +344,11 @@ color: #ffffff;
 
 .hello4{
 	margin-top: 40px!important;
+}
+.add{
+margin-right: 50px;
+margin-left: 864px;
+float: right;
+margin-top: 10px;
+margin-bottom: 10px;
 }

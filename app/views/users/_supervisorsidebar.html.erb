@@ -18,6 +18,7 @@
           <ul class="dropdown-menu">
             <li><%= link_to "Profile", user_path(current_user)%></li>
             <li><%= link_to "Edit Profile", edit_user_path(current_user)%></li>
+            <li><%= link_to "Change Password", edit_user_registration_path %></li>
             <li class="divider"></li>
             <li><%= link_to "Logout", destroy_user_session_path, method: :delete%></li>
           </ul>
@@ -55,11 +56,8 @@
           <ul class="nav nav-tabs nav-stacked main-menu">
             <li class="nav-header hidden-tablet box-header"><i class="icon-tasks icon-white"></i><span class="hidden-tablet">Admin Pannel</span></li>
             <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">Location</span></a></li>
-            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">View Location</span></a></li>
             <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">Floor</span></a></li>
-            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">View Floor</span></a></li>
             <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">Vehicle</span></a></li>
-            <li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">View Vehicles</span></a></li>
             <!-- <li class="nav-header hidden-tablet">Customers Section</li> -->
             <li><a class="ajax-link" href="#"><i class="icon-align-justify"></i><span class="hidden-tablet"> Reports</span></a></li>
             <!-- <li><a class="ajax-link" href="/customers?flag=1&param1=1"><i class="icon-calendar"></i><span class="hidden-tablet"> View Customers</span></a></li>

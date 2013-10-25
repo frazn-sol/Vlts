@@ -1,5 +1,4 @@
 class Vehicle < ActiveRecord::Base
-	belongs_to :customer
-  attr_accessible :badge_number, :first_name, :last_name, :middle_name, :organization, :vehicle_name
-  attr_accessor :visitor, :flagged
+	belongs_to :oganization
+  attr_accessible :badge_number, :driver_first_name, :driver_last_name, :driver_middle_name, :expiry_date, :permit_date, :platenumber, :visitor
 end

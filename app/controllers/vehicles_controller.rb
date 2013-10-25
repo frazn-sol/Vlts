@@ -5,7 +5,7 @@ class VehiclesController < ApplicationController
     @vehicles = Vehicle.all
 
     respond_to do |format|
-      format.html {render layout: "custom"} # index.html.erb
+      format.html # index.html.erb
       format.json { render json: @vehicles }
     end
   end
@@ -16,7 +16,7 @@ class VehiclesController < ApplicationController
     @vehicle = Vehicle.find(params[:id])
 
     respond_to do |format|
-      format.html {render layout: "custom"} # show.html.erb
+      format.html # show.html.erb
       format.json { render json: @vehicle }
     end
   end
@@ -27,7 +27,7 @@ class VehiclesController < ApplicationController
     @vehicle = Vehicle.new
 
     respond_to do |format|
-      format.html {render layout: "custom"}# new.html.erb
+      format.html # new.html.erb
       format.json { render json: @vehicle }
     end
   end
@@ -35,7 +35,6 @@ class VehiclesController < ApplicationController
   # GET /vehicles/1/edit
   def edit
     @vehicle = Vehicle.find(params[:id])
-    render layout: "custom"
   end
 
   # POST /vehicles
@@ -45,10 +44,8 @@ class VehiclesController < ApplicationController
 
     respond_to do |format|
       if @vehicle.save
-        flash[:notice] = "Your vehicle has been successfully created"
-        redirect_to admins_path and return
-        # format.html { redirect_to @vehicle, notice: 'Vehicle was successfully created.' }
-        # format.json { render json: @vehicle, status: :created, location: @vehicle }
+        format.html { redirect_to @vehicle, notice: 'Vehicle was successfully created.' }
+        format.json { render json: @vehicle, status: :created, location: @vehicle }
       else
         format.html { render action: "new" }
         format.json { render json: @vehicle.errors, status: :unprocessable_entity }
@@ -63,10 +60,8 @@ class VehiclesController < ApplicationController
 
     respond_to do |format|
       if @vehicle.update_attributes(params[:vehicle])
-        flash[:notice] = "Your vehicle has been successfully updated"
-        redirect_to admins_path and return
-        # format.html { redirect_to @vehicle, notice: 'Vehicle was successfully updated.' }
-        # format.json { head :no_content }
+        format.html { redirect_to @vehicle, notice: 'Vehicle was successfully updated.' }
+        format.json { head :no_content }
       else
         format.html { render action: "edit" }
         format.json { render json: @vehicle.errors, status: :unprocessable_entity }
@@ -79,15 +74,10 @@ class VehiclesController < ApplicationController
   def destroy
     @vehicle = Vehicle.find(params[:id])
     @vehicle.destroy
-    flash[:notice] = "Your vehicle has been successfully deleted"
-    redirect_to admins_path and return
+
     respond_to do |format|
       format.html { redirect_to vehicles_url }
       format.json { head :no_content }
     end
-  end
-
-  def management
-    @vehicle = Vehicle.all
   end
 end

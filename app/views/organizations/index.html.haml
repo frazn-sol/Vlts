@@ -1,0 +1,33 @@
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Organizations
+    .box-content
+      = link_to "<i class=\"icon-plus icon-white\"></i> Organization".html_safe, new_organization_path, :class => "btn btn-success add"
+      %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+        %thead
+          %tr
+            %th Name
+            %th Address1
+            %th Phone1
+            %th Website
+            %th Email
+            %th Contacts            
+            %th Actions
+        - @organizations.each do |organization|
+          - if organization.user_id == current_user.id
+            %tbody
+              %tr
+                %td= organization.company_name
+                %td.center= "#{organization.address1} "+"#{organization.state} "+ "#{organization.zipcode}"
+                %td.center= organization.phone1
+                %td.center= organization.web
+                %td.center= organization.email
+                %td.center
+                  = link_to "View All".html_safe, organization_contacts_path(:id => organization.id), :class => "btn btn-success"  
+                %td.center
+                  = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, organization, :class => "btn btn-success"
+                  = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_organization_path(organization), :class => "btn btn-info"
+                  = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, organization, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"

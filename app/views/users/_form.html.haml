@@ -29,9 +29,9 @@
   .field
     = f.label :passwordhint
     = f.text_field :passwordhint
-    -if params[:params]=="1"    
+    -if params[:param]=="1"    
       = f.hidden_field :role, :value => "supervisor"
-    -elsif params[:params]=="2"   
+    -elsif params[:param]=="2"   
       = f.hidden_field :role, :value => "user"
     -else    
       = f.hidden_field :role, :value => "support"    

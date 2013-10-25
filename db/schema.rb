@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131022174124) do
+ActiveRecord::Schema.define(:version => 20131025162029) do
 
   create_table "business_managers", :force => true do |t|
     t.string   "name"
@@ -28,26 +28,6 @@ ActiveRecord::Schema.define(:version => 20131022174124) do
     t.string   "password"
     t.string   "passwordhint"
     t.integer  "admin_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  create_table "contact_people", :force => true do |t|
-    t.string   "name"
-    t.string   "companyname"
-    t.string   "address1"
-    t.string   "address2"
-    t.string   "city"
-    t.string   "state"
-    t.integer  "zipcode"
-    t.integer  "phone1"
-    t.integer  "phone2"
-    t.string   "website"
-    t.string   "email"
-    t.string   "username"
-    t.string   "password"
-    t.string   "passwordhint"
-    t.integer  "customer_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
@@ -80,12 +60,57 @@ ActiveRecord::Schema.define(:version => 20131022174124) do
   end
 
   create_table "floors", :force => true do |t|
-    t.string   "name"
+    t.string   "nickname"
     t.string   "description"
-    t.integer  "plaza_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.integer  "numberofslots"
+    t.string   "capacity"
+    t.string   "occupied"
+    t.integer  "location_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "locations", :force => true do |t|
+    t.string   "nickname"
+    t.string   "description"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "state"
+    t.string   "zipcode"
+    t.string   "phone1"
+    t.string   "phone2"
+    t.string   "web"
+    t.string   "email"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "organization_contacts", :force => true do |t|
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.string   "designation"
+    t.string   "phone"
+    t.string   "cell"
+    t.string   "email"
+    t.integer  "organization_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "organizations", :force => true do |t|
+    t.string   "company_name"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "state"
+    t.string   "zipcode"
+    t.string   "phone1"
+    t.string   "phone2"
+    t.string   "web"
+    t.string   "email"
+    t.integer  "user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "plazas", :force => true do |t|
@@ -128,14 +153,17 @@ ActiveRecord::Schema.define(:version => 20131022174124) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "vehicles", :force => true do |t|
-    t.string   "vehicle_name"
+    t.string   "platenumber"
+    t.string   "driver_first_name"
+    t.string   "driver_middle_name"
+    t.string   "driver_last_name"
+    t.date     "permit_date"
+    t.date     "expiry_date"
     t.string   "badge_number"
-    t.string   "organization"
-    t.string   "first_name"
-    t.string   "middle_name"
-    t.string   "last_name"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.boolean  "visitor",            :default => false
+    t.integer  "oganization_id"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
 end

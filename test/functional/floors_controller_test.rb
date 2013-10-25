@@ -18,7 +18,7 @@ class FloorsControllerTest < ActionController::TestCase
 
   test "should create floor" do
     assert_difference('Floor.count') do
-      post :create, floor: { description: @floor.description, name: @floor.name }
+      post :create, floor: { capacity: @floor.capacity, description: @floor.description, nickname: @floor.nickname, occupied: @floor.occupied }
     end
 
     assert_redirected_to floor_path(assigns(:floor))
@@ -35,7 +35,7 @@ class FloorsControllerTest < ActionController::TestCase
   end
 
   test "should update floor" do
-    put :update, id: @floor, floor: { description: @floor.description, name: @floor.name }
+    put :update, id: @floor, floor: { capacity: @floor.capacity, description: @floor.description, nickname: @floor.nickname, occupied: @floor.occupied }
     assert_redirected_to floor_path(assigns(:floor))
   end
 

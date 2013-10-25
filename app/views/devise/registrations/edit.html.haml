@@ -1,0 +1,31 @@
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Change Password
+    .box-content
+
+      = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+        = devise_error_messages! 
+
+        .field
+          = f.label :email
+          = f.email_field :email, :disabled => true 
+
+        .field
+          = f.label :current_pasword
+          = f.password_field :current_password
+
+
+        .field
+          = f.label :password 
+          = f.password_field :password 
+
+
+        .field
+          = f.label :confirm_pasword
+          = f.password_field :password_confirmation
+
+        .actions
+          = f.submit "Change Password", {:class => "button1"}  

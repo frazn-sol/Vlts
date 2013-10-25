@@ -18,7 +18,7 @@ class VehiclesControllerTest < ActionController::TestCase
 
   test "should create vehicle" do
     assert_difference('Vehicle.count') do
-      post :create, vehicle: { badge_number: @vehicle.badge_number, first_name: @vehicle.first_name, last_name: @vehicle.last_name, middle_name: @vehicle.middle_name, organization: @vehicle.organization, vehicle_name: @vehicle.vehicle_name }
+      post :create, vehicle: { badge_number: @vehicle.badge_number, driver_first_name: @vehicle.driver_first_name, driver_last_name: @vehicle.driver_last_name, driver_middle_name: @vehicle.driver_middle_name, expiry_date: @vehicle.expiry_date, permit_date: @vehicle.permit_date, platenumber: @vehicle.platenumber, visitor: @vehicle.visitor }
     end
 
     assert_redirected_to vehicle_path(assigns(:vehicle))
@@ -35,7 +35,7 @@ class VehiclesControllerTest < ActionController::TestCase
   end
 
   test "should update vehicle" do
-    put :update, id: @vehicle, vehicle: { badge_number: @vehicle.badge_number, first_name: @vehicle.first_name, last_name: @vehicle.last_name, middle_name: @vehicle.middle_name, organization: @vehicle.organization, vehicle_name: @vehicle.vehicle_name }
+    put :update, id: @vehicle, vehicle: { badge_number: @vehicle.badge_number, driver_first_name: @vehicle.driver_first_name, driver_last_name: @vehicle.driver_last_name, driver_middle_name: @vehicle.driver_middle_name, expiry_date: @vehicle.expiry_date, permit_date: @vehicle.permit_date, platenumber: @vehicle.platenumber, visitor: @vehicle.visitor }
     assert_redirected_to vehicle_path(assigns(:vehicle))
   end
 

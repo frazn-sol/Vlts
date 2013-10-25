@@ -1,5 +1,15 @@
 VLTS::Application.routes.draw do
 
+  resources :vehicles
+
+  resources :floors
+
+  resources :locations
+
+  resources :organization_contacts
+
+  resources :organizations
+
   resources :customer_contacts
 
   resources :customers
@@ -11,7 +21,8 @@ VLTS::Application.routes.draw do
   resources :users do
     collection do
       get :support
-      get :customer
+      get :supervisor
+      get :user
     end
   end
 
@@ -26,8 +37,6 @@ VLTS::Application.routes.draw do
       get :management
     end
   end
-
-  resources :business_managers
 
   resources :home do
     collection do

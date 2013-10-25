@@ -3,7 +3,6 @@ class CustomerContactsController < ApplicationController
   # GET /customer_contacts.json
   def index
     @customer_contacts = CustomerContact.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @customer_contacts }
@@ -25,7 +24,7 @@ class CustomerContactsController < ApplicationController
   # GET /customer_contacts/new.json
   def new
     @customer_contact = CustomerContact.new
-
+    @customer = current_user
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @customer_contact }
