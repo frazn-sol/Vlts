@@ -1,4 +1,5 @@
 class OrganizationContactsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /organization_contacts
   # GET /organization_contacts.json
   def index

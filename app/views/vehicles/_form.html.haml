@@ -7,17 +7,20 @@
           %li= msg
 
   .field
-    = f.label :platenumber
+    = f.label :plate_number
     = f.text_field :platenumber
   .field
-    = f.label :driver_first_name
+    = f.label :first_name
     = f.text_field :driver_first_name
   .field
-    = f.label :driver_middle_name
+    = f.label :middle_name
     = f.text_field :driver_middle_name
   .field
-    = f.label :driver_last_name
+    = f.label :last_name
     = f.text_field :driver_last_name
+  .field
+    = f.label :organization
+    = f.collection_select(:organization_id, Organization.all, :id, :company_name)  
   .field
     = f.label :permit_date
     = f.date_select :permit_date
@@ -31,4 +34,4 @@
     = f.label :visitor
     = f.check_box :visitor
   .actions
-    = f.submit 'Save'
+    = f.submit 'Create Vehicle', {:class => "button1"}

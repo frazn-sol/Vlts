@@ -1,5 +1,7 @@
-%h1 New floor
-
-= render 'form'
-
-= link_to 'Back', floors_path
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Floors
+    .box-content= render 'form'

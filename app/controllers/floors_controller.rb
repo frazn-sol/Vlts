@@ -1,4 +1,5 @@
 class FloorsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /floors
   # GET /floors.json
   def index

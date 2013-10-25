@@ -13,25 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20131025162029) do
 
-  create_table "business_managers", :force => true do |t|
-    t.string   "name"
-    t.string   "address1"
-    t.string   "address2"
-    t.string   "city"
-    t.string   "state"
-    t.integer  "zipcode"
-    t.integer  "phone1"
-    t.integer  "phone2"
-    t.string   "website"
-    t.string   "email"
-    t.string   "username"
-    t.string   "password"
-    t.string   "passwordhint"
-    t.integer  "admin_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "customer_contacts", :force => true do |t|
     t.string   "first_name"
     t.string   "middle_name"
@@ -113,17 +94,6 @@ ActiveRecord::Schema.define(:version => 20131025162029) do
     t.datetime "updated_at",   :null => false
   end
 
-  create_table "plazas", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.string   "location"
-    t.string   "latitude"
-    t.string   "longitude"
-    t.integer  "customer_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "first_name"
     t.string   "middle_name"
@@ -161,7 +131,7 @@ ActiveRecord::Schema.define(:version => 20131025162029) do
     t.date     "expiry_date"
     t.string   "badge_number"
     t.boolean  "visitor",            :default => false
-    t.integer  "oganization_id"
+    t.integer  "organization_id"
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
   end

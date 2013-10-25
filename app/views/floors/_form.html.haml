@@ -10,6 +10,9 @@
     = f.label :nickname
     = f.text_field :nickname
   .field
+    = f.label :location
+    = f.collection_select(:location_id, Location.all, :id, :nickname)  
+  .field
     = f.label :description
     = f.text_field :description
   .field
@@ -19,4 +22,4 @@
     = f.label :occupied
     = f.text_field :occupied
   .actions
-    = f.submit 'Save'
+    = f.submit 'Create Floors', {:class => "button1"}

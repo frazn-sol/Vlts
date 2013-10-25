@@ -9,7 +9,7 @@ class CreateVehicles < ActiveRecord::Migration
       t.date :expiry_date
       t.string :badge_number
       t.boolean :visitor, :default => false
-      t.belongs_to :oganization
+      t.belongs_to :organization
       
       t.timestamps
     end

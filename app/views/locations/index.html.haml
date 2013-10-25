@@ -13,19 +13,20 @@
             %th Address1
             %th Phone1
             %th Website
-            %th Email            
+            %th Email
+            %th Floors            
             %th Actions
         - @locations.each do |location|
-          - if location.user_id == current_user.id.to_s
+          - if location.user_id == current_user.id
             %tbody
               %tr
-                %td= location.company_name
+                %td= location.nickname
                 %td.center= "#{location.address1} "+"#{location.state} "+ "#{location.zipcode}"
                 %td.center= location.phone1
                 %td.center= location.web
                 %td.center= location.email
                 %td.center
-                  = link_to "View All".html_safe, location_contacts_path(:id => location.id), :class => "btn btn-success"  
+                  = link_to "View All".html_safe, floors_path(:id => location.id), :class => "btn btn-success"
                 %td.center
                   = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, location, :class => "btn btn-success"
                   = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_location_path(location), :class => "btn btn-info"

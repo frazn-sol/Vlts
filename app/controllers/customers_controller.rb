@@ -58,7 +58,6 @@ class CustomersController < ApplicationController
         @customer.user_id = current_user.id
         if @customer.save
           @user.update_attribute(:customer_id, @customer.id)
-          binding.pry
           format.html { redirect_to users_path, notice: 'Customer was successfully created.' }
           format.json { render json: @customer, status: :created, location: @customer }
         else
