@@ -1,36 +1,38 @@
-%p#notice= notice
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Locations
+    .box-content
+      %p
+        %b Nickname:
+        = @location.nickname
+      %p
+        %b Description:
+        = @location.description
+      %p
+        %b Address1:
+        = @location.address1
+      %p
+        %b Address2:
+        = @location.address2
+      %p
+        %b State:
+        = @location.state
+      %p
+        %b Zipcode:
+        = @location.zipcode
+      %p
+        %b Phone1:
+        = @location.phone1
+      %p
+        %b Phone2:
+        = @location.phone2
+      %p
+        %b Web:
+        = @location.web
+      %p
+        %b Email:
+        = @location.email
 
-%p
-  %b Nickname:
-  = @location.nickname
-%p
-  %b Description:
-  = @location.description
-%p
-  %b Address1:
-  = @location.address1
-%p
-  %b Address2:
-  = @location.address2
-%p
-  %b State:
-  = @location.state
-%p
-  %b Zipcode:
-  = @location.zipcode
-%p
-  %b Phone1:
-  = @location.phone1
-%p
-  %b Phone2:
-  = @location.phone2
-%p
-  %b Web:
-  = @location.web
-%p
-  %b Email:
-  = @location.email
-
-= link_to 'Edit', edit_location_path(@location)
-\|
-= link_to 'Back', locations_path
