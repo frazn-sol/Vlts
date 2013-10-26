@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131025162029) do
+ActiveRecord::Schema.define(:version => 20131026161634) do
 
   create_table "customer_contacts", :force => true do |t|
     t.string   "first_name"
@@ -101,10 +101,10 @@ ActiveRecord::Schema.define(:version => 20131025162029) do
     t.string   "phone"
     t.string   "cell"
     t.string   "role"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.datetime "created_at",                                               :null => false
+    t.datetime "updated_at",                                               :null => false
+    t.string   "email",                                 :default => "",    :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20131025162029) do
     t.string   "employeeno"
     t.integer  "parent_id"
     t.integer  "customer_id"
+    t.boolean  "pass_change",                           :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

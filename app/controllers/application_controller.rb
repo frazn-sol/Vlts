@@ -3,11 +3,11 @@ class ApplicationController < ActionController::Base
 
   private
   def after_sign_in_path_for(resource)
-  	if resource.sign_in_count == 1 && resource.role != "admin"
+  	if resource.pass_change == false && resource.role != "admin"
   		flash[:notice] = "You must change your password"
-  	    password_user_path(resource)
+  		password_user_path(resource) 
   	else	
-    	 users_path
+    	users_path
     end
   end
 

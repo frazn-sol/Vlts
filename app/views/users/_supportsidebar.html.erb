@@ -7,7 +7,9 @@
           <span class="icon-bar"></span>
         </a>
         <%= image_tag "logo1.png", {:class => "logo"} %>
+        <%if current_user.pass_change == true %>
         <a href="/customers" class="hello"><span>Customers</span></a>
+        <%end%>
       <!--   <a href="/vehicles/new" class="hello shift1"><span>Add Vehicles</span></a> -->
         <!-- theme selector starts -->
         <!-- <div class="btn-group pull-right theme-container" >
@@ -36,14 +38,13 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><%= link_to "Profile", user_path(current_user)%></li>
             <li><%= link_to "Edit Profile", edit_user_path(current_user)%></li>
             <li><%= link_to "Change Password", password_user_path(current_user) %></li>
             <li class="divider"></li>
             <li><%= link_to "Logout", destroy_user_session_path, method: :delete%></li>
           </ul>
         </div>
-        <%end%>
+      <%end%>
         <!-- user dropdown ends -->
         
         <!-- <div class="top-nav nav-collapse">
@@ -67,7 +68,7 @@
   <%= render partial: "users/flash_messages", flash: flash %> 
 <% end %>
   <!-- topbar ends -->
-        
+<%if current_user.pass_change == true %>        
   <div class="container-fluid">
     <div class="row-fluid">
       <!-- left menu starts -->
@@ -98,3 +99,4 @@
           <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
         </div>
       </noscript>
+      <%end%>

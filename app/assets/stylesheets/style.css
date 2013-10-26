@@ -229,10 +229,12 @@ margin-top: -62px;
 padding: 5px 5px 6px;
 }
 
+.navbar-inner{
+	height: 90px
+}
 .logo{
 	position: absolute;
 margin: 15px;
-
 }
 
 b{

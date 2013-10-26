@@ -8,7 +8,8 @@
         </a>
         <%= image_tag "logo1.png", {:class => "logo"} %>
         <!-- theme selector ends -->
-        <%if current_user %>
+
+        <%if current_user  %>
         <!-- user dropdown starts -->
         <div class="btn-group pull-right hello4" >
           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -16,7 +17,6 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><%= link_to "Profile", user_path(current_user)%></li>
             <li><%= link_to "Edit Profile", edit_user_path(current_user)%></li>
             <li><%= link_to "Change Password", password_user_path(current_user) %></li>
             <li class="divider"></li>
@@ -47,7 +47,7 @@
   <%= render partial: "users/flash_messages", flash: flash %> 
 <% end %>
   <!-- topbar ends -->
-        
+<%if current_user.pass_change == true %>        
       <div class="container-fluid">
     <div class="row-fluid">
       <!-- left menu starts -->
@@ -79,3 +79,4 @@
           <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
         </div>
       </noscript>
+      <%end%>
