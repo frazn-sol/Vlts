@@ -1,10 +1,16 @@
 #content.span10
   .sortable.row-fluid
-    %a.well.span3.top-block{"data-rel" => "tooltip", href: "#", title: "6 new members."}
+    -if current_user.role == "admin"
+      %a.well.span3.top-block
+        %span.icon32.icon-red.icon-user
+        %div Support Staff
+        %div
+          = current_user.children.where(:role => ['support']).count
+    %a.well.span3.top-block
       %span.icon32.icon-red.icon-user
-      %div Total Members
+      %div Customers
       %div
-        = current_user.children.count
+        = current_user.children.where(:role => ['customer']).count      
     .row-fluid
       .box.span12
         .box-header.well
