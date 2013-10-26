@@ -6,11 +6,24 @@
         %div Support Staff
         %div
           = current_user.children.where(:role => ['support']).count
-    %a.well.span3.top-block
-      %span.icon32.icon-red.icon-user
-      %div Customers
-      %div
-        = current_user.children.where(:role => ['customer']).count      
+    -if (current_user.role == "admin" || current_user.role == "support")      
+      %a.well.span3.top-block
+        %span.icon32.icon-red.icon-user
+        %div Customers
+        %div
+          = current_user.children.where(:role => ['customer']).count
+    -if (current_user.role == "customer")      
+      %a.well.span3.top-block
+        %span.icon32.icon-red.icon-user
+        %div Supervisors
+        %div
+          = current_user.children.where(:role => ['supervisors']).count 
+      %a.well.span3.top-block
+        %span.icon32.icon-red.icon-user
+        %div Users
+        %div
+          = current_user.children.where(:role => ['users']).count 
+
     .row-fluid
       .box.span12
         .box-header.well

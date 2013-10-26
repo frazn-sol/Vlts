@@ -17,7 +17,7 @@
     = f.text_field :last_name
   .field
     = f.label :Company_Name
-    = f.collection_select(:customer_id, Customer.all, :id, :company_name)   
+    = f.collection_select(:customer_id, Customer.where(:user_id => ["#{current_user.id}"]), :id, :company_name)   
   .field
     = f.label :designation
     = f.text_field :designation
