@@ -32,3 +32,34 @@
     = f.text_field :email
   .actions
     = f.submit 'Create Customer Contact', {:class => "button1"}
+:javascript
+  var validator = new FormValidator('new_customer_contact', [{
+    name: 'customer_contact[first_name]',    
+    rules: 'required'
+  }, {
+    name: 'customer_contact[middle_name]',
+    rules: 'required'
+  }, {
+    name: 'customer_contact[last_name]',
+    rules: 'required'
+  }, {
+    name: 'customer_contact[designation]',
+    rules: 'required'
+  }, {
+    name: 'customer_contact[phone]',
+    rules: 'required'
+  }, {
+    name: 'customer_contact[cell]',
+    rules: 'required'
+  }, {
+    name: 'customer_contact[email]',
+    rules: 'required'
+  }], function(errors, event) {
+    if (errors.length > 0) {
+    var temp;
+    for (var i=0; i<errors.length; i++){
+      temp = errors[i].id;
+      $("#" + temp).css("border","2px solid red");
+    }
+    }  
+  });   

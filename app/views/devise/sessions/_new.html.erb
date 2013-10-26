@@ -22,12 +22,12 @@
 		<% end %>
 
 <script>
-	var validator = new FormValidator('new_admin', [{
-    name: 'admin[email]',
+	var validator = new FormValidator('new_user', [{
+    name: 'user[email]',
     display: 'required',    
     rules: 'valid_email'
 	}, {
-    name: 'admin[password]',
+    name: 'user[password]',
     rules: 'required'
 	}], function(errors, event) {
     if (errors.length > 0) {

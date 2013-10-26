@@ -35,3 +35,33 @@
     = f.check_box :visitor
   .actions
     = f.submit 'Create Vehicle', {:class => "button1"}
+
+
+:javascript
+  var validator = new FormValidator('new_vehicle', [{
+    name: 'vehicle[platenumber]',    
+    rules: 'required'
+  }, {
+    name: 'vehicle[driver_first_name]',
+    rules: 'required'
+  }, {
+    name: 'vehicle[driver_middle_name]',
+    rules: 'required'
+  }, {
+    name: 'vehicle[driver_last_name]',
+    rules: 'required'
+  }, {
+    name: 'vehicle[permit_date]',
+    rules: 'required'
+  }, {
+    name: 'vehicle[badge_number]',
+    rules: 'required'
+  }], function(errors, event) {
+    if (errors.length > 0) {
+    var temp;
+    for (var i=0; i<errors.length; i++){
+      temp = errors[i].id;
+      $("#" + temp).css("border","2px solid red");
+    }
+    }  
+  });  

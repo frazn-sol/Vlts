@@ -3,7 +3,10 @@
     .box-header.well{"data-original-title" => ""}
       %h2
         %i.icon-user.icon-white
-        Customer Contact
+        - if params[:id].present?
+          ="#{Customer.find(params[:id]).company_name} " + "Contacts"
+        -else
+          = Customer Contacts  
     .box-content
       %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
         %thead

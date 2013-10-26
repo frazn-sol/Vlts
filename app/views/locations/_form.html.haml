@@ -38,3 +38,48 @@
     = f.text_field :email
   .actions
     = f.submit 'Create Location', {:class => "button1"}
+
+
+:javascript
+  var validator = new FormValidator('new_location', [{
+    name: 'location[company_name]',    
+    rules: 'required'
+  }, {
+    name: 'location[address1]',
+    rules: 'required'
+  }, {
+    name: 'location[address2]',
+    rules: 'required'
+  }, {
+    name: 'location[state]',
+    rules: 'required'
+  }, {
+    name: 'location[zipcode]',
+    rules: 'required'
+  }, {
+    name: 'location[phone1]',
+    rules: 'required'
+  }, {
+    name: 'location[phone2]',
+    rules: 'required'
+  }, {
+    name: 'location[web]',
+    rules: 'required'
+  }, {
+    name: 'location[email]',
+    rules: 'required'
+  }, {
+    name: 'location[nickname]',
+    rules: 'required'
+  }, {
+    name: 'location[description]',
+    rules: 'required'
+  }], function(errors, event) {
+    if (errors.length > 0) {
+    var temp;
+    for (var i=0; i<errors.length; i++){
+      temp = errors[i].id;
+      $("#" + temp).css("border","2px solid red");
+    }
+    }  
+  });  

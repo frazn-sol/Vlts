@@ -94,4 +94,24 @@ class UsersController < ApplicationController
   def user
     @users = User.all
   end
+
+  def password
+    @user = current_user
+  end
+
+  def change
+    @user = current_user
+    params[:current_password] = params[:user][:currently_password]
+    params[:user][:current_password] = params[:current_password]
+    params[:user].delete(:currently_password) 
+
+    if @user.update_with_password(params[:user])
+      flash[:notice] = "Password has been successfully updated"
+      sign_in @user, :bypass => true
+      redirect_to user_path and return
+    else
+        flash[:notice] = @user.errors.full_messages.join("&")
+        render action: "password"
+    end  
+  end
 end

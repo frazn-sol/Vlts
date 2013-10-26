@@ -31,4 +31,38 @@
     = f.label :web
     = f.text_field :web
   .actions
-    = f.submit 'Save'
+    = f.submit 'Update', {:class => "button1"}
+:javascript
+  var validator = new FormValidator('edit_customer', [{
+    name: 'customer[company_name]',    
+    rules: 'required'
+  }, {
+    name: 'customer[address1]',
+    rules: 'required'
+  }, {
+    name: 'customer[address2]',
+    rules: 'required'
+  }, {
+    name: 'customer[state]',
+    rules: 'required'
+  }, {
+    name: 'customer[zipcode]',
+    rules: 'required'
+  }, {
+    name: 'customer[phone1]',
+    rules: 'required'
+  }, {
+    name: 'customer[phone2]',
+    rules: 'required'
+  }, {
+    name: 'customer[web]',
+    rules: 'required'
+  }], function(errors, event) {
+    if (errors.length > 0) {
+    var temp;
+    for (var i=0; i<errors.length; i++){
+      temp = errors[i].id;
+      $("#" + temp).css("border","2px solid red");
+    }
+    }  
+  });       

@@ -7,8 +7,8 @@
           <span class="icon-bar"></span>
         </a>
         <%= image_tag "logo1.png", {:class => "logo"} %>
-        <a href="/customers" class="hello"><span>Customers</span></a>
-        <a href="/users/support" class="hello shift1"><span>Support Staff</span></a>
+        <a href="/users/support" class="hello"><span>Support Staff</span></a>
+        <a href="/customers" class="hello shift1"><span>Customers</span></a>
         <!-- theme selector starts -->
         <!-- <div class="btn-group pull-right theme-container" >
           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -38,7 +38,7 @@
           <ul class="dropdown-menu">
             <li><%= link_to "Profile", user_path(current_user)%></li>
             <li><%= link_to "Edit Profile", edit_user_path(current_user)%></li>
-            <li><%= link_to "Change Password", edit_user_registration_path %></li>
+            <li><%= link_to "Change Password", password_user_path(current_user) %></li>
             <li class="divider"></li>
             <li><%= link_to "Logout", destroy_user_session_path, method: :delete%></li>
           </ul>

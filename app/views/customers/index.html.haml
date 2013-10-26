@@ -14,7 +14,8 @@
             %th Phone1
             %th Website
             %th Email
-            %th Contacts            
+            %th Support Staff
+            %th Contacts           
             %th Actions
         - @customers.each do |customer|
           - if customer.user_id == current_user.id.to_s
@@ -27,6 +28,7 @@
                 - @user.each do |user|
                   -if (user.customer_id == customer.id)
                     %td.center= user.email
+                %td.center=customer.user.first_name     
                 %td.center
                   = link_to "View All".html_safe, customer_contacts_path(:id => customer.id), :class => "btn btn-success"  
                 %td.center

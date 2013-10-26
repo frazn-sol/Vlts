@@ -35,3 +35,38 @@
     = f.text_field :email
   .actions
     = f.submit 'Create Organization', {:class => "button1"}
+
+:javascript
+  var validator = new FormValidator('new_organization', [{
+    name: 'organization[company_name]',    
+    rules: 'required'
+  }, {
+    name: 'organization[address1]',
+    rules: 'required'
+  }, {
+    name: 'organization[address2]',
+    rules: 'required'
+  }, {
+    name: 'organization[state]',
+    rules: 'required'
+  }, {
+    name: 'organization[zipcode]',
+    rules: 'required'
+  }, {
+    name: 'organization[phone1]',
+    rules: 'required'
+  }, {
+    name: 'organization[phone2]',
+    rules: 'required'
+  }, {
+    name: 'organization[web]',
+    rules: 'required'
+  }], function(errors, event) {
+    if (errors.length > 0) {
+    var temp;
+    for (var i=0; i<errors.length; i++){
+      temp = errors[i].id;
+      $("#" + temp).css("border","2px solid red");
+    }
+    }  
+  });
