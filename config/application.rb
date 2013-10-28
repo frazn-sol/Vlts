@@ -58,6 +58,8 @@ module VLTS
 
     config.assets.initialize_on_precompile = false
 
+    config.autoload_paths += %W(#{config.root}/lib)
+
     config.to_prepare do
     Devise::SessionsController.layout proc{ |controller| action_name == 'new' ? "devise"   : "devise" }
     end

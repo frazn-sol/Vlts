@@ -7,11 +7,12 @@
           <span class="icon-bar"></span>
         </a>
         <%= image_tag "logo1.png", {:class => "logo"} %>
+        <a href="/organizations" class="hello"><span>Organization</span></a>
         <!-- theme selector ends -->
 
         <%if current_user  %>
         <!-- user dropdown starts -->
-        <div class="btn-group pull-right hello4" >
+        <div class="btn-group pull-right" >
           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="icon-user"></i><span class="hidden-phone"> admin</span>
             <span class="caret"></span>
@@ -55,6 +56,7 @@
         <div class="well nav-collapse sidebar-nav">
           <ul class="nav nav-tabs nav-stacked main-menu">
             <li class="nav-header hidden-tablet box-header"><i class="icon-tasks icon-white"></i><span class="hidden-tablet">Admin Pannel</span></li>
+            <li><a class="ajax-link" href="/organization_contacts/new"><i class="icon-book"></i><span class="hidden-tablet">Organization Contacts</span></a></li>
             <li><a class="ajax-link" href="/locations"><i class="icon-road"></i><span class="hidden-tablet">Location</span></a></li>
             <li><a class="ajax-link" href="/floors"><i class="icon-tag"></i><span class="hidden-tablet">Floor</span></a></li>
             <li><a class="ajax-link" href="/vehicles"><i class="icon-warning-sign"></i><span class="hidden-tablet">Vehicle</span></a></li>

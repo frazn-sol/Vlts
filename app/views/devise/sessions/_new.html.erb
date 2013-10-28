@@ -2,6 +2,12 @@
 <%= form_for(resource, :html => {:class => "form-horizontal"}, :as => resource_name, :method => "post", :url => session_path(resource_name)) do |f| %>
 	<div id = "errors"><%= devise_error_messages! %> </div>
 		<h2>User Login</h2>
+		<%if flash[:notice] == "Invalid Username or Password" %>
+			<div id = "message">
+				"Invalid username or password"
+			</br>
+			</div>
+		<%end%>	
 		<label>Username</label>
 		<br>
 		<%= f.email_field :email, :class => "inputlogin", :id => "txtUsername" %>
@@ -31,7 +37,6 @@
     rules: 'required'
 	}], function(errors, event) {
     if (errors.length > 0) {
-    	$(".inputlogin").append("*");
     }  
 	});
 </script>
