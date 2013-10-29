@@ -1,6 +1,13 @@
 VLTS::Application.routes.draw do
 
-  resources :vehicles
+  resources :vehicles do
+    get :autocomplete_vehicle_numberplate, :on => :collection
+
+    collection do
+      get :track
+      post :track_create
+    end
+  end
 
   resources :floors
 
@@ -41,11 +48,6 @@ end
     end
   end
 
-  resources :plazas do 
-    collection do
-      get :management
-    end
-  end
 
   resources :home do
     collection do
@@ -54,28 +56,13 @@ end
   end
 
   root :to => "home#vlts"
-  
-  resources :vehicles do
-    collection do
-      get :management
-    end
-  end
+
 
   resources :customers do
     collection do
       get :management
     end
   end
-  
-  resources :admins do
-    collection do
-      get :charts
-    end
-    member do 
-      get :list_admins
-    end
-  end
-
   # devise_for :users do
   #   get "/sign_out"  => "devise/sessions#destroy", :as => :destroy_user_session
   # end

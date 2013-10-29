@@ -1,0 +1,23 @@
+= form_for @vehicle_history, :url => "/vehicles/track_create", :method =>"post" do |f|
+  - if @vehicle_history.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@vehicle_history.errors.count, "error")} prohibited this record from being saved:"
+      %ul
+        - @vehicle_history.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :plate_number
+    = f.text_field :platenumber
+  .field
+    = f.label :floor
+    = f.collection_select(:floor_id, Floor.all, :id, :nickname)
+
+  .field
+    = f.label :location
+    = f.collection_select(:location_id, Location.all, :id, :nickname)      
+  .field
+    = f.label :slot
+    = f.text_field :slot
+  .actions
+    = f.submit 'Create Record', {:class => "button1"}

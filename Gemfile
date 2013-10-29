@@ -11,6 +11,7 @@ gem "devise"
 gem 'jquery-ui-rails'
 gem "cancan"
 gem 'haml-rails', '>= 0.3.4'
+gem 'rails3-jquery-autocomplete'
 
 
 # Gems used only for assets and not required

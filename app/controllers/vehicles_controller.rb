@@ -1,5 +1,6 @@
 class VehiclesController < ApplicationController
   before_filter :authenticate_user!
+  autocomplete :vehicle, :platenumber
   # GET /vehicles
   # GET /vehicles.json
   def index
@@ -79,6 +80,24 @@ class VehiclesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to vehicles_url }
       format.json { head :no_content }
+    end
+  end
+
+  def track
+    @vehicle_history = VehicleHistory.new
+    @history = VehicleHistory.all
+  end
+
+  def track_create
+    @vehicle_history = VehicleHistory.new(params[:vehicle_history])
+    respond_to do |format|
+      if @vehicle_history.save
+        format.html { redirect_to track_vehicles_path , notice: 'Record was successfully created.' }
+        format.json { render json: @vehicle_history, status: :created, location: @vehicle_history }
+      else
+        format.html { render action: "track" }
+        format.json { render json: @vehicle_history.errors, status: :unprocessable_entity }
+      end
     end
   end
 end
