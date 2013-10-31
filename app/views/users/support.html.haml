@@ -6,7 +6,7 @@
         Support Staff
     .box-content
       = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_user_path, :class => "btn btn-success add"
-      %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+      %table.table.table-striped.table-bordered
         %thead
           %tr
             %th First Name
@@ -28,3 +28,4 @@
                   = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, user, :class => "btn btn-success"
                   = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_user_path(user), :class => "btn btn-info"
                   = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, user, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
+      = will_paginate @users            

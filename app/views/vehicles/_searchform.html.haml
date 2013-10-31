@@ -1,0 +1,9 @@
+= form_for @search, :url => track_vehicles_path, :method => "get"  do |f|
+	.field.allign
+		= f.label :paltenumber 
+		= f.text_field :platenumber_like, {:class => "size"}
+	.field.allign
+		= f.label :slot
+		= f.text_field :slot_like, {:class => "size"}	
+	.actions	
+		= f.submit

@@ -6,7 +6,7 @@
         Organizations
     .box-content
       = link_to "<i class=\"icon-plus icon-white\"></i> Add new".html_safe, new_organization_path, :class => "btn btn-success add"
-      %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+      %table.table.table-striped.table-bordered
         %thead
           %tr
             %th Name
@@ -31,3 +31,4 @@
                   = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, organization, :class => "btn btn-success"
                   = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_organization_path(organization), :class => "btn btn-info"
                   = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, organization, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
+      = will_paginate @organizations            

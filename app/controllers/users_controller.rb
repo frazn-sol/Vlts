@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.paginate(:page => params[:page], :per_page => 5)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -84,15 +84,15 @@ class UsersController < ApplicationController
   end
 
   def support
-    @users = User.all
+    @users = User.paginate(:page => params[:page], :per_page => 5)
   end
 
   def supervisor
-    @users = User.all
+    @users = User.paginate(:page => params[:page], :per_page => 5)
   end
 
   def user
-    @users = User.all
+    @users = User.paginate(:page => params[:page], :per_page => 5)
   end
 
   def password

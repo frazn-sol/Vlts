@@ -3,7 +3,7 @@ class FloorsController < ApplicationController
   # GET /floors
   # GET /floors.json
   def index
-    @floors = Floor.all
+    @floors = Floor.paginate(:page => params[:page], :per_page => 5)
 
     respond_to do |format|
       format.html # index.html.erb

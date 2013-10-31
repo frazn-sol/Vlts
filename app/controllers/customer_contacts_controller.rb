@@ -3,7 +3,7 @@ class CustomerContactsController < ApplicationController
   # GET /customer_contacts
   # GET /customer_contacts.json
   def index
-    @customer_contacts = CustomerContact.all
+    @customer_contacts = CustomerContact.paginate(:page => params[:page], :per_page => 5)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @customer_contacts }

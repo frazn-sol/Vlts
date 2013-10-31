@@ -1,4 +1,4 @@
-= form_for @vehicle do |f|
+= form_for @vehicle, :url => "/vehicles/create_vehicles" do |f|
   - if @vehicle.errors.any?
     #error_explanation
       %h2= "#{pluralize(@vehicle.errors.count, "error")} prohibited this vehicle from being saved:"
@@ -8,33 +8,35 @@
 
           
 
-  .field
+  .field.allign
     = f.label :plate_number
-    = f.text_field :platenumber
-  .field
+    = f.text_field :platenumber, {:class => "size"}
+  .field.allign
     = f.label :first_name
-    = f.text_field :driver_first_name
-  .field
+    = f.text_field :driver_first_name, {:class => "size"}
+  .field.allign
     = f.label :middle_name
-    = f.text_field :driver_middle_name
-  .field
+    = f.text_field :driver_middle_name, {:class => "size"}
+  .clear  
+  .field.allign
     = f.label :last_name
-    = f.text_field :driver_last_name
-  .field
+    = f.text_field :driver_last_name, {:class => "size"}
+  .field.allign
     = f.label :organization
-    = f.collection_select(:organization_id, Organization.all, :id, :company_name)  
-  .field
+    = f.collection_select(:organization_id, Organization.all, :id, :company_name, {}, :class => "size2")  
+  .clear
+  .field.allign
     = f.label :permit_date
-    = f.date_select :permit_date
-  .field
+    = f.date_select :permit_date, {}, :class => "size2"  
+  .field.allign
     = f.label :expiry_date
-    = f.date_select :expiry_date
-  .field
+    = f.date_select :expiry_date, {}, :class => "size2"
+  .field.allign
     = f.label :badge_number
-    = f.text_field :badge_number
-  .field
+    = f.text_field :badge_number, {:class => "size"}
+  .field.allign
     = f.label :visitor
-    = f.check_box :visitor
+    = f.check_box :visitor, {:class => "size"}  
   .actions
     = f.submit 'Create Vehicle', {:class => "button1"}
 

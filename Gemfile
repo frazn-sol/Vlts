@@ -9,9 +9,12 @@ gem 'pg'
 gem 'therubyracer'
 gem "devise"
 gem 'jquery-ui-rails'
+gem 'jquery-rails'
 gem "cancan"
 gem 'haml-rails', '>= 0.3.4'
 gem 'rails3-jquery-autocomplete'
+gem 'will_paginate', '~> 3.0'
+gem "meta_search"
 
 
 # Gems used only for assets and not required

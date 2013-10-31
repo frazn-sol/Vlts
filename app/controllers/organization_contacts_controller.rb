@@ -3,7 +3,7 @@ class OrganizationContactsController < ApplicationController
   # GET /organization_contacts
   # GET /organization_contacts.json
   def index
-    @organization_contacts = OrganizationContact.all
+    @organization_contacts = OrganizationContact.paginate(:page => params[:page], :per_page => 5)
 
     respond_to do |format|
       format.html # index.html.erb

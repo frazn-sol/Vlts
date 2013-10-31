@@ -2,26 +2,48 @@
   .box.span12
     .box-header.well{"data-original-title" => ""}
       %h2
-        %i.icon-user.icon-white
+        %i.icon-warning-sign.icon-white
         Vehicles Tracking Screen
     .box-content
-      = render"trackform"
-      %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+      %h2
+        %i.icon-warning-sign
+        Track Search
+      = form_for @search, :url => track_vehicles_path, :method => "get"  do |f|
+        .field.allign
+          = f.label :paltenumber 
+          = f.text_field :platenumber_like, {:class => "size"}
+        .field.allign
+          = f.label :slot
+          = f.text_field :slot_like, {:class => "size"}
+        .actions  
+          = f.submit "Search", {:class => "button1 push"}
+      %table.table.table-striped.table-bordered
         %thead
           %tr
             %th Plate Number
             %th Floor
             %th Location
             %th Slot            
-            %th Actions
-            - @history.each do |history|
+            %th Actions 
+            -if @history.present?   
+              - @history.each do |history|
+                %tbody
+                  %tr
+                    %td= history.platenumber
+                    %td= history.floor.nickname
+                    %td= history.location.nickname
+                    %td= history.slot
+                    %td.center
+                      = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, "", :class => "btn btn-success"
+                      = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, "", :class => "btn btn-info"
+                      = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, "", confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
+            -else
               %tbody
                 %tr
-                  %td= history.platenumber
-                  %td= history.floor.nickname
-                  %td= history.location.nickname
-                  %td= history.slot
-                  %td.center
-                    = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, "", :class => "btn btn-success"
-                    = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, "", :class => "btn btn-info"
-                    = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, "", confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
+                  %td{:colspan => "5"} No Results Found 
+      -if @history.present? 
+        = will_paginate @history            
+      %h2
+        %i.icon-warning-sign
+        Track Vehicle                                      
+        = render"trackform"  

@@ -4,20 +4,42 @@
       %h2= "#{pluralize(@vehicle_history.errors.count, "error")} prohibited this record from being saved:"
       %ul
         - @vehicle_history.errors.full_messages.each do |msg|
-          %li= msg
+          %li= msg          
 
-  .field
+  .field.allign
     = f.label :plate_number
-    = f.text_field :platenumber
-  .field
+    = f.autocomplete_field :platenumber, autocomplete_vehicle_platenumber_vehicles_path, {:class => "size"}
+  .field.allign
     = f.label :floor
-    = f.collection_select(:floor_id, Floor.all, :id, :nickname)
+    = f.collection_select(:floor_id, Floor.all, :id, :nickname, {}, :class => "size2") 
 
-  .field
+  .field.allign
     = f.label :location
-    = f.collection_select(:location_id, Location.all, :id, :nickname)      
-  .field
+    = f.collection_select(:location_id, Location.all, :id, :nickname, {}, :class => "size2")      
+  
+  .clear
+  .field.allign
     = f.label :slot
-    = f.text_field :slot
+    = f.text_field :slot, {:class => "size"}
   .actions
-    = f.submit 'Create Record', {:class => "button1"}
+    = f.submit 'Create Record', {:class => "button1 push"}
+
+:javascript
+  var validator = new FormValidator('new_vehicle_history', [{
+    name: 'vehicle[platenumber]',    
+    rules: 'required'
+  }, {
+    name: 'vehicle_history[platenumber]',
+    rules: 'required'
+  }, {
+    name: 'vehicle_history[slot]',
+    rules: 'required'
+  }], function(errors, event) {
+    if (errors.length > 0) {
+    var temp;
+    for (var i=0; i<errors.length; i++){
+      temp = errors[i].id;
+      $("#" + temp).css("border","2px solid red");
+    }
+    }  
+  });     

@@ -1,0 +1,53 @@
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-warning-sign.icon-white
+        Vehicles
+    .box-content
+      %h2
+        %i.icon-warning-sign
+        Vehicle Search
+      = form_for @search, :url => add_vehicle_vehicles_path, :method => "get"  do |f|
+        .field.allign
+          = f.label :paltenumber 
+          = f.text_field :platenumber_like, {:class => "size"}
+        .field.allign
+          = f.label :driver_name
+          = f.text_field :driver_first_name_or_driver_last_name_contains, {:class => "size"}   
+        .actions  
+          = f.submit "Search", {:class => "button1 push"}
+      %table.table.table-striped.table-bordered
+        %thead
+          %tr
+            %th Plate Number
+            %th Name
+            %th Permit Date
+            %th Expiry Date
+            %th Badge Number
+            %th Organization            
+            %th Actions
+            -if @vehicles.present?
+              - @vehicles.each do |vehicle|
+                %tbody
+                  %tr
+                    %td= vehicle.platenumber
+                    %td.center= "#{vehicle.driver_first_name} "+"#{vehicle.driver_last_name}" 
+                    %td.center= vehicle.permit_date
+                    %td.center= vehicle.expiry_date
+                    %td.center= vehicle.badge_number
+                    %td.center= vehicle.organization.company_name
+                    %td.center
+                      = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, vehicle, :class => "btn btn-success"
+                      = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_vehicle_path(vehicle), :class => "btn btn-info"
+                      = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, vehicle, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
+            -else
+              %tbody
+                %tr
+                  %td{:colspan => "7"} No Results Found 
+      -if @vehicles.present? 
+        = will_paginate @vehicles
+      %h2
+        %i.icon-warning-sign
+        Vehicles                                   
+        = render"vehicleform"                
