@@ -13,6 +13,11 @@ VLTS::Application.routes.draw do
   end
 
   resources :floors
+  resources :reports do
+    collection do
+      get :admin
+    end
+  end
 
   resources :locations
 

@@ -16,16 +16,15 @@
             %th Email
             %th Actions
         - @users.each do |user|
-          -if user.role == "support"
-            %tbody
-              %tr
-                %td= user.first_name
-                %td.center= user.last_name
-                %td.center= user.phone
-                %td.center= user.cell
-                %td.center= user.email
-                %td.center
-                  = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, user, :class => "btn btn-success"
-                  = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_user_path(user), :class => "btn btn-info"
-                  = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, user, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
+          %tbody
+            %tr
+              %td= user.first_name
+              %td.center= user.last_name
+              %td.center= user.phone
+              %td.center= user.cell
+              %td.center= user.email
+              %td.center
+                = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, user, :class => "btn btn-success"
+                = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_user_path(user), :class => "btn btn-info"
+                = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, user, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
       = will_paginate @users            

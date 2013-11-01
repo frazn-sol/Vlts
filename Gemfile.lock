@@ -50,6 +50,7 @@ GEM
       warden (~> 1.0.3)
     erubis (2.7.0)
     execjs (2.0.1)
+    googlecharts (1.6.8)
     haml (4.0.3)
       tilt
     haml-rails (0.4)
@@ -160,6 +161,7 @@ DEPENDENCIES
   cancan
   coffee-rails (~> 3.2.1)
   devise
+  googlecharts (~> 1.6.8)
   haml-rails (>= 0.3.4)
   jquery-rails
   jquery-ui-rails

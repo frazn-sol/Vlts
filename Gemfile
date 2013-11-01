@@ -15,6 +15,7 @@ gem 'haml-rails', '>= 0.3.4'
 gem 'rails3-jquery-autocomplete'
 gem 'will_paginate', '~> 3.0'
 gem "meta_search"
+gem "googlecharts", "~> 1.6.8"
 
 
 # Gems used only for assets and not required

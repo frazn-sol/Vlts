@@ -84,15 +84,18 @@ class UsersController < ApplicationController
   end
 
   def support
-    @users = User.paginate(:page => params[:page], :per_page => 5)
+    @user = User.where(:role => "support")
+    @users = @user.paginate(:page => params[:page], :per_page => 5)
   end
 
   def supervisor
-    @users = User.paginate(:page => params[:page], :per_page => 5)
+    @user = User.where(:role => "supervisor")
+    @users = @user.paginate(:page => params[:page], :per_page => 5)
   end
 
   def user
-    @users = User.paginate(:page => params[:page], :per_page => 5)
+    @user = User.where(:role => "user")
+    @users = @user.paginate(:page => params[:page], :per_page => 5)
   end
 
   def password
