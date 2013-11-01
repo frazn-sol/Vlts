@@ -16,6 +16,9 @@ VLTS::Application.routes.draw do
   resources :reports do
     collection do
       get :admin
+      get :support
+      get :supervisor
+      get :customer
     end
   end
 
