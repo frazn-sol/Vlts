@@ -13,13 +13,13 @@ class ReportsController < ApplicationController
 		user[key+Time.now.to_s] = t("date.month_names")[key.to_i]
 		end
 
-		@pie = Gchart.pie(:data => @users.values, :labels => user.values, :size => '800x300', :legend => ['Users growth'], :title => 'Users growth', :bg => "efefef")
-		@line = Gchart.line(:size => '800x300', 
+		@pie = Gchart.pie_3d(:bg => "aaff00", :data => @users.values, :labels => user.values, :size => '500x230', :legend => ['Users growth'], :title => 'Users growth', :bg => "efefef")
+		@line = Gchart.line(:size => '500x250', 
             :title => "Growth",
-            :bg => 'efefef',
+            :bg => 'aaff00',
             :legend => ['Users growth'],
             :data => @users.values,
-            :axis_with_labels => 'x',
+            :axis_with_labels => 'x,r',
             :axis_labels => [user.values, @users.values],
             :line_colors => '76A4FB')
 	end
@@ -36,7 +36,7 @@ class ReportsController < ApplicationController
 		user[key+Time.now.to_s] = t("date.month_names")[key.to_i]
 		end
 
-		@pie = Gchart.pie(:data => @users.values, :labels => user.values, :size => '800x300', :legend => ['Users growth'], :title => 'Users growth', :bg => "efefef")
+		@pie = Gchart.pie_3d(:bg => "green", :data => @users.values, :labels => user.values, :size => '600x300', :legend => ['Users growth'], :title => 'Users growth', :bg => "efefef")
 	end
 
 	def supervisor
@@ -51,7 +51,7 @@ class ReportsController < ApplicationController
 		user[key+Time.now.to_s] = t("date.month_names")[key.to_i]
 		end
 
-		@pie = Gchart.pie(:data => @users.values, :labels => user.values, :size => '800x300', :legend => ['Users growth'], :title => 'Users growth', :bg => "efefef")
+		@pie = Gchart.pie_3d(:bg => "000000", :data => @users.values, :labels => user.values, :size => '600x300', :legend => ['Users growth'], :title => 'Users growth', :bg => "efefef")
 	end
 
 	def customer
@@ -66,13 +66,12 @@ class ReportsController < ApplicationController
 		user[key+Time.now.to_s] = t("date.month_names")[key.to_i]
 		end
 
-		@pie = Gchart.pie(:data => @users.values, :labels => user.values, :size => '800x300', :legend => ['Users growth'], :title => 'Users growth', :bg => "efefef")
-		@line = Gchart.line(:size => '800x300', 
+		@pie = Gchart.pie_3d(:bg => '000000', :data => @users.values, :labels => user.values, :size => '500x230', :legend => ['Users growth'], :title => 'Users growth', :bg => "efefef")
+		@line = Gchart.line(:bg => 'aaee00', :size => '500x250', 
             :title => "Growth",
-            :bg => 'efefef',
             :legend => ['Users growth'],
             :data => @users.values,
-            :axis_with_labels => 'x',
+            :axis_with_labels => 'x,r',
             :axis_labels => [user.values, @users.values],
             :line_colors => '76A4FB')
 	end
