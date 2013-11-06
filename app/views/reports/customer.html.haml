@@ -5,5 +5,7 @@
         %i.icon-user.icon-white
         Reports
     .box-content
-      = image_tag(@line)
-      = image_tag(@pie)
+      = high_chart("my_id4", @chart) do |c| 
+        = raw "options.tooltip.formatter = function() {return '<b>'+ this.point.name +'</b>: '+ this.y +' %';}" 
+        = raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"
+      = high_chart("my_id5", @chart1)  

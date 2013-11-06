@@ -1,27 +1,95 @@
 class ReportsController < ApplicationController
-	require 'gchart'
-
 	def admin
+
 		user = Hash.new
+		support = Hash.new 
+		month = Hash.new
 		date = Date.today-30
 		@users = User.count(:conditions=>["created_at >= ?", date], :order => "EXTRACT(month FROM created_at)", :group => ["EXTRACT(month FROM created_at)"])
+		
 		date.upto(Date.today) do |x|
-  		@users[x.to_s] ||= 0
+			@users[x.to_s] ||= 0
 		end
+		
 		@users.delete_if {|key, value| key >= "20"}
 		@users.each do |key, value|
-		user[key+Time.now.to_s] = t("date.month_names")[key.to_i]
+			user[key] = t("date.month_names")[key.to_i]
+		end
+		
+		@users = Hash[@users.map {|k, v| [user[k], v] }]
+		@users.each{|key, value| 
+			month[key] = ((value.to_f/User.count.to_f)*100).to_i
+		}
+		@chart = LazyHighCharts::HighChart.new('pie') do |f|
+			f.chart({:defaultSeriesType=>"pie" , :margin=> [20], :height => [300], :width => [350]} )
+			series = {
+				:type=> 'pie',
+				:name=> 'User growth',
+				:data=> month.to_a
+			}
+			f.series(series)
+			f.options[:title][:text] = "Monthly User Growth (Ecosystem)"
+			f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
+			f.plot_options(:pie=>{
+				:allowPointSelect=>true,
+				:cursor=>"pointer" , 
+				:dataLabels=>{
+					:enabled=>true,
+					:color=>"black",
+					:style=>{
+						:font=>"13px Trebuchet MS, Verdana, sans-serif"
+					}
+				}
+				})
 		end
 
-		@pie = Gchart.pie_3d(:bg => "aaff00", :data => @users.values, :labels => user.values, :size => '500x230', :legend => ['Users growth'], :title => 'Users growth', :bg => "efefef")
-		@line = Gchart.line(:size => '500x250', 
-            :title => "Growth",
-            :bg => 'aaff00',
-            :legend => ['Users growth'],
-            :data => @users.values,
-            :axis_with_labels => 'x,r',
-            :axis_labels => [user.values, @users.values],
-            :line_colors => '76A4FB')
+		@chart1 = LazyHighCharts::HighChart.new('graph') do |f|
+			f.title({ :text=>"User growth (Ecosystem)"})
+			f.options[:xAxis][:categories] = user.values
+			f.series(:type=> 'column',:name=> "Users", :data=> @users.values, pointWidth: 50)
+		end
+
+		@user = current_user.children
+		@chart2 = LazyHighCharts::HighChart.new('graph') do |f|
+			f.title({ :text=>"Support Staff Performane"})
+			f.options[:xAxis][:categories] = ["Users"]
+
+			@user.each do |user|
+				support[user.first_name] = Customer.where(:user_id => "#{user.id}").count						
+			end
+			support.each {|key, value|
+				f.series(:type=> 'column',:name=> key, :data=> [value], pointWidth: 50)
+			}
+
+		end
+
+		@chart4 = LazyHighCharts::HighChart.new('pie') do |f|
+			support.each{|key, value| 
+				support[key] = ((value.to_f/User.where(:role => "customer").count.to_f)*100).to_i
+			}
+
+			f.chart({:defaultSeriesType=>"pie" , :margin=> [20], :height => [300], :width => [350]} )
+			series = {
+				:type=> 'pie',
+				:name=> 'User growth',
+				:data=> support.to_a
+			}
+			f.series(series)
+			f.options[:title][:text] = "Support Staff Contribution"
+			f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
+			f.plot_options(:pie=>{
+				:allowPointSelect=>true, 
+				:cursor=>"pointer" , 
+				:dataLabels=>{
+					:enabled=>true,
+					:color=>"black",
+					:style=>{
+						:font=>"13px Trebuchet MS, Verdana, sans-serif"
+					}
+				}
+				})
+		end
+
 	end
 
 	def support
@@ -29,14 +97,35 @@ class ReportsController < ApplicationController
 		date = Date.today-30
 		@users = current_user.children.count(:conditions=>["created_at >= ?", date], :order => "EXTRACT(month FROM created_at)", :group => ["EXTRACT(month FROM created_at)"])
 		date.upto(Date.today) do |x|
-  		@users[x.to_s] ||= 0
+			@users[x.to_s] ||= 0
 		end
 		@users.delete_if {|key, value| key >= "20"}
 		@users.each do |key, value|
-		user[key+Time.now.to_s] = t("date.month_names")[key.to_i]
+			user[key] = t("date.month_names")[key.to_i]
 		end
-
-		@pie = Gchart.pie_3d(:bg => "green", :data => @users.values, :labels => user.values, :size => '600x300', :legend => ['Users growth'], :title => 'Users growth', :bg => "efefef")
+		@users = Hash[@users.map {|k, v| [user[k], v] }]
+		@chart = LazyHighCharts::HighChart.new('pie') do |f|
+			f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )
+			series = {
+				:type=> 'pie',
+				:name=> 'User growth',
+				:data=> @users.to_a
+			}
+			f.series(series)
+			f.options[:title][:text] = "User Growth"
+			f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
+			f.plot_options(:pie=>{
+				:allowPointSelect=>true, 
+				:cursor=>"pointer" , 
+				:dataLabels=>{
+					:enabled=>true,
+					:color=>"black",
+					:style=>{
+						:font=>"13px Trebuchet MS, Verdana, sans-serif"
+					}
+				}
+				})
+		end
 	end
 
 	def supervisor
@@ -44,35 +133,83 @@ class ReportsController < ApplicationController
 		date = Date.today-30
 		@users = current_user.children.count(:conditions=>["created_at >= ?", date], :order => "EXTRACT(month FROM created_at)", :group => ["EXTRACT(month FROM created_at)"])
 		date.upto(Date.today) do |x|
-  		@users[x.to_s] ||= 0
+			@users[x.to_s] ||= 0
 		end
 		@users.delete_if {|key, value| key >= "20"}
 		@users.each do |key, value|
-		user[key+Time.now.to_s] = t("date.month_names")[key.to_i]
+			user[key] = t("date.month_names")[key.to_i]
 		end
-
-		@pie = Gchart.pie_3d(:bg => "000000", :data => @users.values, :labels => user.values, :size => '600x300', :legend => ['Users growth'], :title => 'Users growth', :bg => "efefef")
+		@users = Hash[@users.map {|k, v| [user[k], v] }]
+		@chart = LazyHighCharts::HighChart.new('pie') do |f|
+			f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )
+			series = {
+				:type=> 'pie',
+				:name=> 'User growth',
+				:data=> @users.to_a
+			}
+			f.series(series)
+			f.options[:title][:text] = "User Growth"
+			f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
+			f.plot_options(:pie=>{
+				:allowPointSelect=>true, 
+				:cursor=>"pointer" , 
+				:dataLabels=>{
+					:enabled=>true,
+					:color=>"black",
+					:style=>{
+						:font=>"13px Trebuchet MS, Verdana, sans-serif"
+					}
+				}
+				})
+		end
 	end
 
 	def customer
 		user = Hash.new
+		month = Hash.new
 		date = Date.today-30
 		@users = current_user.children.count(:conditions=>["created_at >= ?", date], :order => "EXTRACT(month FROM created_at)", :group => ["EXTRACT(month FROM created_at)"])
 		date.upto(Date.today) do |x|
-  		@users[x.to_s] ||= 0
+			@users[x.to_s] ||= 0
 		end
 		@users.delete_if {|key, value| key >= "20"}
 		@users.each do |key, value|
-		user[key+Time.now.to_s] = t("date.month_names")[key.to_i]
+			user[key] = t("date.month_names")[key.to_i]
+		end
+		@users = Hash[@users.map {|k, v| [user[k], v] }]
+		@users.each{|key, value| 
+			month[key] = ((value.to_f/current_user.children.count.to_f)*100).to_i
+		}
+		@chart = LazyHighCharts::HighChart.new('pie') do |f|
+			f.chart({:defaultSeriesType=>"pie" , :margin=> [20], :height => [300], :width => [350]} )
+			series = {
+				:type=> 'pie',
+				:name=> 'Supervisors Contribution',
+				:data=> month.to_a
+			}
+			f.series(series)
+			f.options[:title][:text] = "Monthly Supervisors Growth"
+			f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
+			f.plot_options(:pie=>{
+				:allowPointSelect=>true, 
+				:cursor=>"pointer" , 
+				:dataLabels=>{
+					:enabled=>true,
+					:color=>"black",
+					:style=>{
+						:font=>"13px Trebuchet MS, Verdana, sans-serif"
+					}
+				}
+				})
 		end
 
-		@pie = Gchart.pie_3d(:bg => '000000', :data => @users.values, :labels => user.values, :size => '500x230', :legend => ['Users growth'], :title => 'Users growth', :bg => "efefef")
-		@line = Gchart.line(:bg => 'aaee00', :size => '500x250', 
-            :title => "Growth",
-            :legend => ['Users growth'],
-            :data => @users.values,
-            :axis_with_labels => 'x,r',
-            :axis_labels => [user.values, @users.values],
-            :line_colors => '76A4FB')
+		@user = current_user.children
+		@chart1 = LazyHighCharts::HighChart.new('graph') do |f|
+			f.title({ :text=>"Supervisor Performance"})
+			f.options[:xAxis][:categories] = ['Users']
+			@user.each do |user|
+				f.series(:type=> 'column',:name=> user.first_name, :data=> [user.children.count], pointWidth: 50)
+			end
+		end	
 	end
 end

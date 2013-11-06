@@ -367,3 +367,26 @@ margin-top: 18px;
 .clear{
 	clear:both;
 }
+#my_id5
+{
+	width:650px;
+	height: 300px;
+	float:left;
+}
+
+#my_id4{
+	float:right;
+}
+
+#my_id7{
+	margin-top: 10px;
+	float:right;
+}
+
+#my_id6
+{
+	margin-top: 10px;
+	width:650px;
+	height: 300px;
+	float:left;
+}

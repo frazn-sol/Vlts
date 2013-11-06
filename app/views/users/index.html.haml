@@ -11,7 +11,7 @@
         %span.icon32.icon-red.icon-user
         %div Customers
         %div
-          = current_user.children.where(:role => ['customer']).count
+          = Customer.where(:user_id => "#{current_user.id}").count
     -if (current_user.role == "customer")      
       %a.well.span3.top-block
         %span.icon32.icon-red.icon-user
