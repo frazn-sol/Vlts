@@ -5,7 +5,12 @@
         %i.icon-user.icon-white
         Reports
     .box-content
+      = high_chart("my_id5", @chart1)
       = high_chart("my_id4", @chart) do |c| 
         = raw "options.tooltip.formatter = function() {return '<b>'+ this.point.name +'</b>: '+ this.y +' %';}" 
-        = raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"
-      = high_chart("my_id5", @chart1)  
+        = raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"  
+
+      = high_chart("my_id6", @chart2)
+      = high_chart("my_id7", @chart4) do |c| 
+        = raw "options.tooltip.formatter = function() {return '<b>'+ this.point.name +'</b>: '+ this.y +' %';}" 
+        = raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }" 

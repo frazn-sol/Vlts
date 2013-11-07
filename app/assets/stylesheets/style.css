@@ -370,16 +370,18 @@ margin-top: 18px;
 #my_id5
 {
 	width:650px;
-	height: 300px;
+	height: auto;
 	float:left;
 }
 
 #my_id4{
 	float:right;
+	height:auto;
 }
 
 #my_id7{
 	margin-top: 10px;
+	height:auto;
 	float:right;
 }
 
@@ -387,6 +389,6 @@ margin-top: 18px;
 {
 	margin-top: 10px;
 	width:650px;
-	height: 300px;
+	height: auto;
 	float:left;
 }
