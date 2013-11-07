@@ -57,7 +57,6 @@ module VLTS
     config.assets.version = '1.0'
 
     config.assets.initialize_on_precompile = false
-    config.assets.precompile += ['rollover.js', 'highcharts.js'] to production.rb
 
     config.autoload_paths += %W(#{config.root}/lib)
 
