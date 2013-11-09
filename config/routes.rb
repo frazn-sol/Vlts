@@ -13,6 +13,7 @@ VLTS::Application.routes.draw do
   end
 
   resources :floors
+
   resources :reports do
     collection do
       get :admin
@@ -35,21 +36,21 @@ VLTS::Application.routes.draw do
   devise_for :users do 
     get "/sign_out"  => "devise/sessions#destroy", :as => :destroy_user_session
   end
-devise_for :users ,:controllers => {:passwords => "passwords"} do
-  resources :passwords
-end
 
 
   resources :users do
     member do
       get :password
-      put :change
+      put :change 
     end
 
     collection do
       get :support
       get :supervisor
       get :user
+      get :error
+      get :change
+      post :change_create
     end
   end
 

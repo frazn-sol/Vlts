@@ -84,18 +84,30 @@ class UsersController < ApplicationController
   end
 
   def support
-    @user = User.where(:role => "support")
-    @users = @user.paginate(:page => params[:page], :per_page => 5)
+    if current_user.role == "admin" 
+      @user = User.where(:role => "support")
+      @users = @user.paginate(:page => params[:page], :per_page => 5)
+    else 
+      redirect_to error_users_path
+    end  
   end
 
   def supervisor
-    @user = User.where(:role => "supervisor")
-    @users = @user.paginate(:page => params[:page], :per_page => 5)
+    if current_user.role == "customer" 
+      @user = User.where(:role => "supervisor")
+      @users = @user.paginate(:page => params[:page], :per_page => 5)
+    else 
+      redirect_to error_users_path   
+    end  
   end
 
   def user
-    @user = User.where(:role => "user")
-    @users = @user.paginate(:page => params[:page], :per_page => 5)
+    if current_user.role == "customer"
+      @user = User.where(:role => "user")
+      @users = @user.paginate(:page => params[:page], :per_page => 5)
+    else 
+      redirect_to error_users_path   
+    end  
   end
 
   def password
@@ -116,5 +128,30 @@ class UsersController < ApplicationController
         flash[:notice] = @user.errors.full_messages.join("&")
         render action: "password"
     end  
+  end
+
+  def error 
+    render layout: false
+  end
+
+  def change
+    @logo = Logo.new
+    @logo1 = Logo.last
+  end
+
+  def change_create
+    binding.pry
+    @logo = Logo.new(params[:logo])
+    @logo.user_id = current_user.id
+
+     respond_to do |format|
+      if @logo.save
+        format.html { redirect_to change_users_path, notice: 'configurations were successfully created.' }
+        format.json { render json: @logo, status: :created, location: @logo }
+      else
+        format.html { render action: "config" }
+        format.json { render json: @logo.errors, status: :unprocessable_entity }
+      end
+    end
   end
 end

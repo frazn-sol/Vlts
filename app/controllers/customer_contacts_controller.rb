@@ -3,38 +3,56 @@ class CustomerContactsController < ApplicationController
   # GET /customer_contacts
   # GET /customer_contacts.json
   def index
-    @customer_contacts = CustomerContact.paginate(:page => params[:page], :per_page => 5)
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @customer_contacts }
-    end
+    if current_user.role == ("admin" || "support")
+      @customer_contacts = CustomerContact.paginate(:page => params[:page], :per_page => 5)
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @customer_contacts }
+      end
+    else
+      redirect_to error_users_path and return
+    end 
   end
 
   # GET /customer_contacts/1
   # GET /customer_contacts/1.json
   def show
-    @customer_contact = CustomerContact.find(params[:id])
+    if current_user.role == ("admin" || "support")
+      @customer_contact = CustomerContact.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @customer_contact }
-    end
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @customer_contact }
+      end
+    else
+      redirect_to error_users_path and return
+    end  
   end
 
   # GET /customer_contacts/new
   # GET /customer_contacts/new.json
   def new
-    @customer_contact = CustomerContact.new
-    @customer = current_user
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @customer_contact }
-    end
+    if current_user.role == ("admin" || "support")
+    
+      @customer_contact = CustomerContact.new
+      @customer = current_user
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @customer_contact }
+      end
+    else
+      redirect_to error_users_path and return
+    end  
   end
 
   # GET /customer_contacts/1/edit
   def edit
-    @customer_contact = CustomerContact.find(params[:id])
+    if current_user.role == ("admin" || "support")
+    
+      @customer_contact = CustomerContact.find(params[:id])
+    else
+      redirect_to error_users_path and return
+    end  
   end
 
   # POST /customer_contacts
@@ -72,12 +90,16 @@ class CustomerContactsController < ApplicationController
   # DELETE /customer_contacts/1
   # DELETE /customer_contacts/1.json
   def destroy
-    @customer_contact = CustomerContact.find(params[:id])
-    @customer_contact.destroy
+    if current_user.role == ("admin" || "support")
+      @customer_contact = CustomerContact.find(params[:id])
+      @customer_contact.destroy
 
-    respond_to do |format|
-      format.html { redirect_to customer_contacts_url }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to customer_contacts_url }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to error_users_path and return
     end
   end
 end

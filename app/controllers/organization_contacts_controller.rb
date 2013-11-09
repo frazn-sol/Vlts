@@ -3,39 +3,55 @@ class OrganizationContactsController < ApplicationController
   # GET /organization_contacts
   # GET /organization_contacts.json
   def index
-    @organization_contacts = OrganizationContact.paginate(:page => params[:page], :per_page => 5)
+    if current_user.role == ("customer" || "supervisor")
+      @organization_contacts = OrganizationContact.paginate(:page => params[:page], :per_page => 5)
 
-    respond_to do |format|
+      respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @organization_contacts }
     end
+  else
+    redirect_to error_users_path and return
   end
+end
 
   # GET /organization_contacts/1
   # GET /organization_contacts/1.json
   def show
-    @organization_contact = OrganizationContact.find(params[:id])
+    if current_user.role == ("customer" || "supervisor")
+      @organization_contact = OrganizationContact.find(params[:id])
 
-    respond_to do |format|
+      respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @organization_contact }
     end
+  else
+    redirect_to error_users_path and return
   end
+end
 
   # GET /organization_contacts/new
   # GET /organization_contacts/new.json
   def new
-    @organization_contact = OrganizationContact.new
+    if current_user.role == ("customer" || "supervisor")
+      @organization_contact = OrganizationContact.new
 
-    respond_to do |format|
+      respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @organization_contact }
     end
+  else
+    redirect_to error_users_path and return
   end
+end
 
   # GET /organization_contacts/1/edit
   def edit
-    @organization_contact = OrganizationContact.find(params[:id])
+    if current_user.role == ("customer" || "supervisor")
+      @organization_contact = OrganizationContact.find(params[:id])
+    else
+      redirect_to error_users_path and return
+    end
   end
 
   # POST /organization_contacts
@@ -73,12 +89,16 @@ class OrganizationContactsController < ApplicationController
   # DELETE /organization_contacts/1
   # DELETE /organization_contacts/1.json
   def destroy
-    @organization_contact = OrganizationContact.find(params[:id])
-    @organization_contact.destroy
+    if current_user.role == ("customer" || "supervisor")    
+      @organization_contact = OrganizationContact.find(params[:id])
+      @organization_contact.destroy
 
-    respond_to do |format|
-      format.html { redirect_to organization_contacts_url }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to organization_contacts_url }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to error_users_path and return
     end
   end
 end

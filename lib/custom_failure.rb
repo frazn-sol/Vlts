@@ -1,7 +1,7 @@
   class CustomFailure < Devise::FailureApp
   def redirect_url
     flash[:notice] = "Invalid Username or Password"
-    root_path
+    new_user_session_path
   end
 
   def respond

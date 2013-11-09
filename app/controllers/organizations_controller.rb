@@ -3,39 +3,55 @@ class OrganizationsController < ApplicationController
   # GET /organizations
   # GET /organizations.json
   def index
-    @organizations = Organization.paginate(:page => params[:page], :per_page => 5)
+    if current_user.role == ("customer" || "supervisor")
+      @organizations = Organization.paginate(:page => params[:page], :per_page => 5)
 
-    respond_to do |format|
+      respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @organizations }
     end
+  else
+    redirect_to error_users_path and return
   end
+end
 
   # GET /organizations/1
   # GET /organizations/1.json
   def show
-    @organization = Organization.find(params[:id])
+    if current_user.role == ("customer" || "supervisor")
+      @organization = Organization.find(params[:id])
 
-    respond_to do |format|
+      respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @organization }
     end
+  else
+    redirect_to error_users_path and return
   end
+end
 
   # GET /organizations/new
   # GET /organizations/new.json
   def new
-    @organization = Organization.new
+    if current_user.role == ("customer" || "supervisor")
+      @organization = Organization.new
 
-    respond_to do |format|
+      respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @organization }
     end
+  else
+    redirect_to error_users_path and return
   end
+end
 
   # GET /organizations/1/edit
   def edit
-    @organization = Organization.find(params[:id])
+    if current_user.role == ("customer" || "supervisor")
+      @organization = Organization.find(params[:id])
+    else
+      redirect_to error_users_path and return
+    end
   end
 
   # POST /organizations
@@ -73,12 +89,16 @@ class OrganizationsController < ApplicationController
   # DELETE /organizations/1
   # DELETE /organizations/1.json
   def destroy
-    @organization = Organization.find(params[:id])
-    @organization.destroy
+    if current_user.role == ("customer" || "supervisor")    
+      @organization = Organization.find(params[:id])
+      @organization.destroy
 
-    respond_to do |format|
-      format.html { redirect_to organizations_url }
-      format.json { head :no_content }
-    end
+      respond_to do |format|
+        format.html { redirect_to organizations_url }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to error_users_path and return
+    end    
   end
 end

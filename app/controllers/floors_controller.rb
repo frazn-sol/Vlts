@@ -3,42 +3,58 @@ class FloorsController < ApplicationController
   # GET /floors
   # GET /floors.json
   def index
-    @floors = Floor.paginate(:page => params[:page], :per_page => 5)
+    if current_user.role == ("customer" || "supervisor")
+      @floors = Floor.paginate(:page => params[:page], :per_page => 5)
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @floors }
-    end
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @floors }
+      end
+    else
+      redirect_to error_users_path and return
+    end        
   end
 
   # GET /floors/1
   # GET /floors/1.json
   def show
-    @floor = Floor.find(params[:id])
+    if current_user.role == ("customer" || "supervisor")
+      @floor = Floor.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @floor }
-    end
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @floor }
+      end
+    else
+      redirect_to error_users_path and return
+    end  
   end
 
   # GET /floors/new
   # GET /floors/new.json
   def new
-    @floor = Floor.new
+    if current_user.role == ("customer" || "supervisor")
+      @floor = Floor.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @floor }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @floor }
+      end
+    else
+      redirect_to error_users_path and return
     end
   end
 
   # GET /floors/1/edit
   def edit
-    @floor = Floor.find(params[:id])
+    if current_user.role == ("customer" || "supervisor")
+      @floor = Floor.find(params[:id])
+    else
+      redirect_to error_users_path and return
+    end
   end
-
-  # POST /floors
+  
+    # POST /floors  
   # POST /floors.json
   def create
     @floor = Floor.new(params[:floor])
@@ -73,12 +89,16 @@ class FloorsController < ApplicationController
   # DELETE /floors/1
   # DELETE /floors/1.json
   def destroy
-    @floor = Floor.find(params[:id])
-    @floor.destroy
-
-    respond_to do |format|
-      format.html { redirect_to floors_url }
-      format.json { head :no_content }
+    if current_user.role == ("customer" || "supervisor")    
+      @floor = Floor.find(params[:id])
+      @floor.destroy
+  
+      respond_to do |format|  
+        format.html { redirect_to floors_url }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to error_users_path and return
     end
   end
 end

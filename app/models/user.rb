@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 
   has_many :organizations
   has_many :locations
+  has_many :logos
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :created_at, :parent_id

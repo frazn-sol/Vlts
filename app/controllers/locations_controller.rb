@@ -3,39 +3,55 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.paginate(:page => params[:page], :per_page => 5)
+    if current_user.role == ("customer" || "supervisor")
+      @locations = Location.paginate(:page => params[:page], :per_page => 5)
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @locations }
-    end
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @locations }
+      end
+    else
+      redirect_to error_users_path and return
+    end              
   end
 
   # GET /locations/1
   # GET /locations/1.json
   def show
-    @location = Location.find(params[:id])
+    if current_user.role == ("customer" || "supervisor")
+      @location = Location.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @location }
-    end
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @location }
+      end
+    else
+      redirect_to error_users_path and return
+    end        
   end
 
   # GET /locations/new
   # GET /locations/new.json
   def new
-    @location = Location.new
+    if current_user.role == ("customer" || "supervisor")
+      @location = Location.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @location }
-    end
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @location }
+      end
+    else
+      redirect_to error_users_path and return
+    end        
   end
 
   # GET /locations/1/edit
   def edit
-    @location = Location.find(params[:id])
+    if current_user.role == ("customer" || "supervisor")
+      @location = Location.find(params[:id])
+    else
+      redirect_to error_users_path and return
+    end        
   end
 
   # POST /locations
@@ -74,12 +90,16 @@ class LocationsController < ApplicationController
   # DELETE /locations/1
   # DELETE /locations/1.json
   def destroy
-    @location = Location.find(params[:id])
-    @location.destroy
+    if current_user.role == ("customer" || "supervisor")
+      @location = Location.find(params[:id])
+      @location.destroy
 
-    respond_to do |format|
-      format.html { redirect_to locations_url }
-      format.json { head :no_content }
-    end
+      respond_to do |format|
+        format.html { redirect_to locations_url }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to error_users_path and return
+    end        
   end
 end

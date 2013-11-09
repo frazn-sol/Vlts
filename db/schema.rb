@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131029171822) do
+ActiveRecord::Schema.define(:version => 20131109142916) do
 
   create_table "customer_contacts", :force => true do |t|
     t.string   "first_name"
@@ -64,6 +64,22 @@ ActiveRecord::Schema.define(:version => 20131029171822) do
     t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "logos", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.string   "systemname"
+    t.string   "companyname"
+    t.integer  "floorcapacity"
+    t.integer  "vehiclecapacity"
+    t.integer  "usercapacity"
+    t.text     "copytext"
   end
 
   create_table "organization_contacts", :force => true do |t|

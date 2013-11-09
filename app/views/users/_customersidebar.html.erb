@@ -6,12 +6,16 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-
-        <%= image_tag "logo1.png", {:class => "logo"} %>
+        <% if current_user.logos.present? %> 
+          <%= image_tag current_user.logos.last.logo.url, {:class => "logo",:size => "227x60"}%> 
+        <%else%>  
+          <%= image_tag "logo1.png", {:class => "logo"} %>
+        <%end%>  
         <%if current_user.pass_change == true %>
         <a href="/users/supervisor" class="hello"><span>Supervisor</span></a>
         <a href="/users/user" class="hello hello1"><span>User</span></a>
         <a href="/organizations" class="hello hello2"><span>Organization</span></a>
+        <a href="/users/change" class="hello hello5"><span>Configure</span></a>
         <%end%>
       <!--   <a href="/vehicles/new" class="hello shift1"><span>Add Vehicles</span></a> -->
         <!-- theme selector starts -->

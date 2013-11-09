@@ -3,40 +3,58 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.paginate(:page => params[:page], :per_page => 5)
-    @user = User.all
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @customers }
+    if current_user.role == ("admin" || "support")
+      @customers = Customer.paginate(:page => params[:page], :per_page => 5)
+      @user = User.all
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @customers }
+      end
+    else
+      redirect_to error_users_path and return
     end
   end
 
   # GET /customers/1
   # GET /customers/1.json
   def show
-    @customer = Customer.find(params[:id])
-    @user = User.all
+    if current_user.role == ("admin" || "support")
+      @customer = Customer.find(params[:id])
+      @user = User.all
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @customer }
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @customer }
+      end
+    else
+      redirect_to error_users_path and return
     end
   end
 
   # GET /customers/new
   # GET /customers/new.json
   def new
+  if current_user.role == ("admin" || "support")
+      
     @customer = Customer.new
 
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @customer }
     end
+  else
+    redirect_to error_users_path and return
+  end
+
   end
 
   # GET /customers/1/edit
   def edit
-    @customer = Customer.find(params[:id])
+    if current_user.role == ("admin" || "support")
+      @customer = Customer.find(params[:id])
+    else
+      redirect_to error_users_path and return
+    end  
   end
 
   # POST /customers
