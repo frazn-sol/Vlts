@@ -3,7 +3,7 @@ class OrganizationsController < ApplicationController
   # GET /organizations
   # GET /organizations.json
   def index
-    if current_user.role == ("customer" || "supervisor")
+    if (current_user.role == "customer" || current_user.role == "supervisor")
       @organizations = Organization.paginate(:page => params[:page], :per_page => 5)
 
       respond_to do |format|
@@ -18,7 +18,7 @@ end
   # GET /organizations/1
   # GET /organizations/1.json
   def show
-    if current_user.role == ("customer" || "supervisor")
+    if (current_user.role == "customer" || current_user.role == "supervisor")
       @organization = Organization.find(params[:id])
 
       respond_to do |format|
@@ -33,7 +33,7 @@ end
   # GET /organizations/new
   # GET /organizations/new.json
   def new
-    if current_user.role == ("customer" || "supervisor")
+    if (current_user.role == "customer" || current_user.role == "supervisor")
       @organization = Organization.new
 
       respond_to do |format|
@@ -47,7 +47,7 @@ end
 
   # GET /organizations/1/edit
   def edit
-    if current_user.role == ("customer" || "supervisor")
+    if (current_user.role == "customer" || current_user.role == "supervisor")
       @organization = Organization.find(params[:id])
     else
       redirect_to error_users_path and return
@@ -89,7 +89,7 @@ end
   # DELETE /organizations/1
   # DELETE /organizations/1.json
   def destroy
-    if current_user.role == ("customer" || "supervisor")    
+    if (current_user.role == "customer" || current_user.role == "supervisor")    
       @organization = Organization.find(params[:id])
       @organization.destroy
 
