@@ -3,7 +3,7 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    if current_user.role == ("admin" || "support")
+    if (current_user.role == "admin" || current_user.role == "support")
       @customers = Customer.where(:user_id => "#{current_user.id}").paginate(:page => params[:page], :per_page => 5)
       @user = User.all
       respond_to do |format|
@@ -18,7 +18,7 @@ class CustomersController < ApplicationController
   # GET /customers/1
   # GET /customers/1.json
   def show
-    if current_user.role == ("admin" || "support")
+    if (current_user.role == "admin" || current_user.role == "support")
       @customer = Customer.find(params[:id])
       @user = User.all
 
@@ -34,7 +34,7 @@ class CustomersController < ApplicationController
   # GET /customers/new
   # GET /customers/new.json
   def new
-  if current_user.role == ("admin" || "support")
+  if (current_user.role == "admin" || current_user.role == "support")
       
     @customer = Customer.new
 
@@ -50,7 +50,7 @@ class CustomersController < ApplicationController
 
   # GET /customers/1/edit
   def edit
-    if current_user.role == ("admin" || "support")
+    if (current_user.role == "admin" || current_user.role == "support")
       @customer = Customer.find(params[:id])
     else
       redirect_to error_users_path and return

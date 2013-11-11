@@ -49,7 +49,7 @@ VLTS::Application.routes.draw do
       get :supervisor
       get :user
       get :error
-      get :change
+      get :change1
       post :change_create
     end
   end

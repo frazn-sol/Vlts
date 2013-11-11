@@ -134,7 +134,7 @@ class UsersController < ApplicationController
     render layout: false
   end
 
-  def change
+  def change1
     @logo = Logo.new
     @logo1 = Logo.last
   end

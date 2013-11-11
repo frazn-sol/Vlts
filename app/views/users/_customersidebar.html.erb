@@ -7,7 +7,7 @@
           <span class="icon-bar"></span>
         </a>
         <% if current_user.logos.present? %> 
-          <%= image_tag current_user.logos.last.logo.url, :size => "" {:class => "logo"}%> 
+          <%= image_tag current_user.logos.last.logo.url, {:class => "logo"}%> 
         <%else%>  
           <%= image_tag "logo1.png", {:class => "logo"} %>
         <%end%>  
@@ -15,6 +15,7 @@
         <a href="/users/supervisor" class="hello"><span>Supervisor</span></a>
         <a href="/users/user" class="hello hello1"><span>User</span></a>
         <a href="/organizations" class="hello hello2"><span>Organization</span></a>
+        <a href="/users/change1" class="hello hello5"><span>Configration</span></a>
         <%end%>
       <!--   <a href="/vehicles/new" class="hello shift1"><span>Add Vehicles</span></a> -->
         <!-- theme selector starts -->

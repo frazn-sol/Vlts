@@ -3,7 +3,7 @@ class CustomerContactsController < ApplicationController
   # GET /customer_contacts
   # GET /customer_contacts.json
   def index
-    if current_user.role == ("admin" || "support")
+    if (current_user.role == "admin" || current_user.role == "support")
       @customer_contacts = CustomerContact.paginate(:page => params[:page], :per_page => 5)
       respond_to do |format|
         format.html # index.html.erb
@@ -17,7 +17,7 @@ class CustomerContactsController < ApplicationController
   # GET /customer_contacts/1
   # GET /customer_contacts/1.json
   def show
-    if current_user.role == ("admin" || "support")
+    if (current_user.role == "admin" || current_user.role == "support")
       @customer_contact = CustomerContact.find(params[:id])
 
       respond_to do |format|
@@ -32,7 +32,7 @@ class CustomerContactsController < ApplicationController
   # GET /customer_contacts/new
   # GET /customer_contacts/new.json
   def new
-    if current_user.role == ("admin" || "support")
+    if (current_user.role == "admin" || current_user.role == "support")
     
       @customer_contact = CustomerContact.new
       @customer = current_user
@@ -47,7 +47,7 @@ class CustomerContactsController < ApplicationController
 
   # GET /customer_contacts/1/edit
   def edit
-    if current_user.role == ("admin" || "support")
+    if (current_user.role == "admin" || current_user.role == "support")
     
       @customer_contact = CustomerContact.find(params[:id])
     else
@@ -90,7 +90,7 @@ class CustomerContactsController < ApplicationController
   # DELETE /customer_contacts/1
   # DELETE /customer_contacts/1.json
   def destroy
-    if current_user.role == ("admin" || "support")
+    if (current_user.role == "admin" || current_user.role == "support")
       @customer_contact = CustomerContact.find(params[:id])
       @customer_contact.destroy
 
