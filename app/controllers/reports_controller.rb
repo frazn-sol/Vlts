@@ -55,12 +55,13 @@ class ReportsController < ApplicationController
 		end
 
 
-		@user = current_user.children
+		@user = User.all
 		@chart2 = LazyHighCharts::HighChart.new('graph') do |f|
 			f.title({ :text=>"Support Staff Performane"})
 			f.options[:xAxis][:categories] = ["Users"]
 
 			@user.each do |user|
+				binding.pry
 				support[user.first_name] = Customer.where(:user_id => "#{user.id}").count						
 			end
 			support.each {|key, value|
@@ -70,8 +71,8 @@ class ReportsController < ApplicationController
 		end
 
 		@chart4 = LazyHighCharts::HighChart.new('pie') do |f|
-			support.each{|key, value| 
-				support[key] = ((value.to_f/User.where(:role => "customer").count.to_f)*100).to_i
+			support.each{|key, value|
+				support[key] = ((value.to_f/Customer.count.to_f)*100).to_i
 			}
 
 			f.chart({:defaultSeriesType=>"pie" , :margin=> [20], :height => [300], :width => [350]} )

@@ -24,7 +24,9 @@
               %td.center= "#{customer.address1} "+"#{customer.state} "+ "#{customer.zipcode}"
               %td.center= customer.phone1
               %td.center= customer.web
-              %td.center= customer.user.email
+              - @user.each do |user|
+                - if (user.customer_id == customer.id)   
+                  %td.center= user.email
               %td.center=customer.user.first_name     
               %td.center
                 = link_to "View All".html_safe, customer_contacts_path(:id => customer.id), :class => "btn btn-success"  

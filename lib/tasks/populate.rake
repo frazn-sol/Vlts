@@ -23,7 +23,7 @@ namespace :db do
         date
       end
 
-      100.times do
+      5.times do
 
         u = User.new(
           :first_name => Faker::Name.first_name,
@@ -34,7 +34,7 @@ namespace :db do
           :password =>"imgreat1",
           :role => @role.shuffle.first,
           :email => Faker::Internet.email,
-          :parent_id => [*1..100].sample
+          :parent_id => 1
         )
 
         c = Customer.new(
@@ -47,7 +47,7 @@ namespace :db do
           :phone2 => "xxx",
           :web => "xxx.com",
           :created_at => randomDate(:year_range => 4, :year_latest => 0),
-          :user_id => [*1..100].sample 
+          :user_id => [*2..8].sample 
           )
         u.save!
         c.save!
