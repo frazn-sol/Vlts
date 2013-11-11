@@ -4,7 +4,7 @@ class CustomersController < ApplicationController
   # GET /customers.json
   def index
     if current_user.role == ("admin" || "support")
-      @customers = Customer.paginate(:page => params[:page], :per_page => 5)
+      @customers = Customer.where(:user_id => "#{current_user.id}").paginate(:page => params[:page], :per_page => 5)
       @user = User.all
       respond_to do |format|
         format.html # index.html.erb
