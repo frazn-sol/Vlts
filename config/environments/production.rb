@@ -62,7 +62,7 @@ VLTS::Application.configure do
   config.active_support.deprecation = :notify
 
 
-    config.assets.precompile += %W['highcharts.js']
+    config.assets.precompile += %w[highcharts/*.js]
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
