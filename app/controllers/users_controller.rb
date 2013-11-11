@@ -102,7 +102,7 @@ class UsersController < ApplicationController
   end
 
   def user
-    if current_user.role == "customer"
+    if (current_user.role == "customer" || current_user.role == "supervisor")
       @user = User.where(:role => "user")
       @users = @user.paginate(:page => params[:page], :per_page => 5)
     else 
