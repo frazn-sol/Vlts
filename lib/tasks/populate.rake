@@ -47,7 +47,7 @@ namespace :db do
           :phone2 => "xxx",
           :web => "xxx.com",
           :created_at => randomDate(:year_range => 4, :year_latest => 0),
-          :user_id => [*2..8].sample 
+          :user_id => [*2..8  ].sample 
           )
         u.save!
         c.save!
