@@ -7,7 +7,7 @@
           <span class="icon-bar"></span>
         </a>
         <% if current_user.logos.present? %> 
-          <%= image_tag current_user.logos.last.logo.url, {:class => "logo"}%> 
+          <%= image_tag current_user.logos.last.logo.url, {:size => "227x60",:class => "logo"}%> 
         <%else%>  
           <%= image_tag "logo1.png", {:class => "logo"} %>
         <%end%>  

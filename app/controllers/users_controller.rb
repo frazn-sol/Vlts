@@ -136,16 +136,16 @@ class UsersController < ApplicationController
 
   def change1
     @logo = Logo.new
-    @logo1 = Logo.last
   end
 
   def change_create
+    binding.pry
     @logo = Logo.new(params[:logo])
     @logo.user_id = current_user.id
 
      respond_to do |format|
       if @logo.save
-        format.html { redirect_to change_users_path, notice: 'configurations were successfully created.' }
+        format.html { redirect_to change1_users_path, notice: 'configurations were successfully created.' }
         format.json { render json: @logo, status: :created, location: @logo }
       else
         format.html { render action: "config" }
