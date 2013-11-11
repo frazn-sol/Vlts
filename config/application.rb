@@ -60,8 +60,6 @@ module VLTS
 
     config.autoload_paths += %W(#{config.root}/lib)
 
-    config.assets.precompile += %W['rollover.js', 'highcharts.js']
-
     config.to_prepare do
     Devise::SessionsController.layout proc{ |controller| action_name == 'new' ? "devise"   : "devise" }
     end
