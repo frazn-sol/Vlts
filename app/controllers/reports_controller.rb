@@ -61,7 +61,7 @@ class ReportsController < ApplicationController
 			f.options[:xAxis][:categories] = ["Users"]
 
 			@user.each do |user|
-				support[user.email] = Customer.where(:user_id => "#{user.id}").count						
+				support[user.first_name] = Customer.where(:user_id => "#{user.id}").count						
 			end
 			support.each {|key, value|
 				f.series(:type=> 'column',:name=> key, :data=> [value], pointWidth: 50)
