@@ -19,7 +19,7 @@ end
   # GET /vehicles/1
   # GET /vehicles/1.json
   def show
-    if (current_user.role == "customer" || current_user.role == "supervisor")    
+    if (current_user.role == "customer" || current_user.role == "supervisor" || current_user.role == "user")    
       @vehicle = Vehicle.find(params[:id])
 
       respond_to do |format|
