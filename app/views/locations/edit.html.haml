@@ -3,5 +3,5 @@
     .box-header.well{"data-original-title" => ""}
       %h2
         %i.icon-user.icon-white
-        Locations
+        ="#{controller.action_name.capitalize} "+ "Locations"
     .box-content= render 'form'

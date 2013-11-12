@@ -3,5 +3,5 @@
     .box-header.well{"data-original-title" => ""}
       %h2
         %i.icon-user.icon-white
-        Support Staff
+        ="#{controller.action_name.capitalize} "+ "Support Staff"
     .box-content= render 'edit'
