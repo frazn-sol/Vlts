@@ -5,7 +5,7 @@
         %span.icon32.icon-red.icon-user
         %div Support Staff
         %div
-          = current_user.children.where(:role => ['support']).count
+          = current_user.children.where(:role => "support").count
     -if (current_user.role == "admin" || current_user.role == "support")      
       %a.well.span3.top-block
         %span.icon32.icon-red.icon-user
