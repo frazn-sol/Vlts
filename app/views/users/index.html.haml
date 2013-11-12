@@ -17,7 +17,7 @@
         %span.icon32.icon-red.icon-user
         %div Supervisors
         %div
-          = current_user.children.where(:role => ['supervisors']).count 
+          = User.where(:role => ['supervisors'], :parent_id => "#{current_user.id}").count 
       %a.well.span3.top-block
         %span.icon32.icon-red.icon-user
         %div Users
