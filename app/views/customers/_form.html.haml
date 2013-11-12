@@ -16,6 +16,9 @@
     = f.label :address2
     = f.text_field :address2
   .field
+    = f.label :city, {:class => 'required'}
+    = f.text_field :city
+  .field
     = f.label :state, {:class => 'required'}
     = f.text_field :state
   .field
@@ -50,6 +53,9 @@
     rules: 'required'
   }, {
     name: 'customer[address1]',
+    rules: 'required'
+  }, {
+    name: 'customer[city]',
     rules: 'required'
   }, {
     name: 'customer[state]',
