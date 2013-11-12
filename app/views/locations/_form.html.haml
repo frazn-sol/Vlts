@@ -7,25 +7,28 @@
           %li= msg
 
   .field
-    = f.label :nickname
+    = f.label :nickname, {:class => 'required'}
     = f.text_field :nickname
   .field
     = f.label :description
     = f.text_area :description
   .field
-    = f.label :address1
+    = f.label :address1, {:class => 'required'}
     = f.text_field :address1
   .field
     = f.label :address2
     = f.text_field :address2
   .field
-    = f.label :state
+    = f.label :city, {:class => 'required'}
+    = f.text_field :city  
+  .field
+    = f.label :state, {:class => 'required'}
     = f.text_field :state
   .field
-    = f.label :zipcode
+    = f.label :zipcode, {:class => 'required'}
     = f.text_field :zipcode
   .field
-    = f.label :phone1
+    = f.label :phone1, {:class => 'required'}
     = f.text_field :phone1
   .field
     = f.label :phone2
@@ -34,7 +37,7 @@
     = f.label :web
     = f.text_field :web
   .field
-    = f.label :email
+    = f.label :email, {:class => 'required'}
     = f.text_field :email
   .actions
     = f.submit 'Create Location', {:class => "button1"}
