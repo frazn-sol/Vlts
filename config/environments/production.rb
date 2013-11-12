@@ -31,8 +31,7 @@ VLTS::Application.configure do
     :domain               => 'gmail.com',
     :user_name            => "no.reply.vlts@gmail.com",
     :password             => 'imgreat1',
-    :authentication       => 'plain',
-    :enable_starttls_auto => true
+    :authentication       => 'plain'
   }
 
   # Defaults to Rails.root.join("public/assets")
