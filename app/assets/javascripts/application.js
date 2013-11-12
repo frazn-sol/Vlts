@@ -12,8 +12,8 @@
 //
 // = require jquery
 // = require jquery_ujs
-//= require jquery.ui.autocomplete
 //= require autocomplete-rails
+//= require jquery.ui.autocomplete
 //= require highcharts/highcharts                                                           
 //= require highcharts/highcharts-more                                                         
 //= require highcharts/highstock
