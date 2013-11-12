@@ -30,8 +30,8 @@ VLTS::Application.configure do
     :port                 => 587,
     :domain               => 'gmail.com',
     :user_name            => "no.reply.vlts@gmail.com",
-    :password             => 'imgreat1',
-    :authentication       => 'plain'
+    :password             => 'gfgl2013',
+    :authentication       => 'login'
   }
 
   # Defaults to Rails.root.join("public/assets")
