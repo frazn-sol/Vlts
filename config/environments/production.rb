@@ -10,7 +10,7 @@ VLTS::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = true
+  config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -31,7 +31,7 @@ VLTS::Application.configure do
     :domain               => 'gmail.com',
     :user_name            => "no.reply.vlts@gmail.com",
     :password             => 'imgreat1',
-    :authentication       => 'login',
+    :authentication       => 'plain',
     :enable_starttls_auto => true
   }
 
