@@ -104,7 +104,7 @@ class UsersController < ApplicationController
 
   def user
     if (current_user.role == "customer" || current_user.role == "supervisor")
-      @user = User.where(:role => "user")
+      @user = User.where(:role => "user", :parent_id => "#{current_user.id}")
       @users = @user.paginate(:page => params[:page], :per_page => 5)
     else 
       redirect_to error_users_path   
