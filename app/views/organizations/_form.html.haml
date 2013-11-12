@@ -7,22 +7,22 @@
           %li= msg
 
   .field
-    = f.label :company_name
+    = f.label :organization_name, {:class => 'required'}
     = f.text_field :company_name
   .field
-    = f.label :address1
+    = f.label :address1, {:class => 'required'}
     = f.text_field :address1
   .field
     = f.label :address2
     = f.text_field :address2
   .field
-    = f.label :state
+    = f.label :state, {:class => 'required'}
     = f.text_field :state
   .field
-    = f.label :zipcode
+    = f.label :zipcode, {:class => 'required'}
     = f.text_field :zipcode
   .field
-    = f.label :phone1
+    = f.label :phone1, {:class => 'required'}
     = f.text_field :phone1
   .field
     = f.label :phone2
@@ -31,7 +31,7 @@
     = f.label :web
     = f.text_field :web
   .field
-    = f.label :email
+    = f.label :email, {:class => 'required'}
     = f.text_field :email
   .actions
     = f.submit 'Create Organization', {:class => "button1"}
@@ -44,9 +44,6 @@
     name: 'organization[address1]',
     rules: 'required'
   }, {
-    name: 'organization[address2]',
-    rules: 'required'
-  }, {
     name: 'organization[state]',
     rules: 'required'
   }, {
@@ -56,10 +53,7 @@
     name: 'organization[phone1]',
     rules: 'required'
   }, {
-    name: 'organization[phone2]',
-    rules: 'required'
-  }, {
-    name: 'organization[web]',
+    name: 'organization[email]',
     rules: 'required'
   }], function(errors, event) {
     if (errors.length > 0) {

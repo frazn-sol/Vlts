@@ -6,25 +6,25 @@
         - @user.errors.full_messages.each do |msg|
           %li= msg
   .field
-    = f.label :first_name
+    = f.label :first_name, {:class => 'required'}
     = f.text_field :first_name
   .field
     = f.label :middle_name
     = f.text_field :middle_name
   .field
-    = f.label :last_name
+    = f.label :last_name, {:class => 'required'}
     = f.text_field :last_name
   .field
-    = f.label :phone
+    = f.label :phone, {:class => 'required'}
     = f.text_field :phone
   .field
-    = f.label :cell
+    = f.label :cell, {:class => 'required'}
     = f.text_field :cell
   .field
-    = f.label :email
+    = f.label :email, {:class => 'required'}
     = f.text_field :email
   .field
-    = f.label :password
+    = f.label :password, {:class => 'required'}
     = f.password_field :password
   .field
     = f.label :passwordhint
@@ -43,9 +43,6 @@
     name: 'user[first_name]',    
     rules: 'required'
   }, {
-    name: 'user[middle_name]',
-    rules: 'required'
-  }, {
     name: 'user[last_name]',
     rules: 'required'
   }, {
@@ -59,9 +56,6 @@
     rules: 'required'
   }, {
     name: 'user[password]',
-    rules: 'required'
-  }, {
-    name: 'user[passwordhint]',
     rules: 'required'
   }], function(errors, event) {
     if (errors.length > 0) {

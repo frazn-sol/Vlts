@@ -7,28 +7,28 @@
           %li= msg
 
   .field
-    = f.label :first_name
-    = f.text_field :first_name
+    = f.label :first_name, {:class => 'required'}
+    = f.text_field :first_name, {:class => 'required'}
   .field
     = f.label :middle_name
     = f.text_field :middle_name
   .field
-    = f.label :last_name
+    = f.label :last_name, {:class => 'required'}
     = f.text_field :last_name
   .field
-    = f.label :Company_Name
+    = f.label :Company_Name, {:class => 'required'}
     = f.collection_select(:organization_id, Organization.all, :id, :company_name)  
   .field
-    = f.label :designation
+    = f.label :designation, {:class => 'required'}
     = f.text_field :designation
   .field
-    = f.label :phone
+    = f.label :phone, {:class => 'required'}
     = f.text_field :phone
   .field
-    = f.label :cell
+    = f.label :cell, {:class => 'required'}
     = f.text_field :cell
   .field
-    = f.label :email
+    = f.label :email, {:class => 'required'}
     = f.text_field :email
   .actions
     = f.submit 'Create Contacts', {:class => "button1"}
@@ -36,9 +36,6 @@
 :javascript
   var validator = new FormValidator('new_organization_contact', [{
     name: 'organization_contact[first_name]',    
-    rules: 'required'
-  }, {
-    name: 'organization_contact[middle_name]',
     rules: 'required'
   }, {
     name: 'organization_contact[last_name]',

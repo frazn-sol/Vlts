@@ -7,7 +7,7 @@
           %li= msg
 
   .field
-    = f.label :nickname
+    = f.label :nickname, {:class => 'required'}
     = f.text_field :nickname
   .field
     = f.label :location
@@ -16,10 +16,10 @@
     = f.label :description
     = f.text_field :description
   .field
-    = f.label :capacity
+    = f.label :capacity, {:class => 'required'}
     = f.text_field :capacity
   .field
-    = f.label :occupied
+    = f.label :occupied, {:class => 'required'}
     = f.text_field :occupied
   .actions
     = f.submit 'Create Floors', {:class => "button1"}
@@ -30,9 +30,6 @@
     rules: 'required'
   }, {
     name: 'floor[location]',
-    rules: 'required'
-  }, {
-    name: 'floor[description]',
     rules: 'required'
   }, {
     name: 'floor[capacity]',

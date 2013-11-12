@@ -396,3 +396,8 @@ margin-top: 18px;
 	height: auto;
 	float:left;
 }
+
+label.required:after {
+    content: " *";
+    color: red;
+}

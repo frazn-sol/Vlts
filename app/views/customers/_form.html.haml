@@ -7,22 +7,22 @@
           %li= msg
 
   .field
-    = f.label :company_name
+    = f.label :company_name, {:class => 'required'}
     = f.text_field :company_name
   .field
-    = f.label :address1
+    = f.label :address1, {:class => 'required'}
     = f.text_field :address1
   .field
     = f.label :address2
     = f.text_field :address2
   .field
-    = f.label :state
+    = f.label :state, {:class => 'required'}
     = f.text_field :state
   .field
-    = f.label :zipcode
+    = f.label :zipcode, {:class => 'required'}
     = f.text_field :zipcode
   .field
-    = f.label :phone1
+    = f.label :phone1, {:class => 'required'}
     = f.text_field :phone1
   .field
     = f.label :phone2
@@ -33,10 +33,10 @@
   .field
     = f.fields_for :user do |user|  
       .field
-        = user.label :email
+        = user.label :email, {:class => 'required'}
         = user.text_field :email
       .field
-        = user.label :password
+        = user.label :password, {:class => 'required'}
         = user.password_field :password
       .field
         = user.label :passwordhint
@@ -52,9 +52,6 @@
     name: 'customer[address1]',
     rules: 'required'
   }, {
-    name: 'customer[address2]',
-    rules: 'required'
-  }, {
     name: 'customer[state]',
     rules: 'required'
   }, {
@@ -64,19 +61,10 @@
     name: 'customer[phone1]',
     rules: 'required'
   }, {
-    name: 'customer[phone2]',
-    rules: 'required'
-  }, {
-    name: 'customer[web]',
-    rules: 'required'
-  }, {
     name: 'customer[user][email]',
     rules: 'required'
   }, {
     name: 'customer[user][password]',
-    rules: 'required'
-  }, {
-    name: 'customer[user][passwordhint]',
     rules: 'required'
   }], function(errors, event) {
     if (errors.length > 0) {
