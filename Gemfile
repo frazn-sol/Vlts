@@ -18,6 +18,8 @@ gem "meta_search"
 gem 'lazy_high_charts'
 gem "faker", "~> 1.2.0"
 gem "paperclip", "~> 3.0"
+gem "letter_opener", :group => :development
+
 
 
 # Gems used only for assets and not required
