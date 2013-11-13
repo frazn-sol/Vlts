@@ -12,7 +12,6 @@ gem 'jquery-ui-rails'
 gem 'jquery-rails'
 gem "cancan"
 gem 'haml-rails', '>= 0.3.4'
-gem 'rails3-jquery-autocomplete'
 gem 'will_paginate', '~> 3.0'
 gem "meta_search"
 gem 'lazy_high_charts'

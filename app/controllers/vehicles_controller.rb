@@ -166,4 +166,14 @@ end
       redirect_to error_users_path and return
     end
   end
+
+  def autocomplete
+    if params[:term]
+      @vehicle = Vehicle.find(:all,:conditions => ['platenumber LIKE ?', "%#{params[:term]}%"])
+    else
+      @vehicle = Vehicle.all
+    end
+    render json: @vehicle.as_json
+
+  end
 end

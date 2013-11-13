@@ -1,12 +1,12 @@
 VLTS::Application.routes.draw do
 
+
   resources :vehicles do
-    get :autocomplete_vehicle_platenumber, :on => :collection
 
     collection do
       get :track
       post :track_create
-
+      get :autocomplete
       get :add_vehicle
       post :create_vehicles
     end
