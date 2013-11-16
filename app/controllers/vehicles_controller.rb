@@ -94,11 +94,11 @@ end
       @vehicle = Vehicle.find(params[:id])
       @vehicle.destroy
       @action = request.referrer
-    flash[:notice] = "Successfully Deleted"
-    respond_to do |format|
-      format.html { redirect_to @action }
-      format.json { head :no_content }
-    end
+      flash[:notice] = "Successfully Deleted"
+      respond_to do |format|
+        format.html { redirect_to @action }
+        format.json { head :no_content }
+      end
 
     else
       redirect_to error_users_path and return
@@ -175,6 +175,7 @@ end
     else
       @vehicle = Vehicle.all
     end
+
     render json: @vehicle.as_json
 
   end

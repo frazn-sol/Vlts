@@ -60,6 +60,7 @@
           }
         })
       .data( "autocomplete" )._renderItem = function( ul, item ) {
+        console.log(item);
             return $( "<li></li>" )
                 .data( "item.autocomplete", item )
                 .append( "<a>" + item.platenumber + "</a>" )

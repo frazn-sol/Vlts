@@ -38,7 +38,7 @@
             -elsif current_user.role == "supervisor"
               Welcome Supervisor 
             -elsif current_user.role == "user"
-              = "Welcome " + "#{current_user.first_name}"        
+              = "Welcome " + "#{current_user.first_name.capitalize}"        
           .box-icon
 
         .box-content
