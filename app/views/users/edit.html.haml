@@ -3,5 +3,12 @@
     .box-header.well{"data-original-title" => ""}
       %h2
         %i.icon-user.icon-white
-        ="#{controller.action_name.capitalize} "+ "Support Staff"
+        -if params[:param]=="1"    
+          Update Supervisor
+        -elsif params[:param]=="2"   
+          Update User
+        -elsif params[:param]=="3"   
+          Update Profile  
+        -else       
+          Update Support Staff
     .box-content= render 'edit'

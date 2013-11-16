@@ -3,7 +3,14 @@
     .box-header.well{"data-original-title" => ""}
       %h2
         %i.icon-user.icon-white
-        ="#{controller.action_name.capitalize} "+ "Support Staff"
+        -if params[:param]=="1"    
+          View Supervisor
+        -elsif params[:param]=="2"   
+          View User
+        -elsif params[:param]=="3"   
+          View Profile  
+        -else       
+          View Details
     .box-content
       %p
         %b First name:
@@ -20,3 +27,6 @@
       %p
         %b Cell:
         = @user.cell
+      %p
+        %b Email:
+        = @user.email  

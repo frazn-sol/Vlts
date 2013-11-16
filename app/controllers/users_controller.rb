@@ -77,9 +77,10 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-
+    @action = request.referrer
+    flash[:notice] = "Successfully Deleted"
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to @action }
       format.json { head :no_content }
     end
   end
@@ -131,17 +132,85 @@ class UsersController < ApplicationController
     end  
   end
 
+  def reset
+    @user = current_user
+  end
+
+  def reset1
+    @user = User.find_by_email(params[:user][:email])
+    if @user
+      params[:user].delete(:email) 
+      params[:user][:id] = @user.id.to_s
+
+      account_update_params = params[:user]
+
+      # required for settings form to submit when password is left blank
+      if account_update_params[:password].blank?
+        account_update_params.delete("password")
+        account_update_params.delete("password_confirmation")
+      end
+
+      if @user.update_attributes(account_update_params)
+        flash[:notice] = "Password has been successfully updated"
+        # Sign in the user bypassing validation in case his password changed
+        redirect_to users_path
+      else
+        flash[:notice] = @user.errors.full_messages.join("&")
+        render "reset"
+      end
+    else
+      flash[:notice] = "Email does not exist"
+      redirect_to reset_users_path and return
+    end
+    # if @user.update_with_password(params[:user])
+    #   flash[:notice] = "Password has been successfully updated"
+    #   sign_in @user, :bypass => true
+    #   redirect_to user_path and return
+    # else
+    #     flash[:notice] = @user.errors.full_messages.join("&")
+    #     render action: "password"
+    # end  
+  end
+
+  
+
+
   def error 
     render layout: false
   end
 
   def change1
-    @logo = Logo.new
+    if current_user.role == "admin" || current_user.role == "support" 
+      @logo = Logo.new
+    end
   end
 
   def change_create
+    @old = Logo.where(:user_id => params[:logo][:user_id]).last
+    if !params[:logo][:logo].present?
+       params[:logo][:logo] = @old.logo
+    end
+    if !params[:logo][:systemname].present?
+      params[:logo][:systemname] = @old.systemname
+    end
+    if !params[:logo][:companyname].present?
+      params[:logo][:companyname] = @old.companyname
+    end
+    if !params[:logo][:floorcapacity].present?
+      params[:logo][:floorcapacity] = @old.floorcapacity
+    end
+    if !params[:logo][:vehiclecapacity].present?
+      params[:logo][:vehiclecapacity] = @old.vehiclecapacity
+    end
+    if !params[:logo][:usercapacity].present?
+      params[:logo][:usercapacity] = @old.usercapacity
+    end
+    if !params[:logo][:copytext].present?
+      params[:logo][:copytext] = @old.copytext
+    end  
+
     @logo = Logo.new(params[:logo])
-    @logo.user_id = current_user.id
+    @logo.user_id = params[:logo][:user_id]
 
      respond_to do |format|
       if @logo.save

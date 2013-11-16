@@ -115,9 +115,10 @@ class CustomersController < ApplicationController
   def destroy
     @customer = Customer.find(params[:id])
     @customer.destroy
-
+    @action = request.referrer
+    flash[:notice] = "Successfully Deleted"
     respond_to do |format|
-      format.html { redirect_to customers_url }
+      format.html { redirect_to @action }
       format.json { head :no_content }
     end
   end

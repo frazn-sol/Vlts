@@ -42,9 +42,11 @@ VLTS::Application.routes.draw do
     member do
       get :password
       put :change 
+      put :reset1
     end
 
     collection do
+      get :reset
       get :support
       get :supervisor
       get :user

@@ -93,11 +93,13 @@ class CustomerContactsController < ApplicationController
     if (current_user.role == "admin" || current_user.role == "support")
       @customer_contact = CustomerContact.find(params[:id])
       @customer_contact.destroy
+      @action = request.referrer
+      flash[:notice] = "Successfully Deleted"
+    respond_to do |format|
+      format.html { redirect_to @action }
+      format.json { head :no_content }
+    end
 
-      respond_to do |format|
-        format.html { redirect_to customer_contacts_url }
-        format.json { head :no_content }
-      end
     else
       redirect_to error_users_path and return
     end

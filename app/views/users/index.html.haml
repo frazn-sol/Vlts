@@ -28,15 +28,19 @@
       .box.span12
         .box-header.well
           %h2
-            %i.icon-info-sign
-            Welcome
+            %i.icon-user.icon-white
+            -if current_user.role == "admin"
+              Welcome Admin
+            -elsif current_user.role == "support"
+              Welcome Support Staff
+            -elsif current_user.role == "customer"
+              = "Welcome " + "#{Customer.find(current_user.customer_id).company_name.capitalize} " + "administrator"
+            -elsif current_user.role == "supervisor"
+              Welcome Supervisor 
+            -elsif current_user.role == "user"
+              Welcome current_user.first_name        
           .box-icon
-            %a.btn.btn-setting.btn-round{href: "#"}
-              %i.icon-cog
-            %a.btn.btn-minimize.btn-round{href: "#"}
-              %i.icon-chevron-up
-            %a.btn.btn-close.btn-round{href: "#"}
-              %i.icon-remove
+
         .box-content
           %h1
             VLTS

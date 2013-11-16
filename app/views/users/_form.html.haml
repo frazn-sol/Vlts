@@ -36,7 +36,13 @@
     -else    
       = f.hidden_field :role, :value => "support"    
   .actions
-    = f.submit 'Create ', {:class => "button1"}
+    -if params[:param]=="1"    
+      = f.submit 'Add Supervisor', {:class => "button1"}
+    -elsif params[:param]=="2"   
+      = f.submit 'Add User', {:class => "button1"}   
+    -else         
+      = f.submit 'Add Support Staff', {:class => "button1"}
+    
 
 :javascript
   var validator = new FormValidator('new_user', [{

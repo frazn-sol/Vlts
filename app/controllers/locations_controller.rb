@@ -14,7 +14,6 @@ class LocationsController < ApplicationController
       redirect_to error_users_path and return
     end              
   end
-11
   # GET /locations/1
   # GET /locations/1.json
   def show
@@ -93,11 +92,13 @@ class LocationsController < ApplicationController
     if (current_user.role == "customer" || current_user.role == "supervisor")
       @location = Location.find(params[:id])
       @location.destroy
+      @action = request.referrer
+    flash[:notice] = "Successfully Deleted"
+    respond_to do |format|
+      format.html { redirect_to @action }
+      format.json { head :no_content }
+    end
 
-      respond_to do |format|
-        format.html { redirect_to locations_url }
-        format.json { head :no_content }
-      end
     else
       redirect_to error_users_path and return
     end        

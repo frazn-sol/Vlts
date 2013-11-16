@@ -1,26 +1,39 @@
-= form_for @logo, :url => change_create_users_path, :html => { :multipart => true } do |f|
-  
-  .field
-    = f.label :company_logo
-    = f.file_field :logo
-  .clear  
-  .field
-    = f.label :system_name
-    = f.text_field :systemname
-  .field
-    = f.label :company_name
-    = f.text_field :companyname
-  .field
-    = f.label :floor_capacity
-    = f.number_field :floorcapacity
-  .field
-    = f.label :vehicle_capacity
-    = f.number_field :vehiclecapacity
-  .field
-    = f.label :user_capacity
-    = f.number_field :usercapacity
-  .field
-    = f.label :copyright_text
-    = f.text_area :copytext
-  .actions  
-    = f.submit "submit", {:class => "button1"}   
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Configurations
+    .box-content    
+      = form_for @logo, :url => change_create_users_path, :html => { :multipart => true } do |f|
+        
+        .field
+          = f.label :company_logo
+          = f.file_field :logo
+        .clear
+        .field
+          = f.label :Customer 
+          -if current_user.role == "admin"
+            = f.collection_select(:user_id, Customer.all, :id, :company_name)
+          -else
+            = f.collection_select(:user_id, Customer.where(:user_id => "#{current_user.id}") + Customer.where(:user_id => "#{current_user.parent.id}"), :id, :company_name)      
+        .field
+          = f.label :system_name
+          = f.text_field :systemname
+        .field
+          = f.label :company_name
+          = f.text_field :companyname
+        .field
+          = f.label :floor_capacity
+          = f.number_field :floorcapacity
+        .field
+          = f.label :vehicle_capacity
+          = f.number_field :vehiclecapacity
+        .field
+          = f.label :user_capacity
+          = f.number_field :usercapacity
+        .field
+          = f.label :copyright_text
+          = f.text_area :copytext
+        .actions  
+          = f.submit "Add Configurations", {:class => "button1"}   

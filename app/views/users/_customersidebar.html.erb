@@ -6,7 +6,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <% if current_user.logos.present? %> 
+        <% if current_user.logos.present? && !(current_user.logos.last.logo.blank?) %> 
           <%= image_tag current_user.logos.last.logo.url, {:size => "227x60",:class => "logo"}%> 
         <%else%>  
           <%= image_tag "logo1.png", {:class => "logo"} %>
@@ -15,7 +15,6 @@
         <a href="/users/supervisor" class="hello"><span>Supervisor</span></a>
         <a href="/users/user" class="hello hello1"><span>User</span></a>
         <a href="/organizations" class="hello hello2"><span>Organization</span></a>
-        <a href="/users/change1" class="hello hello5"><span>Configration</span></a>
         <%end%>
       <!--   <a href="/vehicles/new" class="hello shift1"><span>Add Vehicles</span></a> -->
         <!-- theme selector starts -->
@@ -41,11 +40,11 @@
         <!-- user dropdown starts -->
         <div class="btn-group pull-right" >
           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="icon-user"></i><span class="hidden-phone"> admin</span>
+            <i class="icon-user"></i><span class="hidden-phone"> <%= current_user.first_name%></span>
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><%= link_to "Edit Profile", edit_user_path(current_user)%></li>
+            <li><%= link_to "Edit Profile", edit_user_path(current_user, :param => 3)%></li>
             <li><%= link_to "Change Password", password_user_path(current_user) %></li>
             <li class="divider"></li>
             <li><%= link_to "Logout", destroy_user_session_path, method: :delete%></li>

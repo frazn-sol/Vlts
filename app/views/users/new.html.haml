@@ -4,9 +4,9 @@
       %h2
         %i.icon-user.icon-white
         -if params[:param]=="1"    
-          ="#{controller.action_name.capitalize} "+ "Supervisor"
+          Add Supervisor
         -elsif params[:param]=="2"   
-          ="#{controller.action_name.capitalize} "+ "User"
+          Add User
         -else       
-          ="#{controller.action_name.capitalize} "+ "Support Staff"
+          Add Support Staff
     .box-content= render 'form'

@@ -1,0 +1,20 @@
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        Reset Password
+    .box-content
+      = form_for @user, :url => reset1_user_path(@user) do |f| 
+        .field
+          = f.label :email, "Email", {:class => 'required'}
+          = f.text_field :email
+        .field  
+          = f.label :password, "New password", {:class => 'required'}
+          = f.password_field :password 
+        .field  
+          = f.label :password_confirmation, "Confirm pasword", {:class => 'required'}
+          = f.password_field :password_confirmation 
+          = f.hidden_field :pass_change, :value => false
+        .action  
+          = f.submit "Change password", {:class => "button1"}

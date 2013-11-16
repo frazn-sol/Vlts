@@ -92,11 +92,13 @@ class FloorsController < ApplicationController
     if (current_user.role == "customer" || current_user.role == "supervisor")    
       @floor = Floor.find(params[:id])
       @floor.destroy
-  
-      respond_to do |format|  
-        format.html { redirect_to floors_url }
-        format.json { head :no_content }
-      end
+      @action = request.referrer
+      flash[:notice] = "Successfully Deleted"
+    respond_to do |format|
+      format.html { redirect_to @action }
+      format.json { head :no_content }
+    end
+
     else
       redirect_to error_users_path and return
     end
