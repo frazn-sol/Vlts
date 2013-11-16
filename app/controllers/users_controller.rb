@@ -187,27 +187,29 @@ class UsersController < ApplicationController
 
   def change_create
     @old = Logo.where(:user_id => params[:logo][:user_id]).last
-    if !params[:logo][:logo].present?
-       params[:logo][:logo] = @old.logo
-    end
-    if !params[:logo][:systemname].present?
-      params[:logo][:systemname] = @old.systemname
-    end
-    if !params[:logo][:companyname].present?
-      params[:logo][:companyname] = @old.companyname
-    end
-    if !params[:logo][:floorcapacity].present?
-      params[:logo][:floorcapacity] = @old.floorcapacity
-    end
-    if !params[:logo][:vehiclecapacity].present?
-      params[:logo][:vehiclecapacity] = @old.vehiclecapacity
-    end
-    if !params[:logo][:usercapacity].present?
-      params[:logo][:usercapacity] = @old.usercapacity
-    end
-    if !params[:logo][:copytext].present?
-      params[:logo][:copytext] = @old.copytext
-    end  
+    if @old != nil
+      if !params[:logo][:logo].present?
+         params[:logo][:logo] = @old.logo
+      end
+      if !params[:logo][:systemname].present?
+        params[:logo][:systemname] = @old.systemname
+      end
+      if !params[:logo][:companyname].present?
+        params[:logo][:companyname] = @old.companyname
+      end
+      if !params[:logo][:floorcapacity].present?
+        params[:logo][:floorcapacity] = @old.floorcapacity
+      end
+      if !params[:logo][:vehiclecapacity].present?
+        params[:logo][:vehiclecapacity] = @old.vehiclecapacity
+      end
+      if !params[:logo][:usercapacity].present?
+        params[:logo][:usercapacity] = @old.usercapacity
+      end
+      if !params[:logo][:copytext].present?
+        params[:logo][:copytext] = @old.copytext
+      end
+    end    
 
     @logo = Logo.new(params[:logo])
     @logo.user_id = params[:logo][:user_id]
