@@ -30,7 +30,7 @@ VLTS::Application.configure do
     :port                 => 587,
     :domain               => 'gmail.com',
     :user_name            => "no.reply.vlts@gmail.com",
-    :password             => 'gfgl2013',
+    :password             => 'imgreat1',
     :authentication       => 'login'
   }
 
