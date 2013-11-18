@@ -22,6 +22,10 @@
     = f.text_field :driver_last_name
   .field
     = f.label :organization
+    -if current_user.role == "customer"
+      = f.collection_select(:user_id, Organization.all, :id, :company_name)
+    -else
+      = f.collection_select(:user_id, Organization.where(:user_id => "#{current_user.id}") + Organization.where(:user_id => "#{current_user.parent.id}"), :id, :company_name)
     = f.collection_select(:organization_id, Organization.all, :id, :company_name)  
   .field
     = f.label :permit_date

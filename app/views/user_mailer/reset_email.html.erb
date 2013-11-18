@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Dear <%= @user.first_name %>,</h1>
+    <p>
+      Your password has been succesfully reset.</br> 
+      Your new password is: <%= @user.password %>.</br>
+    </p>
+    <p>
+      To login to the site, just follow this link: <%= @url %>.
+    </p>
+    <p>Have a great day!</p>
+  </body>
+</html>

@@ -401,3 +401,18 @@ label.required:after {
     content: " *";
     color: red;
 }
+
+.gap{
+	margin-left: 68px;
+}
+.add{
+	width: 200px;
+margin-left: -30px;
+margin-right: 116px;
+}
+
+.add1{
+	margin-left: -31px;
+width: 193px !important;
+
+}

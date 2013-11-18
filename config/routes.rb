@@ -46,6 +46,8 @@ VLTS::Application.routes.draw do
     end
 
     collection do
+      get :forgot
+      put :email
       get :reset
       get :support
       get :supervisor

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user
   # GET /users
   # GET /users.json
   def index
@@ -151,6 +151,7 @@ class UsersController < ApplicationController
       end
 
       if @user.update_attributes(account_update_params)
+        UserMailer.reset_email(@user).deliver
         flash[:notice] = "Password has been successfully updated"
         # Sign in the user bypassing validation in case his password changed
         redirect_to users_path
@@ -172,7 +173,24 @@ class UsersController < ApplicationController
     # end  
   end
 
-  
+  def forgot
+    @user = User.find(1)
+    render layout: false
+  end
+
+  def email
+    @user = User.find_by_email(params[:user][:forgot])
+    if @user != nil
+      UserMailer.forgot_email_to_user(@user).deliver
+      @u = User.where(:role => "admin")
+      UserMailer.forgot_email_to_admin(@user, @u).deliver
+      flash[:notice] = "You will soon recieve an email with new password"
+      redirect_to forgot_users_path and return
+    else
+      flash[:notice] = "The email you entered does not exist"
+      redirect_to forgot_users_path and return
+    end
+  end
 
 
   def error 
@@ -222,6 +240,17 @@ class UsersController < ApplicationController
         format.html { render action: "config" }
         format.json { render json: @logo.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  private
+  def authenticate_user
+    if action_name == "forgot" || action_name == "send1"
+      return false
+    elsif current_user.blank?
+      redirect_to "/users/sign_in"
+    else  
+      return true
     end
   end
 end
