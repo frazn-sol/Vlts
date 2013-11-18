@@ -137,7 +137,6 @@ class UsersController < ApplicationController
   end
 
   def reset1
-    binding.pry
     @user = User.find_by_email(params[:user][:try])
     if @user
       params[:user].delete(:try) 
