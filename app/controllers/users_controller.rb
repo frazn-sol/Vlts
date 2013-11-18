@@ -245,7 +245,7 @@ class UsersController < ApplicationController
 
   private
   def authenticate_user
-    if action_name == "forgot" || action_name == "send1"
+    if action_name == "forgot" || action_name == "email"
       return false
     elsif current_user.blank?
       redirect_to "/users/sign_in"
