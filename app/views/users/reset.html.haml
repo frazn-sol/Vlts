@@ -7,8 +7,8 @@
     .box-content
       = form_for @user, :url => reset1_user_path(@user) do |f| 
         .field
-          = f.label :email, "Email", {:class => 'required'}
-          = f.text_field :email
+          = f.label :try, "Email", {:class => 'required'}
+          = f.text_field :try
         .field  
           = f.label :password, "New password", {:class => 'required'}
           = f.password_field :password 

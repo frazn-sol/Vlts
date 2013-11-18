@@ -137,9 +137,10 @@ class UsersController < ApplicationController
   end
 
   def reset1
-    @user = User.find_by_email(params[:user][:email])
+    binding.pry
+    @user = User.find_by_email(params[:user][:try])
     if @user
-      params[:user].delete(:email) 
+      params[:user].delete(:try) 
       params[:user][:id] = @user.id.to_s
 
       account_update_params = params[:user]
