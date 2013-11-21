@@ -26,9 +26,9 @@
     -if current_user.role == "customer"
       = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}")  , :id, :company_name, {}, :class => "size2")
     -elsif current_user.role == "supervisor"
-      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.parent.id}") + Organization.where(:user_id => "#{current_user.id}"), :id, :company_name, {}, :class => "size2")  
+      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.parent_id}") + Organization.where(:user_id => "#{current_user.id}"), :id, :company_name, {}, :class => "size2")  
     -else
-      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.parent.id}") + Organization.where(:user_id => "#{current_user.parent.parent.id}")  , :id, :company_name, {}, :class => "size2")    
+      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.parent_id}") + Organization.where(:user_id => "#{current_user.parent.parent_id}")  , :id, :company_name, {}, :class => "size2")    
   .clear
   .field.allign
     = f.label :permit_date
