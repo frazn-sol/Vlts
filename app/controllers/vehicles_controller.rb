@@ -109,7 +109,7 @@ end
     if current_user.role == "user"
       @vehicle_history = VehicleHistory.new
       @search = VehicleHistory.search(params[:search])
-      if (params[:search].blank? ||  (params[:search].values[0]=="" &&  params[:search].values[1]==""))
+      if (params[:search].blank?)
         @history = nil
       else
         @history = @search.paginate(:page => params[:page], :per_page => 5)
@@ -122,16 +122,22 @@ end
   def track_create
     if current_user.role == "user"    
       @vehicle_history = VehicleHistory.new(params[:vehicle_history])
-      @vehicle_history.vehicle_id = Vehicle.find_by_platenumber(params[:vehicle_history][:platenumber]).id.to_s
-      respond_to do |format|
-        if @vehicle_history.save
-          format.html { redirect_to track_vehicles_path , notice: 'Record was successfully created.' }
-          format.json { render json: @vehicle_history, status: :created, location: @vehicle_history }
-        else
-          format.html { render action: "track" }
-          format.json { render json: @vehicle_history.errors, status: :unprocessable_entity }
+      @vehicle = Vehicle.find_by_platenumber(params[:vehicle_history][:platenumber])
+      if @vehicle != nil
+        @vehicle_history.vehicle_id = Vehicle.find_by_platenumber(params[:vehicle_history][:platenumber]).id.to_s
+        respond_to do |format|
+          if @vehicle_history.save
+            format.html { redirect_to track_vehicles_path , notice: 'Record was successfully created.' }
+            format.json { render json: @vehicle_history, status: :created, location: @vehicle_history }
+          else
+            format.html { render action: "track" }
+            format.json { render json: @vehicle_history.errors, status: :unprocessable_entity }
+          end
         end
-      end
+      else
+        flash[:notice] = "Vehicle does not exist"
+      redirect_to track_vehicles_path and return 
+      end 
     else
       redirect_to error_users_path and return
     end
@@ -141,7 +147,7 @@ end
     if current_user.role == "user"    
       @vehicle = Vehicle.new
       @search = Vehicle.search(params[:search])
-      if (params[:search].blank? ||  (params[:search].values[0]=="" &&  params[:search].values[1]==""))
+      if (params[:search].blank? )
         @vehicles = nil
       else
         @vehicles = @search.paginate(:page => params[:page], :per_page => 5)

@@ -18,9 +18,9 @@
   .field
     = f.label :Company_Name, {:class => 'required'}
     -if current_user.role == "customer"
-      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}"), :id, :company_name)
+      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}"), :id, :company_name,{ :include_blank => true })
     -else
-      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}") + Organization.where(:user_id => "#{current_user.parent_id}"), :id, :company_name)   
+      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}") + Organization.where(:user_id => "#{current_user.parent_id}"), :id, :company_name, { :include_blank => true })   
   .field
     = f.label :designation, {:class => 'required'}
     = f.text_field :designation
@@ -42,6 +42,9 @@
     rules: 'required'
   }, {
     name: 'organization_contact[last_name]',
+    rules: 'required'
+  },{
+    name: 'organization_contact[organization_id]',
     rules: 'required'
   }, {
     name: 'organization_contact[designation]',

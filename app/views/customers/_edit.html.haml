@@ -7,22 +7,25 @@
           %li= msg
 
   .field
-    = f.label :company_name
+    = f.label :company_name, {:class => 'required'}
     = f.text_field :company_name
   .field
-    = f.label :address1
+    = f.label :address1, {:class => 'required'}
     = f.text_field :address1
   .field
     = f.label :address2
     = f.text_field :address2
   .field
-    = f.label :state
+    = f.label :state, {:class => 'required'}
     = f.text_field :state
   .field
-    = f.label :zipcode
+    = f.label :city, {:class => 'required'}
+    = f.text_field :city  
+  .field
+    = f.label :zipcode, {:class => 'required'}
     = f.text_field :zipcode
   .field
-    = f.label :phone1
+    = f.label :phone1, {:class => 'required'}
     = f.text_field :phone1
   .field
     = f.label :phone2

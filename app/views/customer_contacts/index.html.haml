@@ -6,8 +6,9 @@
         - if params[:id].present?
           ="#{Customer.find(params[:id]).company_name} " + "Contacts"
         -else
-          = Customer Contacts  
+          = Customer Contacts     
     .box-content
+      = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_customer_contact_path, :class => "btn btn-success add"
       %table.table.table-striped.table-bordered
         %thead
           %tr

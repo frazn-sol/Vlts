@@ -10,11 +10,11 @@
     = f.label :nickname, {:class => 'required'}
     = f.text_field :nickname
   .field
-    = f.label :location
+    = f.label :location, {:class =>"required"}
     -if current_user.role == "customer"
-      = f.collection_select(:location_id, Location.where(:user_id => "#{current_user.id}"), :id, :nickname)
+      = f.collection_select(:location_id, Location.where(:user_id => "#{current_user.id}"), :id, :nickname, { :include_blank => true })
     -else
-      = f.collection_select(:location_id, Location.where(:user_id => "#{current_user.id}") + Location.where(:user_id => "#{current_user.parent_id}"), :id, :nickname)    
+      = f.collection_select(:location_id, Location.where(:user_id => "#{current_user.id}") + Location.where(:user_id => "#{current_user.parent_id}"), :id, :nickname, { :include_blank => true })    
   .field
     = f.label :description
     = f.text_field :description
@@ -33,6 +33,9 @@
     rules: 'required'
   }, {
     name: 'floor[location]',
+    rules: 'required'
+  }, {
+    name: 'floor[location_id]',
     rules: 'required'
   }, {
     name: 'floor[capacity]',

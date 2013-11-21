@@ -5,6 +5,7 @@
         %i.icon-user.icon-white
         organization Contact
     .box-content
+      = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_organization_contact_path, :class => "btn btn-success add"
       %table.table.table-striped.table-bordered
         %thead
           %tr

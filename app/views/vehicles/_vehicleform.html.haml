@@ -9,7 +9,7 @@
           
 
   .field.allign
-    = f.label :plate_number
+    = f.label :plate_number, {:class => "required"}
     = f.text_field :platenumber, {:class => "size"}
   .field.allign
     = f.label :first_name
@@ -50,20 +50,8 @@
   var validator = new FormValidator('new_vehicle', [{
     name: 'vehicle[platenumber]',    
     rules: 'required'
-  }, {
-    name: 'vehicle[driver_first_name]',
-    rules: 'required'
-  }, {
-    name: 'vehicle[driver_middle_name]',
-    rules: 'required'
-  }, {
-    name: 'vehicle[driver_last_name]',
-    rules: 'required'
-  }, {
-    name: 'vehicle[permit_date]',
-    rules: 'required'
-  }, {
-    name: 'vehicle[badge_number]',
+  },{
+    name: 'vehicle[organization_id]',    
     rules: 'required'
   }], function(errors, event) {
     if (errors.length > 0) {
