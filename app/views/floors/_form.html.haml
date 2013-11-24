@@ -23,7 +23,7 @@
     = f.text_field :capacity
   .field
     = f.label :occupied, {:class => 'required'}
-    = f.text_field :occupied
+    = f.text_field :occupied, :disabled=>true, :value => VehicleHistory.where(:user_id => "#{current_user.id}").count
   .actions
     = f.submit 'Create Floors', {:class => "button1"}
 

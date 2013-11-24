@@ -6,7 +6,19 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <%= image_tag "logo1.png", {:class => "logo"} %>
+        <% if Logo.last.logo.url.present? && !Logo.last.logo.url.empty? %>
+          <%= image_tag Logo.last.logo.url, {:class => "logo", :size => "227x60"} %>
+        <% else %>
+          <%= image_tag "logo1.png", {:class => "logo"} %>
+        <% end %>  
+        <div class = "system">
+        <% if Logo.last.logo.url.present? && !Logo.last.companyname.empty? %>
+          Powered By <%== Logo.last.companyname%>
+        <% else %>
+          Powered By VLTS
+          <%end%>
+        </div>
+        
         <%if current_user.pass_change == true %>
         <a href="/customers" class="hello"><span>Customers</span></a>
         <a href="/users/change1" class="hello shift1"><span>Configration</span></a>

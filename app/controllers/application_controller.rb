@@ -1,14 +1,26 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+	protect_from_forgery
 
-  private
-  def after_sign_in_path_for(resource)
-  	if resource.pass_change == false && resource.role != "admin"
-  		flash[:notice] = "You must change your password"
-  		password_user_path(resource) 
-  	else	
-    	users_path
-    end
-  end
+	private
+	def after_sign_in_path_for(resource)
+		if resource.pass_change == false && resource.role != "admin"
+			flash[:notice] = "You must change your password"
+			password_user_path(resource) 
+		else	
+			users_path
+		end
+	end
+
+	def add_breadcrumb name, url = ''
+		@breadcrumbs ||= []
+		url = eval(url) if url =~ /_path|_url|@/
+		@breadcrumbs << [name, url]
+	end
+ 
+	def self.add_breadcrumb name, url, options = {}
+		before_filter options do |controller|
+			controller.send(:add_breadcrumb, name, url)
+		end
+	end
 
 end

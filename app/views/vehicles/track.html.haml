@@ -10,7 +10,7 @@
         Track Search
       = form_for @search, :url => track_vehicles_path, :method => "get"  do |f|
         .field.allign
-          = f.label :paltenumber 
+          = f.label :plate_number 
           = f.text_field :platenumber_like, {:class => "size"}
         .field.allign
           = f.label :slot

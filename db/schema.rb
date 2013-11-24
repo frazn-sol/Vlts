@@ -11,7 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131112161206) do
+ActiveRecord::Schema.define(:version => 20131124040405) do
+
+  create_table "changes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "vehiclecapacity"
+    t.integer  "floorcapacity"
+    t.integer  "usercapacity"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "configations", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "vehiclecapacity"
+    t.integer  "floorcapacity"
+    t.integer  "usercapacity"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "customer_contacts", :force => true do |t|
     t.string   "first_name"
@@ -78,9 +96,6 @@ ActiveRecord::Schema.define(:version => 20131112161206) do
     t.datetime "logo_updated_at"
     t.string   "systemname"
     t.string   "companyname"
-    t.integer  "floorcapacity"
-    t.integer  "vehiclecapacity"
-    t.integer  "usercapacity"
     t.text     "copytext"
   end
 
@@ -160,10 +175,10 @@ ActiveRecord::Schema.define(:version => 20131112161206) do
     t.date     "permit_date"
     t.date     "expiry_date"
     t.string   "badge_number"
-    t.boolean  "visitor",            :default => false
     t.integer  "organization_id"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "visitor"
   end
 
 end

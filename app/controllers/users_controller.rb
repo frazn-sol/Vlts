@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user
+  add_breadcrumb 'Home', 'users_path'
   # GET /users
   # GET /users.json
-  def index
+  def index 
     @users = User.paginate(:page => params[:page], :per_page => 5)
 
     respond_to do |format|
@@ -15,7 +16,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-
+    set_breadcrumb_for @user
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -26,7 +27,7 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
-
+    set_breadcrumb_for @user
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
@@ -36,6 +37,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    set_breadcrumb_for @user
   end
 
   # POST /users
@@ -113,6 +115,7 @@ class UsersController < ApplicationController
   end
 
   def password
+    add_breadcrumb "Change Password", password_user_path
     @user = current_user
   end
 
@@ -127,8 +130,8 @@ class UsersController < ApplicationController
       sign_in @user, :bypass => true
       redirect_to user_path and return
     else
-        flash[:notice] = @user.errors.full_messages.join("&")
-        render action: "password"
+      flash[:notice] = @user.errors.full_messages.join("&")
+      render action: "password"
     end  
   end
 
@@ -200,45 +203,51 @@ class UsersController < ApplicationController
   def change1
     if current_user.role == "admin" || current_user.role == "support" 
       @logo = Logo.new
+      @config = Change.new
     end
   end
 
   def change_create
-    @old = Logo.where(:user_id => params[:logo][:user_id]).last
-    if @old != nil
-      if !params[:logo][:logo].present?
-         params[:logo][:logo] = @old.logo
+    @history = Logo.last
+    if @history != nil
+      if params[:logo][:logo] == nil
+        params[:logo][:logo] = @history.logo
       end
-      if !params[:logo][:systemname].present?
-        params[:logo][:systemname] = @old.systemname
-      end
-      if !params[:logo][:companyname].present?
-        params[:logo][:companyname] = @old.companyname
-      end
-      if !params[:logo][:floorcapacity].present?
-        params[:logo][:floorcapacity] = @old.floorcapacity
-      end
-      if !params[:logo][:vehiclecapacity].present?
-        params[:logo][:vehiclecapacity] = @old.vehiclecapacity
-      end
-      if !params[:logo][:usercapacity].present?
-        params[:logo][:usercapacity] = @old.usercapacity
-      end
-      if !params[:logo][:copytext].present?
-        params[:logo][:copytext] = @old.copytext
-      end
-    end    
 
+      if params[:logo][:systemname] == nil
+        params[:logo][:systemname] = @history.systemname
+      end
+
+      if params[:logo][:companyname] == nil
+        params[:logo][:companyname] = @history.companyname
+      end
+
+      if params[:logo][:copytext] == nil
+        params[:logo][:copytext] = @history.copytext
+      end
+    end
     @logo = Logo.new(params[:logo])
-    @logo.user_id = params[:logo][:user_id]
-
-     respond_to do |format|
+    @logo.user_id = current_user.id
+    respond_to do |format|
       if @logo.save
         format.html { redirect_to change1_users_path, notice: 'configurations were successfully created.' }
         format.json { render json: @logo, status: :created, location: @logo }
       else
         format.html { render action: "config" }
         format.json { render json: @logo.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def config_create
+    @config = Change.new(params[:configuration])
+    respond_to do |format|
+      if @config.save
+        format.html { redirect_to change1_users_path, notice: 'configurations were successfully created.' }
+        format.json { render json: @config, status: :created, location: @config }
+      else
+        format.html { render action: "config" }
+        format.json { render json: @config.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -252,5 +261,10 @@ class UsersController < ApplicationController
     else  
       return true
     end
+  end
+
+  def set_breadcrumb_for cat
+    set_breadcrumb_for cat.parent if cat.parent
+    add_breadcrumb cat.first_name, "users_path(#{cat.id})"
   end
 end

@@ -55,6 +55,7 @@ VLTS::Application.routes.draw do
       get :error
       get :change1
       post :change_create
+      post :config_create
     end
   end
 

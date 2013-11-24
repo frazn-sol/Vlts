@@ -77,7 +77,17 @@
 <div id="content" class="span10">
   <%= yield %>
 </div>
+<div class = "copytext">
+  <% if Logo.last.present? && !Logo.last.copytext.empty? %>
+  &copy; <%== Logo.last.copytext.to_s %>
+  <% else %>
+  &copy; This is a copyright text
+  <% end %>
+</div>
   <!-- jQuery -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"></style>
   <%= javascript_include_tag "jquery-1.7.2.min.js" %>
   <!-- jQuery UI -->
   <%= javascript_include_tag "jquery-ui-1.8.21.custom.min.js" %>

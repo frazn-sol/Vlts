@@ -6,7 +6,16 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
+        <% if Logo.last.logo.url.present? && !Logo.last.logo.url.empty? %>
+        <%= image_tag Logo.last.logo.url, {:class => "logo", :size => "227x60"} %>
+        <% else %>
         <%= image_tag "logo1.png", {:class => "logo"} %>
+        <% end %> 
+        <% if Logo.last.logo.url.present? && !Logo.last.companyname.empty? %>
+          Powered By <%== Logo.last.companyname%>
+        <% else %>
+          Powered By VLTS
+          <%end%>
         <a href="/users/support" class="hello"><span>Support Staff</span></a>
         <a href="/customers" class="hello shift1"><span>Customers</span></a>
         <%= link_to "Reset Password", reset_users_path, {:class => "hello hello2"} %>
@@ -61,15 +70,15 @@
     </div>
   </div>
 
-<% if notice %>
+  <% if notice %>
   <%= render partial: "users/flash_messages", flash: flash %> 
-<% end %>
-<% if alert %>
+  <% end %>
+  <% if alert %>
   <%= render partial: "users/flash_messages", flash: flash %> 
-<% end %>
+  <% end %>
   <!-- topbar ends -->
-        
-      <div class="container-fluid">
+  
+  <div class="container-fluid">
     <div class="row-fluid">
       <!-- left menu starts -->
       <div class="span2 main-menu-span">
@@ -100,3 +109,10 @@
           <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
         </div>
       </noscript>
+      <% if @breadcrumbs %>
+      You are here: 
+      <% @breadcrumbs[0..-2].each do |txt, path| %>
+      <%= link_to(h(txt), path) %> >
+      <% end %>
+      <%= h(@breadcrumbs.last.first) %>
+      <% end %>

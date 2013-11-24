@@ -7,12 +7,19 @@
           <span class="icon-bar"></span>
         </a>
 
-       <% if current_user.parent.logos.present? %> 
-          <%= image_tag current_user.parent.logos.last.logo.url, {:size => "227x60",:class => "logo"}%> 
-        <%else%>  
+       <% if Logo.last.logo.url.present? && !Logo.last.logo.url.empty? %>
+          <%= image_tag Logo.last.logo.url, {:class => "logo", :size => "227x60"} %>
+        <% else %>
           <%= image_tag "logo1.png", {:class => "logo"} %>
-        <%end%>  
-        <%if current_user.pass_change == true %>
+        <% end %> 
+        <div class = "system">
+        <% if Logo.last.logo.url.present? && !Logo.last.companyname.empty? %>
+          Powered By <%== Logo.last.companyname%>
+        <% else %>
+          Powered By VLTS
+          <%end%>
+         </div>
+         <%if current_user.pass_change == true %>
         <a href="/organizations" class="hello"><span>Organization</span></a>
         <a href="/users/user" class="hello hello1"><span>User</span></a>
         <!-- theme selector ends -->
