@@ -29,7 +29,7 @@
                   %td.center= user.email
               %td.center=customer.user.first_name     
               %td.center
-                = link_to "View All".html_safe, customer_contacts_path(:id => customer.id), :class => "btn btn-success"  
+                = link_to "View All".html_safe, customer_contacts_path(:customer_id => customer.id), :class => "btn btn-success"  
               %td.center
                 = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, customer, :class => "btn btn-success"
                 = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_customer_path(customer), :class => "btn btn-info"

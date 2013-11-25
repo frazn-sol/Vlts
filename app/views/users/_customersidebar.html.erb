@@ -88,7 +88,8 @@
       <div class="span2 main-menu-span">
         <div class="well nav-collapse sidebar-nav">
           <ul class="nav nav-tabs nav-stacked main-menu">
-            <li class="nav-header hidden-tablet box-header"><i class="icon-tasks icon-white"></i><span class="hidden-tablet">Admin Pannel</span></li>
+            <li class="nav-header hidden-tablet box-header"><i class="icon-tasks icon-white"></i><span class="hidden-tablet">Customer Admin Pannel</span></li>
+            <li><a class="ajax-link" href="/users"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
             <li><a class="ajax-link" href="/organization_contacts/new"><i class="icon-book"></i><span class="hidden-tablet">Organization Contacts</span></a></li>
             <li><a class="ajax-link" href="/locations"><i class="icon-road"></i><span class="hidden-tablet">Location</span></a></li>
             <li><a class="ajax-link" href="/floors"><i class="icon-tag"></i><span class="hidden-tablet">Floor</span></a></li>
@@ -115,3 +116,9 @@
         </div>
       </noscript>
       <%end%>
+      <% if @breadcrumbs %>
+      <% @breadcrumbs[0..-2].each do |txt, path| %>
+      <%= link_to(h(txt), path) %> >>
+      <% end %>
+      <%= h(@breadcrumbs.last.first) %>
+      <% end %>

@@ -32,7 +32,8 @@
     = f.text_field :cell
   .field
     = f.label :email, {:class => 'required'}
-    = f.text_field :email
+    = f.text_field :email   
+    = hidden_field "id", "customer_id", "value" => "#{params[:customer_id]}"
   .actions
     = f.submit 'Create Customer Contact', {:class => "button1"}
 :javascript

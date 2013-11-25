@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user
-  add_breadcrumb 'Home', 'users_path'
   # GET /users
   # GET /users.json
   def index 
@@ -16,7 +15,6 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    set_breadcrumb_for @user
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -27,7 +25,6 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
-    set_breadcrumb_for @user
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
@@ -37,7 +34,6 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
-    set_breadcrumb_for @user
   end
 
   # POST /users
@@ -115,7 +111,6 @@ class UsersController < ApplicationController
   end
 
   def password
-    add_breadcrumb "Change Password", password_user_path
     @user = current_user
   end
 

@@ -11,14 +11,16 @@
         <% else %>
         <%= image_tag "logo1.png", {:class => "logo"} %>
         <% end %> 
+        <div class = "system">
         <% if Logo.last.logo.url.present? && !Logo.last.companyname.empty? %>
           Powered By <%== Logo.last.companyname%>
         <% else %>
           Powered By VLTS
           <%end%>
+        </div>
         <a href="/users/support" class="hello"><span>Support Staff</span></a>
         <a href="/customers" class="hello shift1"><span>Customers</span></a>
-        <%= link_to "Reset Password", reset_users_path, {:class => "hello hello2"} %>
+        <a href="/users/reset" class="hello hello2"><span>Reset Password</span></a>
         <a href="/users/change1" class="hello hello5"><span>Configration</span></a>
         <!-- theme selector starts -->
         <!-- <div class="btn-group pull-right theme-container" >
@@ -85,6 +87,7 @@
         <div class="well nav-collapse sidebar-nav">
           <ul class="nav nav-tabs nav-stacked main-menu">
             <li class="nav-header hidden-tablet box-header"><i class="icon-tasks icon-white"></i><span class="hidden-tablet"> Admin Pannel</span></li>
+            <li><a class="ajax-link" href="/users"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
             <li><a class="ajax-link" href="/users/support"><i class="icon-user"></i><span class="hidden-tablet"> Support Staff</span></a></li>
             <li><a class="ajax-link" href="/customers"><i class="icon-user"></i><span class="hidden-tablet">Customer</span></a></li>
             <li><a class="ajax-link" href="/customer_contacts/new"><i class="icon-book"></i><span class="hidden-tablet">Customer Contacts</span></a></li>
@@ -110,9 +113,8 @@
         </div>
       </noscript>
       <% if @breadcrumbs %>
-      You are here: 
       <% @breadcrumbs[0..-2].each do |txt, path| %>
-      <%= link_to(h(txt), path) %> >
+      <%= link_to(h(txt), path) %> >>
       <% end %>
       <%= h(@breadcrumbs.last.first) %>
       <% end %>

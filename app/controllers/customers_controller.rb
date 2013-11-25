@@ -18,6 +18,7 @@ class CustomersController < ApplicationController
   # GET /customers/1
   # GET /customers/1.json
   def show
+    add_breadcrumb 'View', 'user_path'
     if (current_user.role == "admin" || current_user.role == "support")
       @customer = Customer.find(params[:id])
       @user = User.all
@@ -34,6 +35,7 @@ class CustomersController < ApplicationController
   # GET /customers/new
   # GET /customers/new.json
   def new
+  add_breadcrumb 'Add new', 'new_user_path'
   if (current_user.role == "admin" || current_user.role == "support")
       
     @customer = Customer.new
@@ -50,6 +52,7 @@ class CustomersController < ApplicationController
 
   # GET /customers/1/edit
   def edit
+    add_breadcrumb 'Update', 'edit_user_path'
     if (current_user.role == "admin" || current_user.role == "support")
       @customer = Customer.find(params[:id])
     else

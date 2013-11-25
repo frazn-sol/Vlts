@@ -406,7 +406,7 @@ label.required:after {
 	margin-left: 68px;
 }
 .add{
-	width: 200px;
+	width: 74px;
 margin-left: -30px;
 margin-right: 116px;
 }
@@ -422,4 +422,17 @@ width: 193px !important;
 top: 85px;
 margin-left: 15px;
 color: white;
+}
+
+.bread{
+	position: absolute;
+	margin-left: 275px;
+	margin-top: 45px;
+}
+
+.footer{
+	margin-top: 434px;
+margin-left: -20px;
+width: 100%;
+margin-bottom: -215px;
 }
