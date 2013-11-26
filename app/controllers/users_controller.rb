@@ -232,28 +232,10 @@ class UsersController < ApplicationController
   end
 
   def change_create
-    @history = Logo.last
-    if @history != nil
-      if params[:logo][:logo] == nil
-        params[:logo][:logo] = @history.logo
-      end
-
-      if params[:logo][:systemname] == nil
-        params[:logo][:systemname] = @history.systemname
-      end
-
-      if params[:logo][:companyname] == nil
-        params[:logo][:companyname] = @history.companyname
-      end
-
-      if params[:logo][:copytext] == nil
-        params[:logo][:copytext] = @history.copytext
-      end
-    end
-    @logo = Logo.new(params[:logo])
-    @logo.user_id = current_user.id
+    binding.pry
+    @logo = Logo.last
     respond_to do |format|
-      if @logo.save
+      if @logo.update_attributes(params[:logo])
         format.html { redirect_to change1_users_path, notice: 'configurations were successfully created.' }
         format.json { render json: @logo, status: :created, location: @logo }
       else
