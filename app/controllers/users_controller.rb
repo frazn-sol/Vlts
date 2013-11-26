@@ -232,7 +232,6 @@ class UsersController < ApplicationController
   end
 
   def change_create
-    binding.pry
     @logo = Logo.last
     respond_to do |format|
       if @logo.update_attributes(params[:logo])
