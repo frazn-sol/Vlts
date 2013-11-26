@@ -10,7 +10,7 @@ class CustomerContactsController < ApplicationController
         add_breadcrumb "#{Customer.where(:id => params[:customer_id])[0].company_name}", '#'  
         add_breadcrumb "Contacts", 'customer_contacts_path(:customer_id => "#{params[:customer_id]}")'
         
-        @customer_contacts = CustomerContact.paginate(:page => params[:page], :per_page => 5)
+        @customer_contacts = CustomerContact.where(:customer_id => "#{params[:customer_id]}", :delflag => false).paginate(:page => params[:page], :per_page => 5)
         respond_to do |format|
           format.html # index.html.erb
           format.json { render json: @customer_contacts }
@@ -50,10 +50,10 @@ class CustomerContactsController < ApplicationController
   # GET /customer_contacts/new.json
   def new
     if (current_user.role == "admin" || current_user.role == "support")
-      if params[:id].present?
+      if params[:customer_id].present?
         add_breadcrumb 'Customers', 'customers_path'
         add_breadcrumb "#{Customer.where(:id => params[:customer_id])[0].company_name}", '#'
-        add_breadcrumb "Contacts", 'customer_contacts_path(:id => "#{params[:customer_id]}")'
+        add_breadcrumb "Contacts", 'customer_contacts_path(:customer_id => "#{params[:customer_id]}")'
         add_breadcrumb 'New Customer Contact', 'new_customer_contact_path'
     
         @customer_contact = CustomerContact.new
@@ -129,13 +129,22 @@ class CustomerContactsController < ApplicationController
   def destroy
     if (current_user.role == "admin" || current_user.role == "support")
       @customer_contact = CustomerContact.find(params[:id])
-      @customer_contact.destroy
       @action = request.referrer
-      flash[:notice] = "Successfully Deleted"
-    respond_to do |format|
-      format.html { redirect_to @action }
-      format.json { head :no_content }
-    end
+      @customer_contact.delflag = true
+      if @customer_contact.update_attributes(params[:customer_contact])
+        flash[:notice] = "Successfully Deleted"
+        respond_to do |format|
+          format.html { redirect_to @action }
+          format.json { head :no_content }
+        end
+      else
+        flash[:notice] = "Could not Deleted"
+        respond_to do |format|
+          format.html { redirect_to @action }
+          format.json { head :no_content }
+        end
+      end
+
 
     else
       redirect_to error_users_path and return

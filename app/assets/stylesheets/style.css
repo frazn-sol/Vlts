@@ -29,15 +29,7 @@
 	color: green;
 	border-color: green;
 }
-.shift{
-	margin-left: 92px;
-}
 
-.container-fluid{
-	margin: 0 auto;
-	padding-top: 30px;
-	padding-bottom: 30px;
-}
 .button1{
 	margin-top: 12px;
 	margin-left: 115px;
@@ -236,10 +228,6 @@ padding: 5px 5px 6px;
 .navbar-inner{
 	height: 90px
 }
-.logo{
-	position: absolute;
-margin: 15px;
-}
 
 b{
 	width: 170px;
@@ -334,34 +322,6 @@ color: #ffffff;
 	margin-bottom: 15px;
 }
 
-.hello1{
-	margin-left: 430px;
-	margin-top: -91px;
-}
-
-.hello2{
-	margin-left: 560px;
-	margin-top: -91px;
-}
-
-.hello5{
-	margin-left: 680px;
-	margin-top: -91px;
-}
-.hello3{
-	height:90px;
-}
-
-.hello4{
-	margin-top: 40px!important;
-}
-.add{
-margin-right: 50px;
-margin-left: 864px;
-float: right;
-margin-top: 10px;
-margin-bottom: 10px;
-}
 
 .push{
 	margin-left: 73px;
@@ -405,23 +365,10 @@ label.required:after {
 .gap{
 	margin-left: 68px;
 }
-.add{
-	width: 74px;
-margin-left: -30px;
-margin-right: 116px;
-}
 
 .add1{
 	margin-left: -31px;
-width: 193px !important;
-
-}
-
-.system{
-	position: absolute;
-top: 85px;
-margin-left: 15px;
-color: white;
+	width: 193px !important;
 }
 
 .bread{
@@ -430,9 +377,89 @@ color: white;
 	margin-top: 45px;
 }
 
+
+/* Helper Classes */
+.aleft{
+	float:left;
+}
+.aright{
+	float: right;
+}
+.clear
+{
+	clear:both;
+}
+/* UI Issues */
+#company_logo{
+	width: 250px;
+}
+#company_name{
+	text-align: center;
+	color: #ffffff;
+	font-weight: bold;
+	margin-top: 5px;
+}
+#header_opts{
+
+}
+.round_circle{
+	display: inline-block;
+	width: 70px;
+	height: 70px;
+	border-radius: 48px;
+	padding: 10px;
+	font-size: 12px;
+	color: #333333 ;
+	text-align: center;
+	background: #ffffff;
+	font-weight: bold;
+	margin-right: 20px;
+	position: relative;
+}
+.round_circle span{
+	position: absolute;
+	top: 20px;
+	width: 70px;
+	left: 10px;
+}
+#dropdown{
+	margin-top: 90px;
+}
+.box-content{
+}
+#bread_crumb{
+	margin-bottom: 25px;
+	font-size: 14px;
+	font-weight: bold
+}
+#bread_crumb span{
+	padding: 2px 0 5px 0;
+	border-bottom: 1px dotted #000;	
+}
+.add{
+	margin-bottom: 10px;
+}
 .footer{
-	margin-top: 434px;
-margin-left: -20px;
-width: 100%;
-margin-bottom: -215px;
+}
+.container-fluid{
+	margin: 0 auto;
+	padding-top: 30px;
+}
+body{
+	padding-bottom: 0!important;
+}
+.footer{
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+	color:#ffffff;
+	text-align: center;
+	margin-top:30px;
+}
+.footer .copytext{
+	padding-top:30px;
+}
+.container-fluid{
+	min-height: 405px;
 }

@@ -1,4 +1,5 @@
 class Customer < ActiveRecord::Base
+	audited
   has_one :user
   belongs_to :user
   has_many :customer_contacts

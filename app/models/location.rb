@@ -1,4 +1,5 @@
 class Location < ActiveRecord::Base
+	audited
   has_many :floors
   belongs_to :user
   has_many :vehicle_histories

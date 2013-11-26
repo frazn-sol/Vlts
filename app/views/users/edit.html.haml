@@ -11,4 +11,6 @@
           Update Profile  
         -else       
           Update Support Staff
-    .box-content= render 'edit'
+    .box-content
+      = render ("layouts/breadcrumbs")
+      = render 'edit'

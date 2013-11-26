@@ -11,18 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131124040405) do
+ActiveRecord::Schema.define(:version => 20131126152510) do
 
-  create_table "changes", :force => true do |t|
+  create_table "audits", :force => true do |t|
+    t.integer  "auditable_id"
+    t.string   "auditable_type"
+    t.integer  "associated_id"
+    t.string   "associated_type"
     t.integer  "user_id"
-    t.integer  "vehiclecapacity"
-    t.integer  "floorcapacity"
-    t.integer  "usercapacity"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.string   "user_type"
+    t.string   "username"
+    t.string   "action"
+    t.text     "audited_changes"
+    t.integer  "version",         :default => 0
+    t.string   "comment"
+    t.string   "remote_address"
+    t.datetime "created_at"
   end
 
-  create_table "configations", :force => true do |t|
+  add_index "audits", ["associated_id", "associated_type"], :name => "associated_index"
+  add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
+  add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
+  add_index "audits", ["user_id", "user_type"], :name => "user_index"
+
+  create_table "changes", :force => true do |t|
     t.integer  "user_id"
     t.integer  "vehiclecapacity"
     t.integer  "floorcapacity"
@@ -40,8 +52,9 @@ ActiveRecord::Schema.define(:version => 20131124040405) do
     t.string   "cell"
     t.string   "email"
     t.integer  "customer_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.boolean  "delflag",     :default => false
   end
 
   create_table "customers", :force => true do |t|
@@ -53,10 +66,11 @@ ActiveRecord::Schema.define(:version => 20131124040405) do
     t.string   "phone1"
     t.string   "phone2"
     t.string   "web"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.string   "user_id"
     t.string   "city"
+    t.boolean  "delflag",      :default => false
   end
 
   create_table "floors", :force => true do |t|
@@ -65,8 +79,9 @@ ActiveRecord::Schema.define(:version => 20131124040405) do
     t.string   "capacity"
     t.string   "occupied"
     t.integer  "location_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.boolean  "delflag",     :default => false
   end
 
   create_table "locations", :force => true do |t|
@@ -81,9 +96,10 @@ ActiveRecord::Schema.define(:version => 20131124040405) do
     t.string   "web"
     t.string   "email"
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "city"
+    t.boolean  "delflag",     :default => false
   end
 
   create_table "logos", :force => true do |t|
@@ -108,8 +124,9 @@ ActiveRecord::Schema.define(:version => 20131124040405) do
     t.string   "cell"
     t.string   "email"
     t.integer  "organization_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "delflag",         :default => false
   end
 
   create_table "organizations", :force => true do |t|
@@ -123,9 +140,10 @@ ActiveRecord::Schema.define(:version => 20131124040405) do
     t.string   "web"
     t.string   "email"
     t.integer  "user_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.string   "city"
+    t.boolean  "delflag",      :default => false
   end
 
   create_table "users", :force => true do |t|
@@ -152,6 +170,7 @@ ActiveRecord::Schema.define(:version => 20131124040405) do
     t.integer  "parent_id"
     t.integer  "customer_id"
     t.boolean  "pass_change",                           :default => false
+    t.boolean  "delflag",                               :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -176,9 +195,10 @@ ActiveRecord::Schema.define(:version => 20131124040405) do
     t.date     "expiry_date"
     t.string   "badge_number"
     t.integer  "organization_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "visitor"
+    t.boolean  "delflag",            :default => false
   end
 
 end

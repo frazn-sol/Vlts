@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   # GET /users.json
   def index 
     @users = User.paginate(:page => params[:page], :per_page => 5)
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
@@ -14,6 +13,10 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    type = User.where(:id => params[:id])[0].role
+    typename = ENV[type]
+    add_breadcrumb "#{typename}", '#{type}_users_path'
+    add_breadcrumb "#{User.where(:id => params[:id])[0].first_name}", '#'
     @user = User.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
@@ -24,6 +27,11 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
+    type = params[:param]
+    systype = type+'type'
+    systypename = ENV[systype]
+    add_breadcrumb "#{ENV[type]}", "#{ENV[systype]}_users_path"
+    add_breadcrumb "Add new", ''    
     @user = User.new
     respond_to do |format|
       format.html # new.html.erb
@@ -33,6 +41,11 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    if current_user.id.to_s != params[:id]
+      typename = ENV[User.where(:id => params[:id])[0].role]
+      add_breadcrumb "#{typename}", 'support_users_path'
+      add_breadcrumb "#{User.where(:id => params[:id])[0].first_name}", '#'
+    end
     @user = User.find(params[:id])
   end
 
@@ -74,18 +87,34 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
     @action = request.referrer
-    flash[:notice] = "Successfully Deleted"
-    respond_to do |format|
-      format.html { redirect_to @action }
-      format.json { head :no_content }
+    @user.delflag = true
+    if @user.update_attributes(params[:user])
+      @customer = Customer.where(:user_id => @user.id)
+      if @customer.present?
+        @customer.each do |c|
+         c.delflag = true
+         Customer.where(:id => c.id).update_all(:deflag => true)
+        end 
+        flash[:notice] = "Successfully Deleted"
+        respond_to do |format|
+          format.html { redirect_to @action }
+          format.json { head :no_content }
+        end
+      end  
+    else
+      flash[:notice] = "Could not Deleted"
+      respond_to do |format|
+        format.html { redirect_to @action }
+        format.json { head :no_content }
+      end
     end
+
   end
 
   def support
     if current_user.role == "admin" 
-      @user = User.where(:role => "support")
+      @user = User.where(:role => "support", :delflag => false)
       @users = @user.paginate(:page => params[:page], :per_page => 5)
     else 
       redirect_to error_users_path
@@ -94,7 +123,7 @@ class UsersController < ApplicationController
 
   def supervisor
     if current_user.role == "customer" 
-      @user = User.where(:role => "supervisor")
+      @user = User.where(:role => "supervisor", :delflag => false)
       @users = @user.paginate(:page => params[:page], :per_page => 5)
     else 
       redirect_to error_users_path   
@@ -103,7 +132,7 @@ class UsersController < ApplicationController
 
   def user
     if (current_user.role == "customer" || current_user.role == "supervisor")
-      @user = User.where(:role => "user", :parent_id => "#{current_user.id}")
+      @user = User.where(:role => "user", :parent_id => "#{current_user.id}", :delflag => false)
       @users = @user.paginate(:page => params[:page], :per_page => 5)
     else 
       redirect_to error_users_path   
@@ -123,7 +152,7 @@ class UsersController < ApplicationController
     if @user.update_with_password(params[:user])
       flash[:notice] = "Password has been successfully updated"
       sign_in @user, :bypass => true
-      redirect_to user_path and return
+      redirect_to users_path and return
     else
       flash[:notice] = @user.errors.full_messages.join("&")
       render action: "password"
@@ -197,7 +226,7 @@ class UsersController < ApplicationController
 
   def change1
     if current_user.role == "admin" || current_user.role == "support" 
-      @logo = Logo.new
+      @logo = Logo.last
       @config = Change.new
     end
   end
@@ -262,4 +291,5 @@ class UsersController < ApplicationController
     set_breadcrumb_for cat.parent if cat.parent
     add_breadcrumb cat.first_name, "users_path(#{cat.id})"
   end
+
 end

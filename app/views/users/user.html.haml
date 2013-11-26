@@ -5,7 +5,12 @@
         %i.icon-user.icon-white
         User
     .box-content
-      = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_user_path(:param => "2" ), :class => "btn btn-success add"
+      #tagbar
+        .aleft
+          = render ("layouts/breadcrumbs")
+        .aright
+          = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_user_path(:param => "2" ), :class => "btn btn-success add"
+          .clear
       %table.table.table-striped.table-bordered
         %thead
           %tr

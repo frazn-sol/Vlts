@@ -60,7 +60,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 
-    
+
 <body>
   
 <% if current_user.present? && current_user.role == "admin" %> 
@@ -77,19 +77,22 @@
 <div id="content" class="span10">
   <%= yield %>
 </div>
-
-<div class="navbar-inner footer">
-  <div class = "copytext">
-  <% if Logo.last.present? && !Logo.last.copytext.empty? %>
-  &copy; <%== Logo.last.copytext.to_s %>
-  <% else %>
-  &copy; This is a copyright text
-  <% end %>
+<div class="clear"></div>
 </div>
+</div>
+<div class="navbar-inner footer">
+  <div class="container-fluid1">
+    <div class = "copytext">
+    <% if Logo.last.present? && !Logo.last.copytext.empty? %>
+    &copy; <%== Logo.last.copytext.to_s %>
+    <% else %>
+    &copy; This is a copyright text
+    <% end %>
+  </div>
 </div>
 
   <!-- jQuery -->
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"></style>
   <%= javascript_include_tag "jquery-1.7.2.min.js" %>

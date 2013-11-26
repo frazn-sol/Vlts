@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+logo = Logo.new
+logo.copytext = "This is copytext"
+logo.systemname = "VLTS"
+logo.companyname = "Company name" 
+logo.logo =  File.new("#{Rails.root}/app/assets/images/logo1.png")
+logo.save!

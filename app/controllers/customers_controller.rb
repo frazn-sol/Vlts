@@ -4,7 +4,7 @@ class CustomersController < ApplicationController
   # GET /customers.json
   def index
     if (current_user.role == "admin" || current_user.role == "support")
-      @customers = Customer.where(:user_id => "#{current_user.id}").paginate(:page => params[:page], :per_page => 5)
+      @customers = Customer.where(:user_id => "#{current_user.id}", :delflag => false).paginate(:page => params[:page], :per_page => 5)
       @user = User.all
       respond_to do |format|
         format.html # index.html.erb
@@ -18,8 +18,9 @@ class CustomersController < ApplicationController
   # GET /customers/1
   # GET /customers/1.json
   def show
-    add_breadcrumb 'View', 'user_path'
     if (current_user.role == "admin" || current_user.role == "support")
+      add_breadcrumb "Customer", 'customers_path'
+      add_breadcrumb "#{Customer.where(:id => params[:id])[0].company_name}", '#'
       @customer = Customer.find(params[:id])
       @user = User.all
 
@@ -35,9 +36,9 @@ class CustomersController < ApplicationController
   # GET /customers/new
   # GET /customers/new.json
   def new
-  add_breadcrumb 'Add new', 'new_user_path'
   if (current_user.role == "admin" || current_user.role == "support")
-      
+    add_breadcrumb "Customer", 'customers_path'
+    add_breadcrumb "Add new", '#'
     @customer = Customer.new
 
     respond_to do |format|
@@ -52,8 +53,9 @@ class CustomersController < ApplicationController
 
   # GET /customers/1/edit
   def edit
-    add_breadcrumb 'Update', 'edit_user_path'
     if (current_user.role == "admin" || current_user.role == "support")
+      add_breadcrumb "Customer", 'customers_path'
+      add_breadcrumb "#{Customer.where(:id => params[:id])[0].company_name}", '#'  
       @customer = Customer.find(params[:id])
     else
       redirect_to error_users_path and return
@@ -78,7 +80,7 @@ class CustomersController < ApplicationController
         @customer.user_id = current_user.id
         if @customer.save
           @user.update_attribute(:customer_id, @customer.id)
-          format.html { redirect_to users_path, notice: 'Customer was successfully created.' }
+          format.html { redirect_to customers_path, notice: 'Customer was successfully created.' }
           format.json { render json: @customer, status: :created, location: @customer }
         else
           format.html { render action: "new" }
@@ -117,12 +119,23 @@ class CustomersController < ApplicationController
   # DELETE /customers/1.json
   def destroy
     @customer = Customer.find(params[:id])
-    @customer.destroy
     @action = request.referrer
-    flash[:notice] = "Successfully Deleted"
-    respond_to do |format|
-      format.html { redirect_to @action }
-      format.json { head :no_content }
-    end
+    @customer.delflag = true
+      if @customer.update_attributes(params[:customer])
+        @user = User.find_by_customer_id(@customer.id)
+        User.where(:id => @user.id).update_all(:delflag => true)
+        flash[:notice] = "Successfully Deleted"
+        respond_to do |format|
+          format.html { redirect_to @action }
+          format.json { head :no_content }
+        end
+      else
+        flash[:notice] = "Could not Deleted"
+        respond_to do |format|
+          format.html { redirect_to @action }
+          format.json { head :no_content }
+        end
+      end
+
   end
 end

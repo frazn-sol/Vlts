@@ -1,4 +1,5 @@
 class Vehicle < ActiveRecord::Base
+	audited
 	belongs_to :organization
 	has_many :vehicle_histories
 	

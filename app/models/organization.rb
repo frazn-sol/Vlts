@@ -1,5 +1,5 @@
 class Organization < ActiveRecord::Base
-  
+  audited
   belongs_to :user
   has_many :organization_contacts
   has_many :vehicles

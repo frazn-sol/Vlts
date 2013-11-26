@@ -4,7 +4,8 @@
       %h2
         %i.icon-user.icon-white
         System Configurations
-    .box-content    
+    .box-content   
+      = render ("layouts/breadcrumbs") 
       = form_for @logo, :url => change_create_users_path, :html => { :multipart => true } do |f|
         
         .field

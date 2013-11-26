@@ -12,9 +12,9 @@
   .field
     = f.label :location, {:class =>"required"}
     -if current_user.role == "customer"
-      = f.collection_select(:location_id, Location.where(:user_id => "#{current_user.id}"), :id, :nickname, { :include_blank => true })
+      = f.collection_select(:location_id, Location.where(:user_id => "#{current_user.id}", :delflag => false), :id, :nickname, { :include_blank => true })
     -else
-      = f.collection_select(:location_id, Location.where(:user_id => "#{current_user.id}") + Location.where(:user_id => "#{current_user.parent_id}"), :id, :nickname, { :include_blank => true })    
+      = f.collection_select(:location_id, Location.where(:user_id => "#{current_user.id}", :delflag => false) + Location.where(:user_id => "#{current_user.parent_id}", :delflag => false), :id, :nickname, { :include_blank => true })    
   .field
     = f.label :description
     = f.text_field :description
@@ -22,8 +22,7 @@
     = f.label :capacity, {:class => 'required'}
     = f.text_field :capacity
   .field
-    = f.label :occupied, {:class => 'required'}
-    = f.text_field :occupied, :disabled=>true, :value => VehicleHistory.where(:user_id => "#{current_user.id}").count
+    = f.hidden_field :occupied, :value => 0
   .actions
     = f.submit 'Create Floors', {:class => "button1"}
 
@@ -39,9 +38,6 @@
     rules: 'required'
   }, {
     name: 'floor[capacity]',
-    rules: 'required'
-  }, {
-    name: 'floor[occupied]',
     rules: 'required'
   }], function(errors, event) {
     if (errors.length > 0) {

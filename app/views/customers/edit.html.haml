@@ -4,4 +4,6 @@
       %h2
         %i.icon-user.icon-white
         Update Customers
-    .box-content= render 'edit'
+    .box-content
+      = render ("layouts/breadcrumbs")
+      = render 'edit'

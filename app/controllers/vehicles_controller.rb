@@ -5,7 +5,7 @@ class VehiclesController < ApplicationController
   # GET /vehicles.json
   def index
     if (current_user.role == "customer" || current_user.role == "supervisor")
-      @vehicles = Vehicle.paginate(:page => params[:page], :per_page => 5)
+      @vehicles = Vehicle.where(:delflag => false).paginate(:page => params[:page], :per_page => 5)
 
       respond_to do |format|
       format.html # index.html.erb
@@ -92,14 +92,21 @@ end
   def destroy
     if (current_user.role == "customer" || current_user.role == "supervisor" || current_user.role == "user")    
       @vehicle = Vehicle.find(params[:id])
-      @vehicle.destroy
       @action = request.referrer
-      flash[:notice] = "Successfully Deleted"
-      respond_to do |format|
-        format.html { redirect_to @action }
-        format.json { head :no_content }
+      @vehicle.delflag = true
+      if @vehicle.update_attributes(params[:vehicle])
+        flash[:notice] = "Successfully Deleted"
+        respond_to do |format|
+          format.html { redirect_to @action }
+          format.json { head :no_content }
+        end
+      else
+        flash[:notice] = "Could not Deleted"
+        respond_to do |format|
+          format.html { redirect_to @action }
+          format.json { head :no_content }
+        end
       end
-
     else
       redirect_to error_users_path and return
     end
@@ -113,6 +120,7 @@ end
         @history = nil
       else
         @history = @search.paginate(:page => params[:page], :per_page => 5)
+        @vehicle = Vehicle.find(@history.first.vehicle_id) if @history.present?
       end
     else
       redirect_to error_users_path and return
@@ -148,7 +156,7 @@ end
       @vehicle = Vehicle.new
       @search = Vehicle.search(params[:search])
       if (params[:search].blank? )
-        @vehicles = nil
+        @vehicles = Vehicle.where(:delflag => false).paginate(:page => params[:page], :per_page => 5)
       else
         @vehicles = @search.paginate(:page => params[:page], :per_page => 5)
       end

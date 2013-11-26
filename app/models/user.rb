@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  audited
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
@@ -17,5 +18,10 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessor :try, :forgot
   attr_accessible :email, :password, :password_confirmation, :remember_me, :created_at, :parent_id, :password
-  attr_accessible :cell, :first_name, :last_name, :middle_name, :phone, :role, :passwordhint, :employeeno, :parent_id, :pass_change
+  attr_accessible :id, :cell, :first_name, :last_name, :middle_name, :phone, :role, :passwordhint, :employeeno, :parent_id, :pass_change
+  
+  def self.find_for_authentication(conditions)
+    super(conditions.merge(:delflag => false))
+  end
+
 end

@@ -4,12 +4,25 @@ class FloorsController < ApplicationController
   # GET /floors.json
   def index
     if (current_user.role == "customer" || current_user.role == "supervisor")
-      @floors = Floor.paginate(:page => params[:page], :per_page => 5)
+      if params[:location_id].present?
+        add_breadcrumb 'Location', 'locations_path'
+        add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
+        add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
 
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @floors }
-      end
+        @floors = Floor.where(:delflag => false).paginate(:page => params[:page], :per_page => 5)
+
+        respond_to do |format|
+          format.html # index.html.erb
+          format.json { render json: @floors }
+        end
+      else
+        @floors = Floor.where(:delflag => false).paginate(:page => params[:page], :per_page => 5)
+
+        respond_to do |format|
+          format.html # index.html.erb
+          format.json { render json: @floors }
+        end
+      end  
     else
       redirect_to error_users_path and return
     end        
@@ -19,6 +32,10 @@ class FloorsController < ApplicationController
   # GET /floors/1.json
   def show
     if (current_user.role == "customer" || current_user.role == "supervisor")
+      add_breadcrumb 'Location', 'locations_path'
+      add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
+      add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
+      add_breadcrumb "View", '#'      
       @floor = Floor.find(params[:id])
 
       respond_to do |format|
@@ -34,6 +51,10 @@ class FloorsController < ApplicationController
   # GET /floors/new.json
   def new
     if (current_user.role == "customer" || current_user.role == "supervisor")
+      add_breadcrumb 'Location', 'locations_path'
+      add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
+      add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
+      add_breadcrumb "Add new", '#'      
       @floor = Floor.new
 
       respond_to do |format|
@@ -48,6 +69,10 @@ class FloorsController < ApplicationController
   # GET /floors/1/edit
   def edit
     if (current_user.role == "customer" || current_user.role == "supervisor")
+      add_breadcrumb 'Location', 'locations_path'
+      add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
+      add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
+      add_breadcrumb "Update", '#'      
       @floor = Floor.find(params[:id])
     else
       redirect_to error_users_path and return
@@ -91,14 +116,22 @@ class FloorsController < ApplicationController
   def destroy
     if (current_user.role == "customer" || current_user.role == "supervisor")    
       @floor = Floor.find(params[:id])
-      @floor.destroy
+     
       @action = request.referrer
-      flash[:notice] = "Successfully Deleted"
-    respond_to do |format|
-      format.html { redirect_to @action }
-      format.json { head :no_content }
-    end
-
+      @floor.delflag = true
+      if @floor.update_attributes(params[:floor])
+        flash[:notice] = "Successfully Deleted"
+        respond_to do |format|
+          format.html { redirect_to @action }
+          format.json { head :no_content }
+        end
+      else
+        flash[:notice] = "Could not Deleted"
+        respond_to do |format|
+          format.html { redirect_to @action }
+          format.json { head :no_content }
+        end
+      end
     else
       redirect_to error_users_path and return
     end

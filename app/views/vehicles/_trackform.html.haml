@@ -12,11 +12,11 @@
     = f.hidden_field :vehicle_id 
   .field.allign
     = f.label :floor, {:class => "required"}
-    = f.collection_select(:floor_id, Floor.all, :id, :nickname, {}, :class => "size2") 
+    = f.collection_select(:floor_id, Floor.where(:delflag => false), :id, :nickname, {}, :class => "size2") 
 
   .field.allign
     = f.label :location, {:class => "required"}
-    = f.collection_select(:location_id, Location.all, :id, :nickname, {}, :class => "size2")      
+    = f.collection_select(:location_id, Location.where(:delflag => false), :id, :nickname, {}, :class => "size2")      
   .clear
   .field.allign
     = f.label :slot, {:class => "required"}

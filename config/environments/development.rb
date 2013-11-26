@@ -41,4 +41,17 @@ VLTS::Application.configure do
 
   Paperclip.options[:command_path] = "/usr/bin/"
 
+  ENV["support"] = "Support Staff"
+  ENV["supervisor"] = "Supervisor"
+  ENV["customer"] = "Customer Admin"
+  ENV["user"] = "Customer User"
+
+  ENV["1"] = "Supervisor"
+  ENV["2"] = "User"
+  ENV["3"] = "Support Staff"
+  ENV["1type"] = "supervisor"
+  ENV["2type"] = "user"
+  ENV["3type"] = "support"
+
+
 end

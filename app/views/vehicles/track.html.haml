@@ -11,16 +11,36 @@
       = form_for @search, :url => track_vehicles_path, :method => "get"  do |f|
         .field.allign
           = f.label :plate_number 
-          = f.text_field :platenumber_like, {:class => "size"}
+          = f.text_field :platenumber_equals, {:class => "size"}
         .field.allign
           = f.label :slot
           = f.text_field :slot_like, {:class => "size"}
         .actions  
           = f.submit "Search", {:class => "button1 push"}
+      -if @vehicle.present?
+        #vehicle{:style => "margin-left:50px;"}
+          %strong{:style => "width: 120px;display: inline-block;"}
+            Vehicle:
+          =@vehicle.platenumber 
+          %br
+          %strong{:style => "width: 120px;display: inline-block;"}
+            Driver name:
+          =@vehicle.driver_first_name + " " + @vehicle.driver_middle_name + " " + @vehicle.driver_last_name
+          %br
+          %strong{:style => "width: 120px;display: inline-block;"}
+            Organization:
+          =@vehicle.organization.company_name 
+          %br
+          %strong{:style => "width: 120px;display: inline-block;"}
+            Badge number:
+          =@vehicle.badge_number 
+          %br
+          %br
+
       %table.table.table-striped.table-bordered
         %thead
           %tr
-            %th Plate Number
+            %th Date & Time
             %th Floor
             %th Location
             %th Slot            
@@ -29,7 +49,7 @@
               - @history.each do |history|
                 %tbody
                   %tr
-                    %td= history.platenumber
+                    %td= history.created_at.strftime("%d %b. %Y at %H:%M")
                     %td= history.floor.nickname
                     %td= history.location.nickname
                     %td= history.slot

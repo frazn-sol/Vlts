@@ -4,4 +4,6 @@
       %h2
         %i.icon-user.icon-white
         Add Customers
-    .box-content= render 'form'
+    .box-content
+      = render ("layouts/breadcrumbs")
+      = render 'form'

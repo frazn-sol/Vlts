@@ -23,9 +23,9 @@
   .field
     = f.label :organization, {:class =>"required"}
     -if current_user.role == "customer"
-      = f.collection_select(:organization_id, Organization.all, :id, :company_name, { :include_blank => true })
+      = f.collection_select(:organization_id, Organization.where(:delflag => false), :id, :company_name, { :include_blank => true })
     -else
-      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}") + Organization.where(:user_id => "#{current_user.parent_id}"), :id, :company_name, { :include_blank => true })  
+      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}", :delflag => false) + Organization.where(:user_id => "#{current_user.parent_id}", :delflag => false), :id, :company_name, { :include_blank => true })  
   .field
     = f.label :permit_date
     = f.date_select :permit_date

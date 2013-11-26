@@ -5,7 +5,12 @@
         %i.icon-user.icon-white
         Locations
     .box-content
-      = link_to "<i class=\"icon-plus icon-white\"></i> Add new".html_safe, new_location_path, :class => "btn btn-success add"
+      #tagbar
+        .aleft
+          = render ("layouts/breadcrumbs")
+        .aright
+          = link_to "<i class=\"icon-plus icon-white\"></i> Add new".html_safe, new_location_path, :class => "btn btn-success add"
+          .clear
       %table.table.table-striped.table-bordered
         %thead
           %tr
@@ -26,7 +31,7 @@
                 %td.center= location.web
                 %td.center= location.email
                 %td.center
-                  = link_to "View All".html_safe, floors_path(:id => location.id), :class => "btn btn-success"
+                  = link_to "View All".html_safe, floors_path(:location_id => location.id), :class => "btn btn-success"
                 %td.center
                   = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, location, :class => "btn btn-success"
                   = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_location_path(location), :class => "btn btn-info"

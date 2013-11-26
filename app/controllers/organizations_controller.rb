@@ -4,7 +4,7 @@ class OrganizationsController < ApplicationController
   # GET /organizations.json
   def index
     if (current_user.role == "customer" || current_user.role == "supervisor")
-      @organizations = Organization.paginate(:page => params[:page], :per_page => 5)
+      @organizations = Organization.where(:delflag => false).paginate(:page => params[:page], :per_page => 5)
 
       respond_to do |format|
       format.html # index.html.erb
@@ -28,7 +28,7 @@ end
   else
     redirect_to error_users_path and return
   end
-end
+  end
 
   # GET /organizations/new
   # GET /organizations/new.json
@@ -91,14 +91,21 @@ end
   def destroy
     if (current_user.role == "customer" || current_user.role == "supervisor")    
       @organization = Organization.find(params[:id])
-      @organization.destroy
-      
       @action = request.referrer
-    flash[:notice] = "Successfully Deleted"
-    respond_to do |format|
-      format.html { redirect_to @action }
-      format.json { head :no_content }
-    end
+      @organization.delflag = true
+      if @organization.update_attributes(params[:organization])
+        flash[:notice] = "Successfully Deleted"
+        respond_to do |format|
+          format.html { redirect_to @action }
+          format.json { head :no_content }
+        end
+      else
+        flash[:notice] = "Could not Deleted"
+        respond_to do |format|
+          format.html { redirect_to @action }
+          format.json { head :no_content }
+        end
+      end
 
     else
       redirect_to error_users_path and return

@@ -6,21 +6,22 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <% if Logo.last.logo.url.present? && !Logo.last.logo.url.empty? %>
-          <%= image_tag Logo.last.logo.url, {:class => "logo", :size => "227x60"} %>
-        <% else %>
-          <%= image_tag "logo1.png", {:class => "logo"} %>
-        <% end %>  
-        <div class = "system">
+         <div id="company_logo" class="aleft">
+          <% if Logo.last.logo.url.present? && !Logo.last.logo.url.empty? %>
+            <%= image_tag Logo.last.logo.url, {:class => "logo", :size => "227x60"} %>
+          <% else %>
+            <%= image_tag "logo1.png", {:class => "logo"} %>
+          <% end %>  
+        <div id = "company_name">
         <% if Logo.last.logo.url.present? && !Logo.last.companyname.empty? %>
           Powered By <%== Logo.last.companyname%>
         <% else %>
           Powered By VLTS
           <%end%>
         </div>
-        
+        </div>
         <!-- theme selector ends -->
-
+         <div id="dropdown" class="aright">
         <%if current_user  %>
         <!-- user dropdown starts -->
         <div class="btn-group pull-right hello4" >
@@ -36,6 +37,7 @@
           </ul>
         </div>
         <%end%>
+      </div>
         <!-- user dropdown ends -->
         
         <!-- <div class="top-nav nav-collapse">
@@ -92,9 +94,3 @@
         </div>
       </noscript>
       <%end%>
-      <% if @breadcrumbs %>
-      <% @breadcrumbs[0..-2].each do |txt, path| %>
-      <%= link_to(h(txt), path) %> >>
-      <% end %>
-      <%= h(@breadcrumbs.last.first) %>
-      <% end %>

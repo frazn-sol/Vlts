@@ -6,25 +6,28 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-
-       <% if Logo.last.logo.url.present? && !Logo.last.logo.url.empty? %>
-          <%= image_tag Logo.last.logo.url, {:class => "logo", :size => "227x60"} %>
-        <% else %>
-          <%= image_tag "logo1.png", {:class => "logo"} %>
-        <% end %> 
-        <div class = "system">
+        <div id="company_logo" class="aleft">
+          <% if Logo.last.logo.url.present? && !Logo.last.logo.url.empty? %>
+            <%= image_tag Logo.last.logo.url, {:class => "logo", :size => "227x60"} %>
+          <% else %>
+            <%= image_tag "logo1.png", {:class => "logo"} %>
+          <% end %> 
+        <div id = "company_name">
         <% if Logo.last.logo.url.present? && !Logo.last.companyname.empty? %>
           Powered By <%== Logo.last.companyname%>
         <% else %>
           Powered By VLTS
           <%end%>
          </div>
+        </div> 
+        <div id="header-opts" class="aleft">
          <%if current_user.pass_change == true %>
-        <a href="/organizations" class="hello"><span>Organization</span></a>
-        <a href="/users/user" class="hello hello1"><span>User</span></a>
+        <a href="/organizations" class="round_circle"><span>Organization</span></a>
+        <a href="/users/user" class="round_circle"><span>User</span></a>
         <!-- theme selector ends -->
         <%end%>  
-
+      </div>
+       <div id="dropdown" class="aright">
         <%if current_user  %>
         <!-- user dropdown starts -->
         <div class="btn-group pull-right" >
@@ -41,7 +44,7 @@
         </div>
         <%end%>
         <!-- user dropdown ends -->
-        
+        </div>
         <!-- <div class="top-nav nav-collapse">
           <ul class="nav">
             <li><a href="#">Visit Site</a></li>
@@ -98,9 +101,4 @@
         </div>
       </noscript>
       <%end%>
-      <% if @breadcrumbs %>
-      <% @breadcrumbs[0..-2].each do |txt, path| %>
-      <%= link_to(h(txt), path) %> >>
-      <% end %>
-      <%= h(@breadcrumbs.last.first) %>
-      <% end %>
+  

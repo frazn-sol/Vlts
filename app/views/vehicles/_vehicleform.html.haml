@@ -24,11 +24,11 @@
   .field.allign
     = f.label :organization
     -if current_user.role == "customer"
-      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}")  , :id, :company_name, {}, :class => "size2")
+      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}", :delflag => false)  , :id, :company_name, {}, :class => "size2")
     -elsif current_user.role == "supervisor"
-      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.parent_id}") + Organization.where(:user_id => "#{current_user.id}"), :id, :company_name, {}, :class => "size2")  
+      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.parent_id}", :delflag => false) + Organization.where(:user_id => "#{current_user.id}", :delflag => false), :id, :company_name, {}, :class => "size2")  
     -else
-      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.parent_id}") + Organization.where(:user_id => "#{current_user.parent.parent_id}")  , :id, :company_name, {}, :class => "size2")    
+      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.parent_id}", :delflag => false) + Organization.where(:user_id => "#{current_user.parent.parent_id}", :delflag => false)  , :id, :company_name, {}, :class => "size2")    
   .clear
   .field.allign
     = f.label :permit_date
@@ -41,7 +41,9 @@
     = f.text_field :badge_number, {:class => "size"}
   .field.allign
     = f.label :visitor
-    = f.check_box :visitor, {:class => "size"}  
+    = f.radio_button(:visitor, "Red")
+    = f.radio_button(:visitor, "Green")
+    = f.radio_button(:visitor, "Blue")  
   .actions
     = f.submit 'Create Vehicle', {:class => "button1"}
 

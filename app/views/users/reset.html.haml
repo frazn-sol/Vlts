@@ -5,6 +5,7 @@
         %i.icon-user.icon-white
         Reset Password
     .box-content
+      = render ("layouts/breadcrumbs")
       = form_for @user, :url => reset1_user_path(@user) do |f| 
         .field
           = f.label :try, "Email", {:class => 'required'}

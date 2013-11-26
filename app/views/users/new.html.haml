@@ -9,4 +9,6 @@
           Add User
         -else       
           Add Support Staff
-    .box-content= render 'form'
+    .box-content
+      = render ("layouts/breadcrumbs")
+      = render 'form'

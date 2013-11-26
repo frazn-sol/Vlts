@@ -3,9 +3,17 @@
     .box-header.well{"data-original-title" => ""}
       %h2
         %i.icon-user.icon-white
-        organization Contact
+        - if params[:org_id].present?
+          ="#{Organization.find(params[:org_id]).company_name} " + "Contacts"
+        -else
+          Organization Contact
     .box-content
-      = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_organization_contact_path, :class => "btn btn-success add"
+      #tagbar
+        .aleft
+          = render ("layouts/breadcrumbs")
+        .aright
+          = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_organization_contact_path(:org_id => "#{params[:org_id]}"), :class => "btn btn-success add"
+          .clear
       %table.table.table-striped.table-bordered
         %thead
           %tr
@@ -16,7 +24,7 @@
             %th Email
             %th Actions
         - @organization_contacts.each do |organization_contact|
-          -if organization_contact.organization_id == params[:id].to_i
+          -if organization_contact.organization_id == params[:org_id].to_i && organization_contact.delflag.to_s == "false"
             %tbody
               %tr
                 %td= "#{organization_contact.first_name} " + "#{organization_contact.last_name}"
@@ -25,7 +33,7 @@
                 %td.center= organization_contact.cell
                 %td.center= organization_contact.email
                 %td.center
-                  = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, organization_contact, :class => "btn btn-success"
-                  = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_organization_contact_path(organization_contact), :class => "btn btn-info"
+                  = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, organization_contact_path(organization_contact, :org_id => "#{params[:org_id]}"), :class => "btn btn-success"
+                  = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_organization_contact_path(organization_contact, :org_id => "#{params[:org_id]}"), :class => "btn btn-info"
                   = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, organization_contact, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
       = will_paginate @organization_contacts            
