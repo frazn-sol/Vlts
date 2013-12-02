@@ -83,10 +83,11 @@ class FloorsController < ApplicationController
   # POST /floors.json
   def create
     @floor = Floor.new(params[:floor])
+    @floor.user_id = current_user.id
 
     respond_to do |format|
       if @floor.save
-        format.html { redirect_to @floor, notice: 'Floor was successfully created.' }
+        format.html { redirect_to floors_path(:location_id => params[:floor][:location_id]), notice: 'Floor was successfully created.' }
         format.json { render json: @floor, status: :created, location: @floor }
       else
         format.html { render action: "new" }

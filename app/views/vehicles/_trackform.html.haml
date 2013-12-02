@@ -12,11 +12,17 @@
     = f.hidden_field :vehicle_id 
   .field.allign
     = f.label :floor, {:class => "required"}
-    = f.collection_select(:floor_id, Floor.where(:delflag => false), :id, :nickname, {}, :class => "size2") 
+    - if current_user.parent.parent.present?
+      = f.collection_select(:floor_id, Floor.where(:delflag => false, :user_id => "#{curent_user.parent_id}") + Floor.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}"), :id, :nickname, {}, :class => "size2")
+    -else   
+      = f.collection_select(:floor_id, Floor.where(:delflag => false, :user_id => "#{current_user.parent_id}"), :id, :nickname, {}, :class => "size2")
 
   .field.allign
     = f.label :location, {:class => "required"}
-    = f.collection_select(:location_id, Location.where(:delflag => false), :id, :nickname, {}, :class => "size2")      
+    - if current_user.parent.parent.present?
+      = f.collection_select(:floor_id, Location.where(:delflag => false, :user_id => "#{curent_user.parent_id}") + Location.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}"), :id, :nickname, {}, :class => "size2")
+    -else   
+      = f.collection_select(:floor_id, Location.where(:delflag => false, :user_id => "#{current_user.parent_id}"), :id, :nickname, {}, :class => "size2")     
   .clear
   .field.allign
     = f.label :slot, {:class => "required"}
