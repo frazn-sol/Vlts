@@ -9,7 +9,14 @@
         .aleft
           = render ("layouts/breadcrumbs")
         .aright
-          = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_vehicle_path, :class => "btn btn-success add"
+          -if(current_user.role == "customer" && Change.where(:user_id => "#{current_user.customer.id}").blank?)
+            = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_vehicle_path, :class => "btn btn-success add"
+          -elsif(current_user.role == "customer" && Vehicle.where(:user_id => "#{current_user.id}", :delflag => "false").count < Change.where(:user_id => "#{current_user.customer.id}").last.vehiclecapacity)
+            = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_vehicle_path, :class => "btn btn-success add"
+          -if (current_user.role == "supervisor" && Change.where(:user_id => "#{current_user.parent.customer_id}").blank?)  
+            = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_vehicle_path, :class => "btn btn-success add"
+          -elsif (current_user.role == "supervisor" && Vehicle.where(:user_id => "#{current_user.id}", :delflag => "false").count  <  Change.where(:user_id => "#{current_user.parent.customer_id}").last.vehiclecapacity)
+            = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_vehicle_path, :class => "btn btn-success add"
           .clear
       %table.table.table-striped.table-bordered
         %thead

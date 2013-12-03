@@ -9,14 +9,14 @@ class FloorsController < ApplicationController
         add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
         add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
 
-        @floors = Floor.where(:delflag => false).paginate(:page => params[:page], :per_page => 5)
+        @floors = Floor.where(:delflag => "false", :location_id => "#{params[:location_id]}").paginate(:page => params[:page], :per_page => 5)
 
         respond_to do |format|
           format.html # index.html.erb
           format.json { render json: @floors }
         end
       else
-        @floors = Floor.where(:delflag => false).paginate(:page => params[:page], :per_page => 5)
+        @floors = Floor.where(:delflag => false, :user_id => "#{current_user.id}").paginate(:page => params[:page], :per_page => 5)
 
         respond_to do |format|
           format.html # index.html.erb
@@ -32,10 +32,12 @@ class FloorsController < ApplicationController
   # GET /floors/1.json
   def show
     if (current_user.role == "customer" || current_user.role == "supervisor")
+      if params[:location_id].present?
       add_breadcrumb 'Location', 'locations_path'
       add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
       add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
-      add_breadcrumb "View", '#'      
+      add_breadcrumb "View", '#' 
+      end     
       @floor = Floor.find(params[:id])
 
       respond_to do |format|
@@ -51,10 +53,12 @@ class FloorsController < ApplicationController
   # GET /floors/new.json
   def new
     if (current_user.role == "customer" || current_user.role == "supervisor")
+      if params[:location_id].present?
       add_breadcrumb 'Location', 'locations_path'
       add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
       add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
-      add_breadcrumb "Add new", '#'      
+      add_breadcrumb "Add new", '#'
+      end      
       @floor = Floor.new
 
       respond_to do |format|
@@ -69,10 +73,12 @@ class FloorsController < ApplicationController
   # GET /floors/1/edit
   def edit
     if (current_user.role == "customer" || current_user.role == "supervisor")
+      if params[:location_id].present?
       add_breadcrumb 'Location', 'locations_path'
       add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
       add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
-      add_breadcrumb "Update", '#'      
+      add_breadcrumb "Update", '#'
+      end      
       @floor = Floor.find(params[:id])
     else
       redirect_to error_users_path and return

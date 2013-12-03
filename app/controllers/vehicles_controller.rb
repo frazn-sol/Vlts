@@ -5,8 +5,7 @@ class VehiclesController < ApplicationController
   # GET /vehicles.json
   def index
     if (current_user.role == "customer" || current_user.role == "supervisor")
-      @vehicles = Vehicle.where(:delflag => false).paginate(:page => params[:page], :per_page => 5)
-
+      @vehicles = Vehicle.where(:delflag => false, :user_id => "#{current_user.id}").paginate(:page => params[:page], :per_page => 5) 
       respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @vehicles }
@@ -59,6 +58,7 @@ end
   # POST /vehicles.json
   def create
     @vehicle = Vehicle.new(params[:vehicle])
+    @vehicle.user_id = current_user.id
 
     respond_to do |format|
       if @vehicle.save

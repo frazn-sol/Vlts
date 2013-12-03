@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131202140957) do
+ActiveRecord::Schema.define(:version => 20131203151429) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(:version => 20131202140957) do
     t.datetime "updated_at",                            :null => false
     t.string   "visitor"
     t.boolean  "delflag",            :default => false
+    t.integer  "user_id"
   end
 
 end

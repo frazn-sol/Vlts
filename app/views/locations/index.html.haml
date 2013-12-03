@@ -22,7 +22,7 @@
             %th Floors            
             %th Actions
         - @locations.each do |location|
-          - if location.user_id == current_user.id
+          - if location.user_id == current_user.id || location.user_id == current_user.parent_id
             %tbody
               %tr
                 %td= location.nickname

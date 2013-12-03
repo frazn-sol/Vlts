@@ -37,9 +37,16 @@
     = f.text_field :badge_number
   .field
     = f.label :visitor
-    = f.radio_button(:visitor, "Red")
-    = f.radio_button(:visitor, "Green")
-    = f.radio_button(:visitor, "Blue")
+    %label{title: "Red"}
+      %input{name: "vehicle[visitor]", type: "radio", value: "Red"}
+      Red
+    %label{title: "Green"}
+      %input{name: "vehicle[visitor]", type: "radio", value: "Green"}
+      Green
+    %label{title: "Blue"}
+      %input{name: "vehicle[visitor]", type: "radio", value: "Blue"}
+      Blue
+    .clear
   .actions
     = f.submit 'Create Vehicle', {:class => "button1"}
 

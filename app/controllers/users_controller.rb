@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   def show
     type = User.where(:id => params[:id])[0].role
     typename = ENV[type]
-    add_breadcrumb "#{typename}", '#{type}_users_path'
+    add_breadcrumb "#{typename}", "#{type}_users_path"
     add_breadcrumb "#{User.where(:id => params[:id])[0].first_name}", '#'
     @user = User.find(params[:id])
     respond_to do |format|
@@ -28,10 +28,15 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     type = params[:param]
-    systype = type+'type'
-    systypename = ENV[systype]
-    add_breadcrumb "#{ENV[type]}", "#{ENV[systype]}_users_path"
-    add_breadcrumb "Add new", ''    
+    if type == nil
+      add_breadcrumb "Support Staff", "support_users_path"
+      add_breadcrumb "Add new", ''
+    else  
+      systype = type+'type'
+      systypename = ENV[systype]
+      add_breadcrumb "#{ENV[type]}", "#{ENV[systype]}_users_path"
+      add_breadcrumb "Add new", ''    
+    end
     @user = User.new
     respond_to do |format|
       format.html # new.html.erb
@@ -90,18 +95,18 @@ class UsersController < ApplicationController
     @action = request.referrer
     @user.delflag = true
     if @user.update_attributes(params[:user])
-      @customer = Customer.where(:user_id => @user.id)
+      @customer = Customer.where(:user_id => "#{@user.id}", :delflag => "false")
       if @customer.present?
         @customer.each do |c|
          c.delflag = true
          Customer.where(:id => c.id).update_all(:deflag => true)
-        end 
+        end
+      end 
         flash[:notice] = "Successfully Deleted"
         respond_to do |format|
           format.html { redirect_to @action }
           format.json { head :no_content }
-        end
-      end  
+        end  
     else
       flash[:notice] = "Could not Deleted"
       respond_to do |format|
@@ -123,7 +128,7 @@ class UsersController < ApplicationController
 
   def supervisor
     if current_user.role == "customer" 
-      @user = User.where(:role => "supervisor", :delflag => false)
+      @user = User.where(:parent_id => "#{current_user.id}", :role => "supervisor", :delflag => false)
       @users = @user.paginate(:page => params[:page], :per_page => 5)
     else 
       redirect_to error_users_path   
@@ -227,7 +232,7 @@ class UsersController < ApplicationController
   def change1
     if current_user.role == "admin" || current_user.role == "support" 
       @logo = Logo.last
-      @config = Change.new
+      @config = Change.new  
     end
   end
 
@@ -245,7 +250,7 @@ class UsersController < ApplicationController
   end
 
   def config_create
-    @config = Change.new(params[:configuration])
+    @config = Change.new(params[:change])
     respond_to do |format|
       if @config.save
         format.html { redirect_to change1_users_path, notice: 'configurations were successfully created.' }
