@@ -94,11 +94,12 @@ end
   def create
     @organization_contact = OrganizationContact.new(params[:organization_contact])
 
+
     respond_to do |format|
       if @organization_contact.save && params[:id][:org_id].present?
         format.html { redirect_to organization_contacts_path(:org_id => params[:id][:org_id]), notice: 'Organization contact was successfully created.' }
         format.json { render json: @organization_contact, status: :created, location: @customer_contact }
-      elsif @customer_contact.save
+      elsif @organization_contact.save
         format.html { redirect_to organizations_path, notice: 'Organization contact was successfully created.' }
         format.json { render json: @organization_contact, status: :created, location: @customer_contact }
       else
