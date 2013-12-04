@@ -20,9 +20,9 @@
   .field.allign
     = f.label :location, {:class => "required"}
     - if current_user.parent.parent.present?
-      = f.collection_select(:floor_id, Location.where(:delflag => false, :user_id => "#{curent_user.parent_id}") + Location.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}"), :id, :nickname, {}, :class => "size2")
+      = f.collection_select(:location_id, Location.where(:delflag => false, :user_id => "#{curent_user.parent_id}") + Location.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}"), :id, :nickname, {}, :class => "size2")
     -else   
-      = f.collection_select(:floor_id, Location.where(:delflag => false, :user_id => "#{current_user.parent_id}"), :id, :nickname, {}, :class => "size2")     
+      = f.collection_select(:location_id, Location.where(:delflag => false, :user_id => "#{current_user.parent_id}"), :id, :nickname, {}, :class => "size2")     
   .clear
   .field.allign
     = f.label :slot, {:class => "required"}
@@ -38,10 +38,10 @@
     name: 'vehicle_history[slot]',
     rules: 'required'
   },{
-    name: 'vehicle_history[floor_id]',
+    name: 'vehicle_history[location_id]',
     rules: 'required'
   },{
-    name: 'vehicle_history[location_id]',
+    name: 'vehicle_history[floor_id]',
     rules: 'required'
   }], function(errors, event) {
     if (errors.length > 0) {
