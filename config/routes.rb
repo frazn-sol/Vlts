@@ -3,6 +3,11 @@ VLTS::Application.routes.draw do
 
   resources :vehicles do
 
+    member do
+      get :track_view 
+      delete :track_delete
+    end
+
     collection do
       get :track
       post :track_create

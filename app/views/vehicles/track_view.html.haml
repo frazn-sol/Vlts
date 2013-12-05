@@ -1,0 +1,22 @@
+.row-fluid.sortable
+  .box.span12
+    .box-header.well{"data-original-title" => ""}
+      %h2
+        %i.icon-user.icon-white
+        View Vehicles
+    .box-content
+      %p
+        %b Plate Number
+        = @vehicle.platenumber
+      %p
+        %b Location
+        = @vehicle.location.nickname
+      %p
+        %b Floor:
+        = @vehicle.floor.nickname
+      %p
+        %b Slot:
+        = @vehicle.slot
+      %p
+        %b Date and Time:
+        = @vehicle.created_at.strftime("%d %b. %Y at %H:%M")

@@ -54,9 +54,8 @@
                     %td= history.location.nickname
                     %td= history.slot
                     %td.center
-                      = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, "", :class => "btn btn-success"
-                      = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, "", :class => "btn btn-info"
-                      = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, "", confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
+                      = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, track_view_vehicle_path(history), :class => "btn btn-success"
+                      = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, track_delete_vehicle_path(history), confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
             -else
               %tbody
                 %tr

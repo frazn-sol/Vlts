@@ -6,7 +6,7 @@
         System Configurations
     .box-content   
       = render ("layouts/breadcrumbs") 
-      = form_for @logo, :url => change_create_users_path, :html => { :multipart => true } do |f|
+      = form_for @system_config, :url => change_create_users_path, :html => { :multipart => true } do |f|
         
         .field
           = f.label :company_logo
@@ -31,7 +31,7 @@
         %i.icon-user.icon-white
         Customer Configurations
     .box-content    
-      = form_for @config, :url => config_create_users_path, :html => { :multipart => true } do |f|
+      = form_for @user_config, :url => config_create_users_path, :html => { :multipart => true } do |f|
         
         .field
           = f.label :Customer, {:class => "required"}

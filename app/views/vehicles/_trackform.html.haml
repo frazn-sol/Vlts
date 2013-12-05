@@ -74,4 +74,24 @@
                 .append( "<a>" + item.platenumber + "</a>" )
                 .appendTo( ul );
         };    
+  $( "#search_platenumber_equals" ).autocomplete({
+      source: '#{autocomplete_vehicles_path(:json)}',
+      minLength: 2,
+      focus: function(event, ui) {
+    $('#search_platenumber_equals').val(ui.item.platenumber);
+      return false;
+    },
+    select: function(event, ui) {
+      $('#search_platenumber_equals').val(ui.item.platenumber);
+      $('#vehicle_history_vehicle_id').val(ui.item.id);
+        return false;
+          }
+        })
+      .data( "autocomplete" )._renderItem = function( ul, item ) {
+        console.log(item);
+            return $( "<li></li>" )
+                .data( "item.autocomplete", item )
+                .append( "<a>" + item.platenumber + "</a>" )
+                .appendTo( ul );
+        };        
     });

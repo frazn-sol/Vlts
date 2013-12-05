@@ -45,7 +45,20 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <%= image_tag "logo1.png", {:class => "logo"} %>
+        <div id="company_logo" class="aleft">
+        <% if SystemConfig.last.present? && !SystemConfig.last.logo.url.empty? %>
+          <%= image_tag SystemConfig.last.logo.url, {:class => "logo", :size => "227x60"} %>
+        <% else %>
+          <%= image_tag "logo1.png", {:class => "logo"} %>
+        <% end %> 
+        <div id="company_name">
+          <% if SystemConfig.last.present? && !SystemConfig.last.companyname.empty? %>
+            Powered By <%== SystemConfig.last.companyname%>
+          <% else %>
+            Powered By VLTS
+            <%end%>
+        </div>
+      </div>
         <!-- theme selector starts -->
         <!-- <div class="btn-group pull-right theme-container" >
           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -83,6 +96,17 @@
 
 
 <%= render "devise/sessions/new"%>
+
+<div class="navbar-inner footer">
+  <div class="container-fluid1">
+    <div class = "copytext">
+    <% if SystemConfig.last.present? && !SystemConfig.last.copytext.empty? %>
+    &copy; <%== SystemConfig.last.copytext.to_s %>
+    <% else %>
+    &copy; This is a copyright text
+    <% end %>
+  </div>
+</div>
 </body>
 </html>
 

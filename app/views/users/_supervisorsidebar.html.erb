@@ -7,14 +7,14 @@
           <span class="icon-bar"></span>
         </a>
         <div id="company_logo" class="aleft">
-          <% if Logo.last.logo.url.present? && !Logo.last.logo.url.empty? %>
-            <%= image_tag Logo.last.logo.url, {:class => "logo", :size => "227x60"} %>
+          <% if SystemConfig.last.logo.url.present? && !SystemConfig.last.logo.url.empty? %>
+            <%= image_tag SystemConfig.last.logo.url, {:class => "logo", :size => "227x60"} %>
           <% else %>
             <%= image_tag "logo1.png", {:class => "logo"} %>
           <% end %> 
         <div id = "company_name">
-        <% if Logo.last.logo.url.present? && !Logo.last.companyname.empty? %>
-          Powered By <%== Logo.last.companyname%>
+        <% if SystemConfig.last.logo.url.present? && !SystemConfig.last.companyname.empty? %>
+          Powered By <%== SystemConfig.last.companyname%>
         <% else %>
           Powered By VLTS
           <%end%>

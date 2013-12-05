@@ -119,7 +119,7 @@ end
       if (params[:search].blank?)
         @history = nil
       else
-        @history = @search.paginate(:page => params[:page], :per_page => 5)
+        @history = @search.where(:delflag => "false").paginate(:page => params[:page], :per_page => 5)
         @vehicle = Vehicle.find(@history.first.vehicle_id) if @history.present?
       end
     else
@@ -191,6 +191,41 @@ end
     end
 
     render json: @vehicle.as_json
+  end
 
+  def track_view
+  if (current_user.role == "user")    
+      @vehicle = VehicleHistory.find(params[:id])
+
+      respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @vehicle }
+    end
+  else
+    redirect_to error_users_path and return
+  end
+  end
+
+  def track_delete
+  if (current_user.role == "user")  
+    @vehicle = VehicleHistory.find(params[:id])
+      @action = request.referrer
+      @vehicle.delflag = true
+      if @vehicle.update_attributes(params[:vehicle])
+        flash[:notice] = "Successfully Deleted"
+        respond_to do |format|
+          format.html { redirect_to @action }
+          format.json { head :no_content }
+        end
+      else
+        flash[:notice] = "Could not Deleted"
+        respond_to do |format|
+          format.html { redirect_to @action }
+          format.json { head :no_content }
+        end
+      end
+  else
+    redirect_to error_users_path and return
+  end
   end
 end

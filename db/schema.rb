@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131203151429) do
+ActiveRecord::Schema.define(:version => 20131205145328) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -34,13 +34,11 @@ ActiveRecord::Schema.define(:version => 20131203151429) do
   add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
   add_index "audits", ["user_id", "user_type"], :name => "user_index"
 
-  create_table "changes", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "vehiclecapacity"
-    t.integer  "floorcapacity"
-    t.integer  "usercapacity"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+  create_table "comments", :force => true do |t|
+    t.string   "name"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "customer_contacts", :force => true do |t|
@@ -103,19 +101,6 @@ ActiveRecord::Schema.define(:version => 20131203151429) do
     t.boolean  "delflag",     :default => false
   end
 
-  create_table "logos", :force => true do |t|
-    t.integer  "user_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.integer  "logo_file_size"
-    t.datetime "logo_updated_at"
-    t.string   "systemname"
-    t.string   "companyname"
-    t.text     "copytext"
-  end
-
   create_table "organization_contacts", :force => true do |t|
     t.string   "first_name"
     t.string   "middle_name"
@@ -145,6 +130,28 @@ ActiveRecord::Schema.define(:version => 20131203151429) do
     t.datetime "updated_at",                      :null => false
     t.string   "city"
     t.boolean  "delflag",      :default => false
+  end
+
+  create_table "system_configs", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.string   "systemname"
+    t.string   "companyname"
+    t.text     "copytext"
+  end
+
+  create_table "user_configs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "vehiclecapacity"
+    t.integer  "floorcapacity"
+    t.integer  "usercapacity"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -182,9 +189,10 @@ ActiveRecord::Schema.define(:version => 20131203151429) do
     t.integer  "floor_id"
     t.integer  "location_id"
     t.integer  "vehicle_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "platenumber"
+    t.boolean  "delflag",     :default => false
   end
 
   create_table "vehicles", :force => true do |t|

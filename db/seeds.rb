@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-logo = Logo.new
+logo = SystemConfig.new
 logo.copytext = "This is copytext"
 logo.systemname = "VLTS"
 logo.companyname = "Company name" 

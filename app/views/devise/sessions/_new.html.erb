@@ -3,8 +3,8 @@
 		
 			<div class="row-fluid">
 				<div class="span12 center login-header">
-					<% if Logo.last.present? && !Logo.last.systemname.empty? %>
-					<h2>Welcome to <%== Logo.last.systemname.capitalize %></h2>
+					<% if SystemConfig.last.present? && !SystemConfig.last.systemname.empty? %>
+					<h2>Welcome to <%== SystemConfig.last.systemname.capitalize %></h2>
 					<% else %>
 					<h2>Welcome to VLTS</h2>
 					<% end %>

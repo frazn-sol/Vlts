@@ -84,8 +84,8 @@
 <div class="navbar-inner footer">
   <div class="container-fluid1">
     <div class = "copytext">
-    <% if Logo.last.present? && !Logo.last.copytext.empty? %>
-    &copy; <%== Logo.last.copytext.to_s %>
+    <% if SystemConfig.last.present? && !SystemConfig.last.copytext.empty? %>
+    &copy; <%== SystemConfig.last.copytext.to_s %>
     <% else %>
     &copy; This is a copyright text
     <% end %>

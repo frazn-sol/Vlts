@@ -152,9 +152,17 @@ class UsersController < ApplicationController
     @user = current_user
     params[:current_password] = params[:user][:currently_password]
     params[:user][:current_password] = params[:current_password]
-    params[:user].delete(:currently_password) 
+    params[:user].delete(:currently_password)
 
-    if @user.update_with_password(params[:user])
+    if params[:user][:current_password].blank?
+      flash[:notice] = "Current Password can't be blank"
+      render action: "password" and return
+    elsif params[:user][:password].blank? || params[:user][:password_confirmation] != params[:user][:password]
+      flash[:notice] = "Please Enter the password again"
+      render action: "password" and return
+    end    
+
+    if @user.update_with_password(params[:user]) 
       flash[:notice] = "Password has been successfully updated"
       sign_in @user, :bypass => true
       redirect_to users_path and return
@@ -231,33 +239,33 @@ class UsersController < ApplicationController
 
   def change1
     if current_user.role == "admin" || current_user.role == "support" 
-      @logo = Logo.last
-      @config = Change.new  
+      @system_config = SystemConfig.last
+      @user_config = UserConfig.new  
     end
   end
 
   def change_create
-    @logo = Logo.last
+    @system_config = SystemConfig.last
     respond_to do |format|
-      if @logo.update_attributes(params[:logo])
+      if @system_config.update_attributes(params[:system_config])
         format.html { redirect_to change1_users_path, notice: 'configurations were successfully created.' }
-        format.json { render json: @logo, status: :created, location: @logo }
+        format.json { render json: @system_config, status: :created, location: @system_config }
       else
         format.html { render action: "config" }
-        format.json { render json: @logo.errors, status: :unprocessable_entity }
+        format.json { render json: @system_config.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def config_create
-    @config = Change.new(params[:change])
+    @user_config = UserConfig.new(params[:user_config])
     respond_to do |format|
-      if @config.save
+      if @user_config.save
         format.html { redirect_to change1_users_path, notice: 'configurations were successfully created.' }
-        format.json { render json: @config, status: :created, location: @config }
+        format.json { render json: @user_config, status: :created, location: @user_config }
       else
         format.html { render action: "config" }
-        format.json { render json: @config.errors, status: :unprocessable_entity }
+        format.json { render json: @user_config.errors, status: :unprocessable_entity }
       end
     end
   end

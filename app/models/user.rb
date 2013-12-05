@@ -13,12 +13,14 @@ class User < ActiveRecord::Base
 
   has_many :organizations
   has_many :locations
-  has_many :logos
+  has_many :system_configs
 
   # Setup accessible (or protected) attributes for your model
   attr_accessor :try, :forgot
   attr_accessible :email, :password, :password_confirmation, :remember_me, :created_at, :parent_id, :password
   attr_accessible :id, :cell, :first_name, :last_name, :middle_name, :phone, :role, :passwordhint, :employeeno, :parent_id, :pass_change
+  
+
   
   def self.find_for_authentication(conditions)
     super(conditions.merge(:delflag => false))
