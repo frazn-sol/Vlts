@@ -189,7 +189,9 @@ end
   end
 
   def create_vehicles
-    if current_user.role == "user"    
+    if current_user.role == "user" 
+      @vehicle = Vehicle.new(params[:vehicle])
+      @vehicle.user_id = current_user.id   
       vehicle_child_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.id}").count
       vehicle_parent_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.id}").count
       vehicle_grand_parent_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.parent_id}").count
