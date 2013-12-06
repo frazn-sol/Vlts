@@ -22,19 +22,19 @@
         #vehicle{:style => "margin-left:50px;"}
           %strong{:style => "width: 120px;display: inline-block;"}
             Vehicle:
-          =@vehicle.platenumber
+          =@vehicle[0].platenumber
           %br
           %strong{:style => "width: 120px;display: inline-block;"}
             Driver name:
-          =@vehicle.driver_first_name + " " + @vehicle.driver_middle_name + " " + @vehicle.driver_last_name
+          =@vehicle[0].driver_first_name + " " + @vehicle[0].driver_middle_name + " " + @vehicle[0].driver_last_name
           %br
           %strong{:style => "width: 120px;display: inline-block;"}
             Organization:
-          =@vehicle.organization.company_name 
+          =@vehicle[0].organization.company_name 
           %br
           %strong{:style => "width: 120px;display: inline-block;"}
             Badge number:
-          =@vehicle.badge_number 
+          =@vehicle[0].badge_number 
           %br
           %br
 

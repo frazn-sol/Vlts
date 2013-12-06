@@ -91,7 +91,7 @@ class UsersController < ApplicationController
         end
       end
     else
-      flash[:notice] = "You are not allowed to create more users"
+      flash[:notice] = "You are not allowed to create more users because you have already reach your limit"
       render action: "new" and return
     end    
   end

@@ -89,7 +89,7 @@ end
         end
       end
     else
-      flash[:notice] = "You are not allowed to create more vehicles"
+      flash[:notice] = "You are not allowed to create more vehicles because you have already reach your limit"
       render action: "new" and return
     end            
   end
@@ -143,7 +143,7 @@ end
         @history = nil
       else
         @history = @search.where(:delflag => "false").paginate(:page => params[:page], :per_page => 5)
-        @vehicle = Vehicle.find(@history.first.vehicle_id) if @history.present?
+        @vehicle = Vehicle.where(:platenumber => "#{params[:search][:platenumber_equals]}") if params[:search].present?
       end
     else
       redirect_to error_users_path and return
@@ -218,7 +218,7 @@ end
           end
         end
       else
-        flash[:notice] = "You are not allowed to create more vehicles"
+        flash[:notice] = "You are not allowed to create more vehicles because you have already reach your limit"
         render action: "add_vehicles" and return
       end     
     else

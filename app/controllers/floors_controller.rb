@@ -120,7 +120,7 @@ class FloorsController < ApplicationController
         end
       end
     else
-      flash[:notice] = "You are not allowed to create more floors"
+      flash[:notice] = "You are not allowed to create more floors because you have already reach your limit"
       render action: "new" and return
     end 
   end
