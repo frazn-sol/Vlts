@@ -36,9 +36,9 @@
         .field
           = f.label :Customer, {:class => "required"}
           -if current_user.role == "admin"
-            = f.collection_select(:user_id, Customer.all, :id, :company_name, { :include_blank => true })
+            = f.collection_select(:customer_id, Customer.all, :id, :company_name, { :include_blank => true })
           -else
-            = f.collection_select(:user_id, Customer.where(:user_id => "#{current_user.id}") + Customer.where(:user_id => "#{current_user.parent.id}"), :id, :company_name, { :include_blank => true })      
+            = f.collection_select(:customer_id, Customer.where(:user_id => "#{current_user.id}") + Customer.where(:user_id => "#{current_user.parent.id}"), :id, :company_name, { :include_blank => true })        
         .field
           = f.label :floor_capacity
           = f.text_field :floorcapacity
@@ -64,4 +64,5 @@
     }
     }  
   });
+
 

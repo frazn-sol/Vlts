@@ -59,17 +59,41 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.parent_id = current_user.id
-    
-    respond_to do |format|
-      if @user.save
-        UserMailer.welcome_email(@user).deliver
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if current_user.role == "customer"
+      user_count = User.where(:role => "user", :delflag => "false", :parent_id => "#{current_user.id}").count
+      restriction = UserConfig.where(:user_id => "#{current_user.id}")
+    else
+      user_child_count = User.where(:role => "user", :delflag => "false", :parent_id => "#{current_user.id}").count
+      user_parent_count = User.where(:role => "user", :delflag => "false", :parent_id => "#{current_user.parent_id}").count
+      user_count = user_child_count + user_parent_count
+      restriction = UserConfig.where(:user_id => "#{current_user.parent_id}")
     end
+    if restriction.blank?
+      respond_to do |format|
+        if @user.save
+          UserMailer.welcome_email(@user).deliver
+          format.html { redirect_to @user, notice: 'User was successfully created.' }
+          format.json { render json: @user, status: :created, location: @user }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
+      end
+    elsif restriction.present? && user_count < restriction[0].usercapacity  
+      respond_to do |format|
+        if @user.save
+          UserMailer.welcome_email(@user).deliver
+          format.html { redirect_to @user, notice: 'User was successfully created.' }
+          format.json { render json: @user, status: :created, location: @user }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      flash[:notice] = "You are not allowed to create more users"
+      render action: "new" and return
+    end    
   end
 
   # PUT /users/1
@@ -100,89 +124,89 @@ class UsersController < ApplicationController
         @customer.each do |c|
          c.delflag = true
          Customer.where(:id => c.id).update_all(:deflag => true)
-        end
-      end 
-        flash[:notice] = "Successfully Deleted"
-        respond_to do |format|
-          format.html { redirect_to @action }
-          format.json { head :no_content }
-        end  
-    else
-      flash[:notice] = "Could not Deleted"
-      respond_to do |format|
-        format.html { redirect_to @action }
-        format.json { head :no_content }
-      end
+       end
+     end 
+     flash[:notice] = "Successfully Deleted"
+     respond_to do |format|
+      format.html { redirect_to @action }
+      format.json { head :no_content }
+    end  
+  else
+    flash[:notice] = "Could not Deleted"
+    respond_to do |format|
+      format.html { redirect_to @action }
+      format.json { head :no_content }
     end
-
   end
 
-  def support
-    if current_user.role == "admin" 
-      @user = User.where(:role => "support", :delflag => false)
-      @users = @user.paginate(:page => params[:page], :per_page => 5)
-    else 
-      redirect_to error_users_path
-    end  
-  end
+end
 
-  def supervisor
-    if current_user.role == "customer" 
-      @user = User.where(:parent_id => "#{current_user.id}", :role => "supervisor", :delflag => false)
-      @users = @user.paginate(:page => params[:page], :per_page => 5)
-    else 
-      redirect_to error_users_path   
-    end  
-  end
+def support
+  if current_user.role == "admin" 
+    @user = User.where(:role => "support", :delflag => false)
+    @users = @user.paginate(:page => params[:page], :per_page => 5)
+  else 
+    redirect_to error_users_path
+  end  
+end
 
-  def user
-    if (current_user.role == "customer" || current_user.role == "supervisor")
-      @user = User.where(:role => "user", :parent_id => "#{current_user.id}", :delflag => false)
-      @users = @user.paginate(:page => params[:page], :per_page => 5)
-    else 
-      redirect_to error_users_path   
-    end  
-  end
+def supervisor
+  if current_user.role == "customer" 
+    @user = User.where(:parent_id => "#{current_user.id}", :role => "supervisor", :delflag => false)
+    @users = @user.paginate(:page => params[:page], :per_page => 5)
+  else 
+    redirect_to error_users_path   
+  end  
+end
 
-  def password
-    @user = current_user
-  end
+def user
+  if (current_user.role == "customer" || current_user.role == "supervisor")
+    @user = User.where(:role => "user", :parent_id => "#{current_user.id}", :delflag => false)
+    @users = @user.paginate(:page => params[:page], :per_page => 5)
+  else 
+    redirect_to error_users_path   
+  end  
+end
 
-  def change
-    @user = current_user
-    params[:current_password] = params[:user][:currently_password]
-    params[:user][:current_password] = params[:current_password]
-    params[:user].delete(:currently_password)
+def password
+  @user = current_user
+end
 
-    if params[:user][:current_password].blank?
-      flash[:notice] = "Current Password can't be blank"
-      render action: "password" and return
-    elsif params[:user][:password].blank? || params[:user][:password_confirmation] != params[:user][:password]
-      flash[:notice] = "Please Enter the password again"
-      render action: "password" and return
-    end    
+def change
+  @user = current_user
+  params[:current_password] = params[:user][:currently_password]
+  params[:user][:current_password] = params[:current_password]
+  params[:user].delete(:currently_password)
 
-    if @user.update_with_password(params[:user]) 
-      flash[:notice] = "Password has been successfully updated"
-      sign_in @user, :bypass => true
-      redirect_to users_path and return
-    else
-      flash[:notice] = @user.errors.full_messages.join("&")
-      render action: "password"
-    end  
-  end
+  if params[:user][:current_password].blank?
+    flash[:notice] = "Current Password can't be blank"
+    render action: "password" and return
+  elsif params[:user][:password].blank? || params[:user][:password_confirmation] != params[:user][:password]
+    flash[:notice] = "Please Enter the password again"
+    render action: "password" and return
+  end    
 
-  def reset
-    @user = current_user
-  end
+  if @user.update_with_password(params[:user]) 
+    flash[:notice] = "Password has been successfully updated"
+    sign_in @user, :bypass => true
+    redirect_to users_path and return
+  else
+    flash[:notice] = @user.errors.full_messages.join("&")
+    render action: "password"
+  end  
+end
 
-  def reset1
-    @user = User.find_by_email(params[:user][:try])
-    if @user
-      params[:user].delete(:try) 
-      params[:user][:id] = @user.id.to_s
+def reset
+  @user = current_user
+end
 
-      account_update_params = params[:user]
+def reset1
+  @user = User.find_by_email(params[:user][:try])
+  if @user
+    params[:user].delete(:try) 
+    params[:user][:id] = @user.id.to_s
+
+    account_update_params = params[:user]
 
       # required for settings form to submit when password is left blank
       if account_update_params[:password].blank?
@@ -259,6 +283,7 @@ class UsersController < ApplicationController
 
   def config_create
     @user_config = UserConfig.new(params[:user_config])
+    @user_config.user_id = User.where(:customer_id => params[:user_config][:customer_id])[0].id
     respond_to do |format|
       if @user_config.save
         format.html { redirect_to change1_users_path, notice: 'configurations were successfully created.' }

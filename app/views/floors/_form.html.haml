@@ -11,10 +11,13 @@
     = f.text_field :nickname
   .field
     = f.label :location, {:class =>"required"}
-    -if current_user.role == "customer"
-      = f.collection_select(:location_id, Location.where(:user_id => "#{current_user.id}", :delflag => "false"), :id, :nickname, { :include_blank => true })
-    -else
-      = f.collection_select(:location_id, Location.where(:user_id => "#{current_user.id}", :delflag => "false") + Location.where(:user_id => "#{current_user.parent_id}", :delflag => false), :id, :nickname, { :include_blank => true })    
+    -if "#{params[:location_id]}".present?
+      = f.text_field :location_id, :value => Location.where(:id => "#{params[:location_id]}")[0].nickname, :readonly => true
+    -else  
+      -if current_user.role == "customer"
+        = f.collection_select(:location_id, Location.where(:user_id => "#{current_user.id}", :delflag => "false"), :id, :nickname, { :include_blank => true })
+      -else
+        = f.collection_select(:location_id, Location.where(:user_id => "#{current_user.id}", :delflag => "false") + Location.where(:user_id => "#{current_user.parent_id}", :delflag => false), :id, :nickname, { :include_blank => true })    
   .field
     = f.label :description
     = f.text_field :description

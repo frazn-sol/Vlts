@@ -17,10 +17,13 @@
     = f.text_field :last_name
   .field
     = f.label :Company_Name, {:class => 'required'}
-    -if current_user.role == "admin"
-      = f.collection_select(:customer_id, Customer.where(:delflag => false), :id, :company_name, { :include_blank => true })
-    -else
-      = f.collection_select(:customer_id, Customer.where(:user_id => "#{current_user.id}", :delflag => false) + Customer.where(:user_id => "#{current_user.parent_id}", :delflag => false), :id, :company_name, { :include_blank => true })     
+    -if "#{params[:customer_id]}".present?
+      = f.text_field :customer_id, :value => Customer.where(:id => "#{params[:customer_id]}")[0].company_name, :readonly => true
+    -else  
+      -if current_user.role == "admin"
+        = f.collection_select(:customer_id, Customer.where(:delflag => false), :id, :company_name, { :include_blank => true })
+      -else
+        = f.collection_select(:customer_id, Customer.where(:user_id => "#{current_user.id}", :delflag => false) + Customer.where(:user_id => "#{current_user.parent_id}", :delflag => false), :id, :company_name, { :include_blank => true })     
   .field
     = f.label :designation, {:class => 'required'}
     = f.text_field :designation

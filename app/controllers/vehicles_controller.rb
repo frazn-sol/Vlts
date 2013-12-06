@@ -59,16 +59,39 @@ end
   def create
     @vehicle = Vehicle.new(params[:vehicle])
     @vehicle.user_id = current_user.id
-
-    respond_to do |format|
-      if @vehicle.save
-        format.html { redirect_to @vehicle, notice: 'Vehicle was successfully created.' }
-        format.json { render json: @vehicle, status: :created, location: @vehicle }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @vehicle.errors, status: :unprocessable_entity }
-      end
+    if current_user.role == "customer"
+      vehicle_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.id}").count
+      restriction = UserConfig.where(:user_id => "#{current_user.id}" )
+    else
+      vehicle_child_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.id}").count
+      vehicle_parent_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.id}").count
+      vehicle_count = vehicle_child_count + vehicle_parent_count
+      restriction = UserConfig.where(:user_id => "#{current_user.parent_id}")
     end
+    if restriction.blank?
+      respond_to do |format|
+        if @vehicle.save
+          format.html { redirect_to @vehicle, notice: 'Vehicle was successfully created.' }
+          format.json { render json: @vehicle, status: :created, location: @vehicle }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @vehicle.errors, status: :unprocessable_entity }
+        end
+      end
+    elsif restriction.present? && vehicle_count < restriction[0].vehiclecapacity
+      respond_to do |format|
+        if @vehicle.save
+          format.html { redirect_to @vehicle, notice: 'Vehicle was successfully created.' }
+          format.json { render json: @vehicle, status: :created, location: @vehicle }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @vehicle.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      flash[:notice] = "You are not allowed to create more vehicles"
+      render action: "new" and return
+    end            
   end
 
   # PUT /vehicles/1
@@ -144,7 +167,7 @@ end
         end
       else
         flash[:notice] = "Vehicle does not exist"
-      redirect_to track_vehicles_path and return 
+        redirect_to track_vehicles_path and return 
       end 
     else
       redirect_to error_users_path and return
@@ -156,9 +179,9 @@ end
       @vehicle = Vehicle.new
       @search = Vehicle.search(params[:search])
       if (params[:search].blank? )
-        @vehicles = Vehicle.where(:delflag => false).paginate(:page => params[:page], :per_page => 5)
+        @vehicles = Vehicle.where(:delflag => false, :user_id => "#{current_user.id}" || "#{current_user.parent_id}" || "#{current_user.parent.parent_id}").paginate(:page => params[:page], :per_page => 5)
       else
-        @vehicles = @search.paginate(:page => params[:page], :per_page => 5)
+        @vehicles = @search.where(:delflag => false, :user_id => "#{current_user.id}" || "#{current_user.parent_id}" || "#{current_user.parent.parent_id}").paginate(:page => params[:page], :per_page => 5)
       end
     else
       redirect_to error_users_path and return
@@ -167,17 +190,35 @@ end
 
   def create_vehicles
     if current_user.role == "user"    
-      @vehicle = Vehicle.new(params[:vehicle])
-
-      respond_to do |format|
-        if @vehicle.save
-          format.html { redirect_to add_vehicle_vehicles_path, notice: 'Vehicle was successfully created.' }
-          format.json { render json: @vehicle, status: :created, location: @vehicle }
-        else
-          format.html { render action: "add_vehicles" }
-          format.json { render json: @vehicle.errors, status: :unprocessable_entity }
+      vehicle_child_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.id}").count
+      vehicle_parent_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.id}").count
+      vehicle_grand_parent_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.parent_id}").count
+      vehicle_count = vehicle_child_count + vehicle_parent_count + vehicle_grand_parent_count
+      restriction = UserConfig.where(:user_id => "#{current_user.parent_id}")
+      if restriction.blank?
+        respond_to do |format|
+          if @vehicle.save
+            format.html { redirect_to add_vehicle_vehicles_path, notice: 'Vehicle was successfully created.' }
+            format.json { render json: @vehicle, status: :created, location: @vehicle }
+          else
+            format.html { render action: "add_vehicles" }
+            format.json { render json: @vehicle.errors, status: :unprocessable_entity }
+          end
         end
-      end
+      elsif restriction.present? && vehicle_count < restriction[0].vehiclecapacity
+        respond_to do |format|
+          if @vehicle.save
+            format.html { redirect_to add_vehicle_vehicles_path, notice: 'Vehicle was successfully created.' }
+            format.json { render json: @vehicle, status: :created, location: @vehicle }
+          else
+            format.html { render action: "add_vehicles" }
+            format.json { render json: @vehicle.errors, status: :unprocessable_entity }
+          end
+        end
+      else
+        flash[:notice] = "You are not allowed to create more vehicles"
+        render action: "add_vehicles" and return
+      end     
     else
       redirect_to error_users_path and return
     end
@@ -185,7 +226,8 @@ end
 
   def autocomplete
     if params[:term]
-      @vehicle = Vehicle.find(:all,:conditions => ['platenumber LIKE ?', "%#{params[:term]}%"])
+      @vehicles = Vehicle.where(:user_id => "#{current_user.id}" || "#{current_user.parent_id}" || "#{current_user.parent.parent_id}", :delflag => "false")
+      @vehicle = @vehicles.find(:all,:conditions => ['platenumber LIKE ?', "%#{params[:term]}%"])
     else
       @vehicle = Vehicle.all
     end
@@ -194,7 +236,7 @@ end
   end
 
   def track_view
-  if (current_user.role == "user")    
+    if (current_user.role == "user")    
       @vehicle = VehicleHistory.find(params[:id])
 
       respond_to do |format|
@@ -204,28 +246,28 @@ end
   else
     redirect_to error_users_path and return
   end
-  end
+end
 
-  def track_delete
+def track_delete
   if (current_user.role == "user")  
     @vehicle = VehicleHistory.find(params[:id])
-      @action = request.referrer
-      @vehicle.delflag = true
-      if @vehicle.update_attributes(params[:vehicle])
-        flash[:notice] = "Successfully Deleted"
-        respond_to do |format|
-          format.html { redirect_to @action }
-          format.json { head :no_content }
-        end
-      else
-        flash[:notice] = "Could not Deleted"
-        respond_to do |format|
-          format.html { redirect_to @action }
-          format.json { head :no_content }
-        end
+    @action = request.referrer
+    @vehicle.delflag = true
+    if @vehicle.update_attributes(params[:vehicle])
+      flash[:notice] = "Successfully Deleted"
+      respond_to do |format|
+        format.html { redirect_to @action }
+        format.json { head :no_content }
       end
+    else
+      flash[:notice] = "Could not Deleted"
+      respond_to do |format|
+        format.html { redirect_to @action }
+        format.json { head :no_content }
+      end
+    end
   else
     redirect_to error_users_path and return
   end
-  end
+end
 end

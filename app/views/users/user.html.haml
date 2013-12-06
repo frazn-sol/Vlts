@@ -9,14 +9,7 @@
         .aleft
           = render ("layouts/breadcrumbs")
         .aright
-          -if (current_user.role == "customer" && UserConfig.where(:user_id => "#{current_user.customer_id}").blank?)
-            = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_user_path(:param => "2" ), :class => "btn btn-success add"
-          -elsif (current_user.role == "customer" && (User.where(:delflag => "false", :parent_id => "#{current_user.id}", :role => "user").count < UserConfig.where(:user_id => "#{current_user.customer_id}").last.usercapacity))
-            = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_user_path(:param => "2" ), :class => "btn btn-success add"  
-          -if (current_user.role == "supervisor" && UserConfig.where(:user_id => "#{current_user.parent.customer_id}").blank?)
-            = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_user_path(:param => "2" ), :class => "btn btn-success add"  
-          -elsif (current_user.role == "supervisor" && (User.where(:delflag => "false", :parent_id => "#{current_user.id}", :role => "user").count  < UserConfig.where(:user_id => "#{current_user.parent.customer_id}").last.usercapacity))
-            = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_user_path(:param => "2" ), :class => "btn btn-success add"  
+          = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_user_path(:param => "2" ), :class => "btn btn-success add"  
           .clear
       %table.table.table-striped.table-bordered
         %thead

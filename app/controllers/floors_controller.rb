@@ -33,10 +33,10 @@ class FloorsController < ApplicationController
   def show
     if (current_user.role == "customer" || current_user.role == "supervisor")
       if params[:location_id].present?
-      add_breadcrumb 'Location', 'locations_path'
-      add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
-      add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
-      add_breadcrumb "View", '#' 
+        add_breadcrumb 'Location', 'locations_path'
+        add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
+        add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
+        add_breadcrumb "View", '#' 
       end     
       @floor = Floor.find(params[:id])
 
@@ -54,10 +54,10 @@ class FloorsController < ApplicationController
   def new
     if (current_user.role == "customer" || current_user.role == "supervisor")
       if params[:location_id].present?
-      add_breadcrumb 'Location', 'locations_path'
-      add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
-      add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
-      add_breadcrumb "Add new", '#'
+        add_breadcrumb 'Location', 'locations_path'
+        add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
+        add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
+        add_breadcrumb "Add new", '#'
       end      
       @floor = Floor.new
 
@@ -74,10 +74,10 @@ class FloorsController < ApplicationController
   def edit
     if (current_user.role == "customer" || current_user.role == "supervisor")
       if params[:location_id].present?
-      add_breadcrumb 'Location', 'locations_path'
-      add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
-      add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
-      add_breadcrumb "Update", '#'
+        add_breadcrumb 'Location', 'locations_path'
+        add_breadcrumb "#{Location.where(:id => params[:location_id])[0].nickname}", '#'  
+        add_breadcrumb "Floors", 'floors_path(:location_id => "#{params[:location_id]}")'
+        add_breadcrumb "Update", '#'
       end      
       @floor = Floor.find(params[:id])
     else
@@ -90,16 +90,39 @@ class FloorsController < ApplicationController
   def create
     @floor = Floor.new(params[:floor])
     @floor.user_id = current_user.id
-
-    respond_to do |format|
-      if @floor.save
-        format.html { redirect_to floors_path(:location_id => params[:floor][:location_id]), notice: 'Floor was successfully created.' }
-        format.json { render json: @floor, status: :created, location: @floor }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @floor.errors, status: :unprocessable_entity }
+    if current_user.role == "customer"
+      floor_count = Floor.where(:delflag => "false", :user_id => "#{current_user.id}").count
+      restriction = UserConfig.where(:user_id => "#{current_user.id}")
+    else
+      floor_child_count = Floor.where(:delflag => "false", :user_id => "#{current_user.id}").count
+      floor_parent_count = Floor.where(:delflag => "false", :user_id => "#{current_user.parent.id}").count
+      floor_count = floor_child_count + floor_child_count
+      restriction = UserConfig.where(:user_id => "#{current_user.parent.id}")
+    end  
+    if restriction.blank?
+      respond_to do |format|
+        if @floor.save
+          format.html { redirect_to floors_path(:location_id => params[:floor][:location_id]), notice: 'Floor was successfully created.' }
+          format.json { render json: @floor, status: :created, location: @floor }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @floor.errors, status: :unprocessable_entity }
+        end
       end
-    end
+    elsif restriction.present? && floor_count < restriction[0].floorcapacity
+      respond_to do |format|
+        if @floor.save
+          format.html { redirect_to floors_path(:location_id => params[:floor][:location_id]), notice: 'Floor was successfully created.' }
+          format.json { render json: @floor, status: :created, location: @floor }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @floor.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      flash[:notice] = "You are not allowed to create more floors"
+      render action: "new" and return
+    end 
   end
 
   # PUT /floors/1
@@ -123,7 +146,7 @@ class FloorsController < ApplicationController
   def destroy
     if (current_user.role == "customer" || current_user.role == "supervisor")    
       @floor = Floor.find(params[:id])
-     
+      
       @action = request.referrer
       @floor.delflag = true
       if @floor.update_attributes(params[:floor])

@@ -7,7 +7,7 @@ class CustomersController < ApplicationController
       if current_user.role == "admin"
         @customers = Customer.where(:delflag => false).paginate(:page => params[:page], :per_page => 5)        
       else      
-      @customers = Customer.where(:user_id => "#{current_user.id}", :delflag => false).paginate(:page => params[:page], :per_page => 5)
+        @customers = Customer.where(:user_id => "#{current_user.id}", :delflag => false).paginate(:page => params[:page], :per_page => 5)
       end  
       @user = User.all
       respond_to do |format|
@@ -40,12 +40,12 @@ class CustomersController < ApplicationController
   # GET /customers/new
   # GET /customers/new.json
   def new
-  if (current_user.role == "admin" || current_user.role == "support")
-    add_breadcrumb "Customer", 'customers_path'
-    add_breadcrumb "Add new", '#'
-    @customer = Customer.new
+    if (current_user.role == "admin" || current_user.role == "support")
+      add_breadcrumb "Customer", 'customers_path'
+      add_breadcrumb "Add new", '#'
+      @customer = Customer.new
 
-    respond_to do |format|
+      respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @customer }
     end
@@ -53,7 +53,7 @@ class CustomersController < ApplicationController
     redirect_to error_users_path and return
   end
 
-  end
+end
 
   # GET /customers/1/edit
   def edit
@@ -125,21 +125,21 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
     @action = request.referrer
     @customer.delflag = true
-      if @customer.update_attributes(params[:customer])
-        @user = User.find_by_customer_id(@customer.id)
-        User.where(:id => @user.id).update_all(:delflag => true)
-        flash[:notice] = "Successfully Deleted"
-        respond_to do |format|
-          format.html { redirect_to @action }
-          format.json { head :no_content }
-        end
-      else
-        flash[:notice] = "Could not Deleted"
-        respond_to do |format|
-          format.html { redirect_to @action }
-          format.json { head :no_content }
-        end
+    if @customer.update_attributes(params[:customer])
+      @user = User.find_by_customer_id(@customer.id)
+      User.where(:id => @user.id).update_all(:delflag => true)
+      flash[:notice] = "Successfully Deleted"
+      respond_to do |format|
+        format.html { redirect_to @action }
+        format.json { head :no_content }
       end
+    else
+      flash[:notice] = "Could not Deleted"
+      respond_to do |format|
+        format.html { redirect_to @action }
+        format.json { head :no_content }
+      end
+    end
 
   end
 end

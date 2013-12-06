@@ -98,7 +98,7 @@ class LocationsController < ApplicationController
     if (current_user.role == "customer" || current_user.role == "supervisor")
       @location = Location.find(params[:id])
       @action = request.referrer
-    @location.delflag = true
+      @location.delflag = true
       if @location.update_attributes(params[:location])
         flash[:notice] = "Successfully Deleted"
         respond_to do |format|

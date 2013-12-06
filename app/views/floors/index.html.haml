@@ -12,14 +12,7 @@
         .aleft
           = render ("layouts/breadcrumbs")
         .aright
-          -if(params[:location_id].present? && current_user.role == "customer" && UserConfig.where(:user_id => "#{current_user.customer.id}").blank?)
-            = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_floor_path(:location_id => params[:location_id]), :class => "btn btn-success add"
-          -elsif(params[:location_id].present? && current_user.role == "customer" && Floor.where(:location_id => "#{params[:location_id]}", :delflag => "false").count < UserConfig.where(:user_id => "#{current_user.customer.id}").last.floorcapacity)
-            = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_floor_path(:location_id => params[:location_id]), :class => "btn btn-success add"
-          -if (params[:location_id].present? && current_user.role == "supervisor" && UserConfig.where(:user_id => "#{current_user.parent.customer_id}").blank?)  
-            = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_floor_path(:location_id => params[:location_id]), :class => "btn btn-success add"
-          -elsif (params[:location_id].present? && current_user.role == "supervisor" && Floor.where(:location_id => "#{params[:location_id]}", :delflag => "false").count  <  UserConfig.where(:user_id => "#{current_user.parent.customer_id}").last.floorcapacity)
-            = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_floor_path(:location_id => params[:location_id]), :class => "btn btn-success add"            
+          = link_to "<i class=\"icon-plus icon-white\"></i> Add New".html_safe, new_floor_path(:location_id => params[:location_id]), :class => "btn btn-success add"            
           .clear
       %table.table.table-striped.table-bordered
         %thead

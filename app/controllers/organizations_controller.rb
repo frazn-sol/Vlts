@@ -28,7 +28,7 @@ end
   else
     redirect_to error_users_path and return
   end
-  end
+end
 
   # GET /organizations/new
   # GET /organizations/new.json
