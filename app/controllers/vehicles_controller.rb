@@ -210,7 +210,8 @@ end
         @children = current_user.parent.children
         @children.each do |child|
           vehicle_count = user_count + Vehicle.where(:delflag => "false", :user_id => child.id).count
-        end  
+        end
+      end  
       restriction = UserConfig.where(:user_id => "#{current_user.parent_id}")
       if restriction.blank?
         respond_to do |format|
@@ -235,7 +236,7 @@ end
       else
         flash[:notice] = "You are not allowed to create more vehicles because you have already reach your limit"
         render action: "add_vehicles" and return
-      end     
+      end        
     else
       redirect_to error_users_path and return
     end
