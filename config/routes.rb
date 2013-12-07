@@ -64,6 +64,8 @@ VLTS::Application.routes.draw do
     end
   end
 
+  match ':controller(/:action(/:id(.:format)))'
+
   resources :floors do 
      collection do
       get :management

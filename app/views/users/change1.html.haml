@@ -65,4 +65,24 @@
     }  
   });
 
+  jQuery(function($) {
+  $("#user_config_customer_id").change(function() {
+    var state = $('select#user_config_customer_id :selected').val();
+    if(state == "") state="0";
+    jQuery.getJSON('/users/configuration/' + state, function(data){
+      if(data){
+        $("#user_config_floorcapacity").val(data["floorcapacity"]);
+        $("#user_config_vehiclecapacity").val(data["vehiclecapacity"]);
+        $("#user_config_usercapacity").val(data["usercapacity"]);
+      }
+      else{
+        $("#user_config_floorcapacity").val("");
+        $("#user_config_vehiclecapacity").val("");
+        $("#user_config_usercapacity").val("");
+      }   
+    })
+    return false;
+  });
+  })
+
 

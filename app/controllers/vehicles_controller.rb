@@ -61,11 +61,17 @@ end
     @vehicle.user_id = current_user.id
     if current_user.role == "customer"
       vehicle_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.id}").count
+      @children = current_user.children
+      @children.each do |child|
+        vehicle_count = vehicle_count + Vehicle.where(:delflag => "false", :user_id => child.id).count
+      end
       restriction = UserConfig.where(:user_id => "#{current_user.id}" )
     else
-      vehicle_child_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.id}").count
-      vehicle_parent_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.id}").count
-      vehicle_count = vehicle_child_count + vehicle_parent_count
+      vehicle_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.id}").count
+      @children = current_user.parent.children
+      @children.each do |child|
+        vehicle_count = vehicle_count + Vehicle.where(:delflag => "false", :user_id => child.id).count
+      end
       restriction = UserConfig.where(:user_id => "#{current_user.parent_id}")
     end
     if restriction.blank?
@@ -191,11 +197,20 @@ end
   def create_vehicles
     if current_user.role == "user" 
       @vehicle = Vehicle.new(params[:vehicle])
-      @vehicle.user_id = current_user.id   
-      vehicle_child_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.id}").count
-      vehicle_parent_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.id}").count
-      vehicle_grand_parent_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.parent_id}").count
-      vehicle_count = vehicle_child_count + vehicle_parent_count + vehicle_grand_parent_count
+      @vehicle.user_id = current_user.id
+      if current_user.parent.parent.present?   
+        vehicle_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.parent.id}").count
+        @children = current_user.parent.paernt.children
+        @children.each do |child|
+          vehicle_count = vehicle_count + Vehicle.where(:delflag => "false", :user_id => child.id).count
+        end
+        vehicle_count = vehicle_count + Vehicle.where(:delflag => "false", :user_id => current_user.id).count
+      else
+        vehicle_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.id}").count
+        @children = current_user.parent.children
+        @children.each do |child|
+          vehicle_count = user_count + Vehicle.where(:delflag => "false", :user_id => child.id).count
+        end  
       restriction = UserConfig.where(:user_id => "#{current_user.parent_id}")
       if restriction.blank?
         respond_to do |format|

@@ -92,11 +92,17 @@ class FloorsController < ApplicationController
     @floor.user_id = current_user.id
     if current_user.role == "customer"
       floor_count = Floor.where(:delflag => "false", :user_id => "#{current_user.id}").count
+      @children = current_user.children
+      @children.each do |child|
+        floor_count = floor_count + Floor.where(:delflag => "false", :user_id => child.id).count
+      end
       restriction = UserConfig.where(:user_id => "#{current_user.id}")
     else
-      floor_child_count = Floor.where(:delflag => "false", :user_id => "#{current_user.id}").count
-      floor_parent_count = Floor.where(:delflag => "false", :user_id => "#{current_user.parent.id}").count
-      floor_count = floor_child_count + floor_child_count
+     floor_count = Floor.where(:delflag => "false", :user_id => "#{current_user.parent.id}").count
+      @children = current_user.parent.children
+      @children.each do |child|
+        floor_count = floor_count + Floor.where(:delflag => "false", :user_id => child.id).count
+      end
       restriction = UserConfig.where(:user_id => "#{current_user.parent.id}")
     end  
     if restriction.blank?

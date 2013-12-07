@@ -60,12 +60,18 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.parent_id = current_user.id
     if current_user.role == "customer"
-      user_count = User.where(:role => "user", :delflag => "false", :parent_id => "#{current_user.id}").count
+      user_count = User.where(:role => "customer", :delflag => "false", :user_id => "#{current_user.id}").count
+      @children = current_user.children
+      @children.each do |child|
+        user_count = user_count + Floor.where(:delflag => "false", :user_id => child.id).count
+      end
       restriction = UserConfig.where(:user_id => "#{current_user.id}")
     else
-      user_child_count = User.where(:role => "user", :delflag => "false", :parent_id => "#{current_user.id}").count
-      user_parent_count = User.where(:role => "user", :delflag => "false", :parent_id => "#{current_user.parent_id}").count
-      user_count = user_child_count + user_parent_count
+      user_count = User.where(:role => "customer", :delflag => "false", :user_id => "#{current_user.parent.id}").count
+      @children = current_user.parent.children
+      @children.each do |child|
+        user_count = user_count + Floor.where(:delflag => "false", :user_id => child.id).count
+      end
       restriction = UserConfig.where(:user_id => "#{current_user.parent_id}")
     end
     if restriction.blank?
@@ -282,16 +288,46 @@ def reset1
   end
 
   def config_create
-    @user_config = UserConfig.new(params[:user_config])
-    @user_config.user_id = User.where(:customer_id => params[:user_config][:customer_id])[0].id
-    respond_to do |format|
-      if @user_config.save
-        format.html { redirect_to change1_users_path, notice: 'configurations were successfully created.' }
-        format.json { render json: @user_config, status: :created, location: @user_config }
-      else
-        format.html { render action: "config" }
-        format.json { render json: @user_config.errors, status: :unprocessable_entity }
+    @check = UserConfig.where(:customer_id => params[:user_config][:customer_id])
+    if @check.blank?
+      @user_config = UserConfig.new(params[:user_config])
+      @user_config.user_id = User.where(:customer_id => params[:user_config][:customer_id])[0].id
+      respond_to do |format|
+        if @user_config.save
+          format.html { redirect_to change1_users_path, notice: 'configurations were successfully created.' }
+          format.json { render json: @user_config, status: :created, location: @user_config }
+        else
+          format.html { render action: "config" }
+          format.json { render json: @user_config.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      @user_config = UserConfig.find_by_customer_id(params[:user_config][:customer_id])
+      respond_to do |format|
+        if @user_config.update_attributes(params[:user_config])
+          format.html { redirect_to change1_users_path, notice: 'configurations were successfully created.' }
+          format.json { render json: @user_config, status: :created, location: @user_config }
+        else
+          format.html { render action: "config" }
+          format.json { render json: @user_config.errors, status: :unprocessable_entity }
+        end
+      end
+    end  
+  end
+
+  def configuration
+    @msg = Hash.new
+    @config = UserConfig.where(:customer_id => "#{params[:id]}").last
+    if @config.present?
+      @msg["vehiclecapacity"] = @config.vehiclecapacity  
+      @msg["floorcapacity"] = @config.floorcapacity
+      @msg["usercapacity"] = @config.usercapacity
+    else  
+      @msg = nil
+    end 
+    respond_to do |format|
+      format.html
+      format.json { render json: @msg }
     end
   end
 
