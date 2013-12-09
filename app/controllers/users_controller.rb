@@ -60,17 +60,17 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.parent_id = current_user.id
     if current_user.role == "customer"
-      user_count = User.where(:role => "customer", :delflag => "false", :user_id => "#{current_user.id}").count
+      user_count = User.where(:role => "user", :delflag => "false", :parent_id => "#{current_user.id}").count
       @children = current_user.children
       @children.each do |child|
-        user_count = user_count + Floor.where(:delflag => "false", :user_id => child.id).count
+        user_count = user_count + User.where(:delflag => "false", :parent_id => child.id).count
       end
       restriction = UserConfig.where(:user_id => "#{current_user.id}")
     else
-      user_count = User.where(:role => "customer", :delflag => "false", :user_id => "#{current_user.parent.id}").count
+      user_count = User.where(:role => "user", :delflag => "false", :parent_id => "#{current_user.parent.id}").count
       @children = current_user.parent.children
       @children.each do |child|
-        user_count = user_count + Floor.where(:delflag => "false", :user_id => child.id).count
+        user_count = user_count + Floor.where(:delflag => "false", :parent_id => child.id).count
       end
       restriction = UserConfig.where(:user_id => "#{current_user.parent_id}")
     end

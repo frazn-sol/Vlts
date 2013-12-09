@@ -5,24 +5,33 @@
         %span.icon32.icon-red.icon-user
         %div Support Staff
         %div
-          = current_user.children.where(:role => "support").count
-    -if (current_user.role == "admin" || current_user.role == "support")      
+          = User.where(:role => "support", :delflag => "false").count
       %a.well.span3.top-block
         %span.icon32.icon-red.icon-user
         %div Customers
         %div
-          = Customer.where(:user_id => "#{current_user.id}").count
+          = Customer.where(:delflag => "false").count    
+    -if (current_user.role == "support")      
+      %a.well.span3.top-block
+        %span.icon32.icon-red.icon-user
+        %div Customers
+        %div
+          = Customer.where(:user_id => "#{current_user.id}", :delflag => "false").count
     -if (current_user.role == "customer")      
       %a.well.span3.top-block
         %span.icon32.icon-red.icon-user
         %div Supervisors
         %div
-          = User.where(:role => "supervisor", :parent_id => "#{current_user.id}").count 
+          = User.where(:role => "supervisor", :parent_id => "#{current_user.id}", :delflag => "false").count 
       %a.well.span3.top-block
         %span.icon32.icon-red.icon-user
         %div Users
         %div
-          = current_user.children.where(:role => "user").count 
+          - user_count = User.where(:role => "user", :delflag => "false", :parent_id => "#{current_user.id}").count
+          - @children = current_user.children
+          - @children.each do |child|
+            - user_count = user_count + User.where(:delflag => "false", :parent_id => child.id).count
+          = user_count
 
     .row-fluid
       .box.span12
