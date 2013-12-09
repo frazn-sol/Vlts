@@ -144,6 +144,7 @@ end
   def track
     if current_user.role == "user"
       @vehicle_history = VehicleHistory.new
+      binding.pry
       @search = VehicleHistory.search(params[:search])
       if (params[:search].blank?)
         @history = nil

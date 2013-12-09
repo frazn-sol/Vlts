@@ -15,7 +15,7 @@
           (Plese select from suggestions)
         .field.allign
           = f.label :slot
-          = f.text_field :slot_like, {:class => "slot size"}
+          = f.text_field :slot_like, {:class => "slot_like size"}
         .actions  
           = button_tag(type: 'submit', class: "push btn btn-primary") do 
             <i class="icon-search icon-white"></i> Search
@@ -52,7 +52,6 @@
                 %tbody
                   %tr
                     %td= history.created_at.strftime("%d %b. %Y at %H:%M")
-                    %td= history.floor.nickname
                     %td= history.location.nickname
                     %td= history.slot
                     %td.center
