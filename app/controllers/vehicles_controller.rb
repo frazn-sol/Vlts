@@ -219,7 +219,7 @@ end
             format.html { redirect_to add_vehicle_vehicles_path, notice: 'Vehicle was successfully created.' }
             format.json { render json: @vehicle, status: :created, location: @vehicle }
           else
-            format.html { render action: "add_vehicles" }
+            format.html { render action: "add_vehicle" }
             format.json { render json: @vehicle.errors, status: :unprocessable_entity }
           end
         end
@@ -229,13 +229,14 @@ end
             format.html { redirect_to add_vehicle_vehicles_path, notice: 'Vehicle was successfully created.' }
             format.json { render json: @vehicle, status: :created, location: @vehicle }
           else
-            format.html { render action: "add_vehicles" }
+            format.html { render action: "add_vehicle" }
             format.json { render json: @vehicle.errors, status: :unprocessable_entity }
           end
         end
       else
         flash[:notice] = "You are not allowed to create more vehicles because you have already reach your limit"
-        render action: "add_vehicle" and return
+        @action = request.referrer
+        redirect_to @action and return
       end        
     else
       redirect_to error_users_path and return
