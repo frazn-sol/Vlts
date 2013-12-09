@@ -209,7 +209,7 @@ end
         vehicle_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.id}").count
         @children = current_user.parent.children
         @children.each do |child|
-          vehicle_count = user_count + Vehicle.where(:delflag => "false", :user_id => child.id).count
+          vehicle_count = vehicle_count + Vehicle.where(:delflag => "false", :user_id => child.id).count
         end
       end  
       restriction = UserConfig.where(:user_id => "#{current_user.parent_id}")
