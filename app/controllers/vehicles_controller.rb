@@ -235,7 +235,7 @@ end
         end
       else
         flash[:notice] = "You are not allowed to create more vehicles because you have already reach your limit"
-        render action: "add_vehicles" and return
+        render action: "add_vehicle" and return
       end        
     else
       redirect_to error_users_path and return
