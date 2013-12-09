@@ -462,3 +462,7 @@ body{
 .container-fluid{
 	min-height: 405px;
 }
+
+.slot{
+	margin-left: -50px;
+}
