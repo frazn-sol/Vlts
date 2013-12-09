@@ -70,7 +70,7 @@ class UsersController < ApplicationController
       user_count = User.where(:role => "user", :delflag => "false", :parent_id => "#{current_user.parent.id}").count
       @children = current_user.parent.children
       @children.each do |child|
-        user_count = user_count + Floor.where(:delflag => "false", :parent_id => child.id).count
+        user_count = user_count + User.where(:delflag => "false", :parent_id => child.id).count
       end
       restriction = UserConfig.where(:user_id => "#{current_user.parent_id}")
     end
