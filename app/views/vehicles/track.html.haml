@@ -12,7 +12,8 @@
         .field.allign
           = f.label :plate_number
           = f.text_field :platenumber_equals, {:class => "size"}
-          (Plese select from suggestions)
+          %span.suggestion
+            (Plese select from suggestions)
         .field.allign
           = f.label :slot
           = f.text_field :slot_like, {:class => "slot slot_like size"}
@@ -61,10 +62,19 @@
             -else
               %tbody
                 %tr
-                  %td{:colspan => "5"} No Results Found 
+                  %td{:colspan => "5"} No Vehicle Track Found 
       -if @history.present? 
         = will_paginate @history            
       %h2
         %i.icon-warning-sign
         Track Vehicle                                      
         = render"trackform"  
+:css 
+  .allign {
+    padding-right: 90px;
+  }     
+
+  .suggestion{
+    font-size: 11px;
+    color: #000000;
+  }

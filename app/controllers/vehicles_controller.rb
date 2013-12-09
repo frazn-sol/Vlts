@@ -147,7 +147,9 @@ end
       @search = VehicleHistory.search(params[:search])
       if (params[:search].blank?)
         @history = nil
-      else
+      elsif (params[:search][:platenumber_equals].blank? && params[:search][:slot_like].blank?)
+        @history = nil
+      else  
         @history = @search.where(:delflag => "false").paginate(:page => params[:page], :per_page => 5)
         @vehicle = Vehicle.where(:platenumber => "#{params[:search][:platenumber_equals]}") if params[:search].present?
       end
