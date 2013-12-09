@@ -16,7 +16,8 @@
           = f.label :driver_name
           = f.text_field :driver_first_name_or_driver_last_name_contains, {:class => "size"}   
         .actions  
-          = f.submit "Search", {:class => "button1 push"}
+          = button_tag(type: 'submit', class: "push btn btn-primary") do 
+            <i class="icon-search icon-white"></i>
       %table.table.table-striped.table-bordered
         %thead
           %tr
