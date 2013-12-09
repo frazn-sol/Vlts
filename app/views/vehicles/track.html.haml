@@ -52,7 +52,7 @@
                 %tbody
                   %tr
                     %td= history.created_at.strftime("%d %b. %Y at %H:%M")
-                    %td= history.floor.nickname if history.floor.nickname.present?
+                    %td= history.floor.nickname if history.floor.present?
                     %td= history.location.nickname
                     %td= history.slot
                     %td.center
