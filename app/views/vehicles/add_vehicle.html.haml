@@ -2,11 +2,10 @@
   .box.span12
     .box-header.well{"data-original-title" => ""}
       %h2
-        %i.icon-warning-sign.icon-white
         Vehicles
     .box-content
       %h2
-        %i.icon-warning-sign
+        %i.icon-search{:style => "bottom: 3px; position: relative;"}
         Vehicle Search
       = form_for @search, :url => add_vehicle_vehicles_path, :method => "get"  do |f|
         .field.allign
@@ -49,6 +48,5 @@
       -if @vehicles.present? 
         = will_paginate @vehicles
       %h2
-        %i.icon-warning-sign
         Vehicles                                   
         = render"vehicleform"                

@@ -323,10 +323,9 @@ color: #ffffff;
 }
 
 
-.push{
-	margin-top: 15px;
+.push {
+	margin: 15px 0 0 -40px;
 }
-
 .clear{
 	clear:both;
 }
@@ -465,4 +464,8 @@ body{
 
 .slot{
 	margin-left: -50px;
+}
+label
+{
+	font-weight: bold;
 }

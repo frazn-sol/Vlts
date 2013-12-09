@@ -6,12 +6,12 @@
         Vehicles Tracking Screen
     .box-content
       %h2
-        %i.icon-warning-sign
+        %i.icon-search{:style => "bottom: 3px; position: relative;"}
         Track Search
       = form_for @search, :url => track_vehicles_path, :method => "get"  do |f|
         .field.allign
           = f.label :plate_number
-          = f.text_field :platenumber_equals, {:class => "size"}
+          = f.text_field :platenumber_equals
           %span.suggestion
             (Plese select from suggestions)
         .field.allign
@@ -21,23 +21,35 @@
           = button_tag(type: 'submit', class: "push btn btn-primary") do 
             <i class="icon-search icon-white"></i> Search
       -if @vehicle.present?
-        #vehicle{:style => "margin-left:50px;"}
-          %strong{:style => "width: 120px;display: inline-block;"}
+        %h2
+          %i.icon-list{:style => "bottom: 3px; position: relative;"}
+          Vehicle Information
+        #vehicle
+          %label
             Vehicle:
-          =@vehicle[0].platenumber
-          %br
-          %strong{:style => "width: 120px;display: inline-block;"}
+          %span
+            =@vehicle[0].platenumber
+          %label
             Driver name:
-          =@vehicle[0].driver_first_name + " " + @vehicle[0].driver_middle_name + " " + @vehicle[0].driver_last_name
-          %br
-          %strong{:style => "width: 120px;display: inline-block;"}
+          %span
+            =@vehicle[0].driver_first_name + " " + @vehicle[0].driver_middle_name + " " + @vehicle[0].driver_last_name
+          %label
             Organization:
-          =@vehicle[0].organization.company_name 
+          %span
+            =@vehicle[0].organization.company_name
           %br
-          %strong{:style => "width: 120px;display: inline-block;"}
+          %label
             Badge number:
-          =@vehicle[0].badge_number 
-          %br
+          %span
+            =@vehicle[0].badge_number 
+          %label
+            Permit Date:
+          %span
+            =@vehicle[0].permit_date 
+          %label
+            Expiry Date:
+          %span
+            =@vehicle[0].expiry_date 
           %br
 
       %table.table.table-striped.table-bordered
@@ -66,7 +78,7 @@
       -if @history.present? 
         = will_paginate @history            
       %h2
-        %i.icon-warning-sign
+        %i.icon-search{:style => "bottom: 3px; position: relative;"}
         Track Vehicle                                      
         = render"trackform"  
 :css 
@@ -78,3 +90,24 @@
     font-size: 11px;
     color: #000000;
   }
+  .search{
+  }
+  .ui-autocomplete{
+    background: #999999 !important;
+  }
+  .ui-autocomplete a:hover{
+    cursor: pointer;
+  }
+  #vehicle{
+    padding-left:50px;
+    margin:20px 0;
+  }
+  #vehicle label{
+    width:120px;
+    display: inline-block;
+  }
+  #vehicle span{
+    display: inline-block;
+    width:120px;
+  }
+  
