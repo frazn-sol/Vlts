@@ -15,7 +15,7 @@
           (Plese select from suggestions)
         .field.allign
           = f.label :slot
-          = f.text_field :slot_like, {:class => "slot_like size"}
+          = f.text_field :slot_like, {:class => "slot slot_like size"}
         .actions  
           = button_tag(type: 'submit', class: "push btn btn-primary") do 
             <i class="icon-search icon-white"></i> Search
@@ -53,7 +53,7 @@
                   %tr
                     %td= history.created_at.strftime("%d %b. %Y at %H:%M")
                     %td= history.floor.nickname if history.floor.present?
-                    %td= history.location.nickname
+                    %td= history.location.nickname if history.location.present?
                     %td= history.slot
                     %td.center
                       = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, track_view_vehicle_path(history), :class => "btn btn-success"
