@@ -93,7 +93,11 @@ end
   # POST /organization_contacts.json
   def create
     @organization_contact = OrganizationContact.new(params[:organization_contact])
-
+    if params[:id][:org_id].empty?
+      @organization_contact.organization_id = params[:organization_contact][:organization_id]
+    else
+      @organization_contact.organization_id = params[:id][:org_id]
+    end 
 
     respond_to do |format|
       if @organization_contact.save && params[:id][:org_id].present?
