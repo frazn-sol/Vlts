@@ -88,6 +88,8 @@ class FloorsController < ApplicationController
     # POST /floors  
   # POST /floors.json
   def create
+    params[:floor][:location_id] = params[:floor][:loc_id]
+    params[:floor].delete :loc_id
     @floor = Floor.new(params[:floor])
     @floor.user_id = current_user.id
     if current_user.role == "customer"
@@ -108,7 +110,8 @@ class FloorsController < ApplicationController
     if restriction.blank?
       respond_to do |format|
         if @floor.save
-          format.html { redirect_to floors_path(:location_id => @floor.location_id, notice: 'Floor was successfully created.' }
+          params[:floor][:location_id] = @floor.location_id
+          format.html { redirect_to floors_path(:location_id => params[:floor][:location_id]), notice: 'Floor was successfully created.' }
           format.json { render json: @floor, status: :created, location: @floor }
         else
           format.html { render action: "new" }
@@ -118,6 +121,7 @@ class FloorsController < ApplicationController
     elsif restriction.present? && floor_count < restriction[0].floorcapacity
       respond_to do |format|
         if @floor.save
+          params[:floor][:location_id] = @floor.location_id
           format.html { redirect_to floors_path(:location_id => params[:floor][:location_id]), notice: 'Floor was successfully created.' }
           format.json { render json: @floor, status: :created, location: @floor }
         else

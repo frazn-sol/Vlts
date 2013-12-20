@@ -26,6 +26,7 @@
     = f.text_field :capacity
   .field
     = f.hidden_field :occupied, :value => 0
+    = f.hidden_field :loc_id, :value => "#{params[:location_id]}"
   .actions
     = f.submit 'Create Floors', {:class => "button1"}
 
