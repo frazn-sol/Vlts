@@ -92,12 +92,11 @@ class CustomerContactsController < ApplicationController
   # POST /customer_contacts
   # POST /customer_contacts.json
   def create
-    binding.pry
     @customer_contact = CustomerContact.new(params[:customer_contact])
     if params[:id].present?
       @customer_contact.customer_id = params[:id][:customer_id]
     else
-      @customer_contact.customer_id = params[:customer_contact].customer_id
+      @customer_contact.customer_id = params[:customer_contact][:customer_id]
     end  
     respond_to do |format|
       if @customer_contact.save && params[:id][:customer_id].present?
