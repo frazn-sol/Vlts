@@ -23,7 +23,7 @@
       -if current_user.role == "admin"
         = f.collection_select(:customer_id, Customer.where(:delflag => false), :id, :company_name, { :include_blank => true })
       -else
-        = f.collection_select(:customer_id, Customer.where(:user_id => "#{current_user.id}", :delflag => false) + Customer.where(:user_id => "#{current_user.parent_id}", :delflag => false), :id, :company_name, { :include_blank => true })     
+        = f.collection_select(:customer_id, Customer.where(:user_id => "#{current_user.id}", :delflag => false), :delflag => false), :id, :company_name, { :include_blank => true })     
   .field
     = f.label :designation, {:class => 'required'}
     = f.text_field :designation
