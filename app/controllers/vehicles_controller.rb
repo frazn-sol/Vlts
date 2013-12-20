@@ -202,7 +202,7 @@ end
       @vehicle.user_id = current_user.id
       if current_user.parent.parent.present?   
         vehicle_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.parent.id}").count
-        @children = current_user.parent.paernt.children
+        @children = current_user.parent.parent.children
         @children.each do |child|
           vehicle_count = vehicle_count + Vehicle.where(:delflag => "false", :user_id => child.id).count
         end
