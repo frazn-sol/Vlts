@@ -12,7 +12,7 @@
   .field.allign
     = f.label :floor, {:class => "required"}
     - if current_user.parent.parent.present?
-      = f.collection_select(:floor_id, Floor.where(:delflag => false, :user_id => "#{curent_user.parent_id}") + Floor.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}"), :id, :nickname, {}, :class => "size2")
+      = f.collection_select(:floor_id, Floor.where(:delflag => false, :user_id => "#{current_user.parent_id}") + Floor.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}"), :id, :nickname, {}, :class => "size2")
     -else   
       = f.collection_select(:floor_id, Floor.where(:delflag => false, :user_id => "#{current_user.parent_id}"), :id, :nickname, {}, :class => "size2")
 

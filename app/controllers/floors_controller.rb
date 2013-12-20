@@ -90,7 +90,6 @@ class FloorsController < ApplicationController
   def create
     @floor = Floor.new(params[:floor])
     @floor.user_id = current_user.id
-    @floor.location_id = Location.find_by_nickname(params[:floor][:location_id])
     if current_user.role == "customer"
       floor_count = Floor.where(:delflag => "false", :user_id => "#{current_user.id}").count
       @children = current_user.children
@@ -109,7 +108,7 @@ class FloorsController < ApplicationController
     if restriction.blank?
       respond_to do |format|
         if @floor.save
-          format.html { redirect_to floors_path(:location_id => params[:floor][:location_id]), notice: 'Floor was successfully created.' }
+          format.html { redirect_to floors_path(:location_id => @floor.location_id, notice: 'Floor was successfully created.' }
           format.json { render json: @floor, status: :created, location: @floor }
         else
           format.html { render action: "new" }
