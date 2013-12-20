@@ -187,9 +187,9 @@ end
       @vehicle = Vehicle.new
       @search = Vehicle.search(params[:search])
       if (params[:search].blank? )
-        @vehicles = Vehicle.where(:delflag => false, :user_id => "#{current_user.id}" || "#{current_user.parent_id}" || "#{current_user.parent.parent_id}").paginate(:page => params[:page], :per_page => 5)
+        @vehicles = Vehicle.where(:delflag => false, :user_id => "#{current_user.parent_id}" ).paginate(:page => params[:page], :per_page => 5)
       else
-        @vehicles = @search.where(:delflag => false, :user_id => "#{current_user.id}" || "#{current_user.parent_id}" || "#{current_user.parent.parent_id}").paginate(:page => params[:page], :per_page => 5)
+        @vehicles = @search.where(:delflag => false, :user_id => "#{current_user.parent_id}" ).paginate(:page => params[:page], :per_page => 5)
       end
     else
       redirect_to error_users_path and return
