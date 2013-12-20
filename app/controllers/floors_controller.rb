@@ -90,6 +90,7 @@ class FloorsController < ApplicationController
   def create
     @floor = Floor.new(params[:floor])
     @floor.user_id = current_user.id
+    @floor.location_id = Location.find_by_nickname(params[:floor][:location_id])
     if current_user.role == "customer"
       floor_count = Floor.where(:delflag => "false", :user_id => "#{current_user.id}").count
       @children = current_user.children
