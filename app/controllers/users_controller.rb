@@ -66,7 +66,7 @@ class UsersController < ApplicationController
         user_count = user_count + User.where(:delflag => "false", :parent_id => child.id).count
       end
       restriction = UserConfig.where(:user_id => "#{current_user.id}")
-    else
+    elsif current_user.role == "supervisor"
       user_count = User.where(:role => "user", :delflag => "false", :parent_id => "#{current_user.parent.id}").count
       @children = current_user.parent.children
       @children.each do |child|
