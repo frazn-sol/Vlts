@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 	#Both methods for displaying the breadcrumbs
 	def add_breadcrumb name, url = ''
 		@breadcrumbs ||= []
-		url = eval(url) if url =~ /_path|_url|@/
+		 url = eval(url) if url =~ /_path|_url|@/
 		@breadcrumbs << [name, url]
 	end
 

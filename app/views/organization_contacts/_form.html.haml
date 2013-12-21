@@ -23,7 +23,7 @@
       -if current_user.role == "customer"
         = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}", :delflag => false), :id, :company_name,{ :include_blank => true })
       -else
-        = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}") + Organization.where(:user_id => "#{current_user.parent_id}", :delflag => false), :id, :company_name, { :include_blank => true })   
+        = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}", :delflag => false) + Organization.where(:user_id => "#{current_user.parent_id}", :delflag => false), :id, :company_name, { :include_blank => true })   
   .field
     = f.label :designation, {:class => 'required'}
     = f.text_field :designation
@@ -35,7 +35,7 @@
     = f.text_field :cell
   .field
     = f.label :email, {:class => 'required'}
-    = f.text_field :email
+    = f.email_field :email
     = hidden_field "id", "org_id", "value" => "#{params[:org_id]}"
   .actions
     = f.submit 'Create Contacts', {:class => "button1"}

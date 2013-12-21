@@ -88,8 +88,12 @@ class FloorsController < ApplicationController
     # POST /floors  
   # POST /floors.json
   def create
-    params[:floor][:location_id] = params[:floor][:loc_id]
-    params[:floor].delete :loc_id
+    if params[:floor][:loc_id].empty?
+      params[:floor].delete :loc_id  
+    else
+      params[:floor][:location_id] = params[:floor][:loc_id]
+      params[:floor].delete :loc_id
+    end
     @floor = Floor.new(params[:floor])
     @floor.user_id = current_user.id
     if current_user.role == "customer"

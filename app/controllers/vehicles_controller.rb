@@ -1,3 +1,4 @@
+require 'will_paginate/array'
 class VehiclesController < ApplicationController
   before_filter :authenticate_user!
   autocomplete :vehicle, :platenumber, :full => true
@@ -77,7 +78,7 @@ end
     if restriction.blank?
       respond_to do |format|
         if @vehicle.save
-          format.html { redirect_to @vehicle, notice: 'Vehicle was successfully created.' }
+          format.html { redirect_to vehicles_path, notice: 'Vehicle was successfully created.' }
           format.json { render json: @vehicle, status: :created, location: @vehicle }
         else
           format.html { render action: "new" }
@@ -87,7 +88,7 @@ end
     elsif restriction.present? && vehicle_count < restriction[0].vehiclecapacity
       respond_to do |format|
         if @vehicle.save
-          format.html { redirect_to @vehicle, notice: 'Vehicle was successfully created.' }
+          format.html { redirect_to vehicles_path, notice: 'Vehicle was successfully created.' }
           format.json { render json: @vehicle, status: :created, location: @vehicle }
         else
           format.html { render action: "new" }
@@ -186,8 +187,26 @@ end
     if current_user.role == "user"    
       @vehicle = Vehicle.new
       @search = Vehicle.search(params[:search])
-      if (params[:search].blank? )
-        @vehicles = Vehicle.where(:delflag => false, :user_id => "#{current_user.parent_id}" ).paginate(:page => params[:page], :per_page => 5)
+      if (params[:search].blank?)
+        if !current_user.parent.parent.present?
+          @vehicles = Vehicle.where(:delflag => false, :user_id => "#{current_user.parent_id}" )
+          @parent = current_user.parent
+          @parent.children.each do |child|
+            @vehicle2 = Vehicle.where(:delflag => false, :user_id => child.id)
+            @vehicles = @vehicles + @vehicle2
+          end
+          @vehicles = @vehicles.paginate(:page => params[:page], :per_page => 5)
+        else
+          @vehicles = Vehicle.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}" )
+          @vehicle = Vehicle.where(:delflag => false, :user_id => "#{current_user.id}" )
+          @vehicles = @vehicles + @vehicle
+          @parent = current_user.parent.parent
+          @parent.children.each do |child|
+            @vehicle2 = Vehicle.where(:delflag => false, :user_id => child.id)
+            @vehicles = @vehicles + @vehicle2
+          end
+          @vehicles = @vehicles.paginate(:page => params[:page], :per_page => 5)
+        end    
       else
         @vehicles = @search.where(:delflag => false, :user_id => "#{current_user.parent_id}" ).paginate(:page => params[:page], :per_page => 5)
       end
@@ -247,13 +266,18 @@ end
 
   def autocomplete
     if params[:term]
-      @vehicles = Vehicle.where(:user_id => "#{current_user.id}" || "#{current_user.parent_id}" || "#{current_user.parent.parent_id}", :delflag => "false")
+      @vehicles = Vehicle.where(:user_id => "#{current_user.id}", :delflag => "false") 
       @vehicle = @vehicles.find(:all,:conditions => ['platenumber LIKE ?', "%#{params[:term]}%"])
-    else
-      @vehicle = Vehicle.all
+      if @vehicle.empty?
+        @vehicles = Vehicle.where(:user_id => "#{current_user.parent.id}", :delflag => "false")
+        @vehicle = @vehicles.find(:all,:conditions => ['platenumber LIKE ?', "%#{params[:term]}%"])
+        if @vehicle.empty? 
+          @vehicles = @Vehicle.where(:user_id => "#{current_user.parent.parent_id}", :delflag => "false")
+          @vehicle = @vehicles.find(:all,:conditions => ['platenumber LIKE ?', "%#{params[:term]}%"])
+        end
+      end 
+      render json: @vehicle.as_json     
     end
-
-    render json: @vehicle.as_json
   end
 
   def track_view

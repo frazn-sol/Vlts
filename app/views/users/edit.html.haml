@@ -12,5 +12,6 @@
         -else       
           Update Support Staff
     .box-content
-      = render ("layouts/breadcrumbs")
+      -if params[:param]!="3"
+        = render ("layouts/breadcrumbs")
       = render 'edit'

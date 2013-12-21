@@ -92,7 +92,6 @@ end
   # POST /organization_contacts
   # POST /organization_contacts.json
   def create
-    binding.pry
     @organization_contact = OrganizationContact.new(params[:organization_contact])
     if params[:id][:org_id].empty?
       @organization_contact.organization_id = params[:organization_contact][:organization_id]

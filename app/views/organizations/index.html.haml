@@ -22,7 +22,7 @@
             %th Contacts            
             %th Actions
         - @organizations.each do |organization|
-          - if organization.user_id == current_user.id && organization.delflag.to_s == "false"
+          - if organization.user_id == current_user.id || organization.user_id == current_user.parent_id 
             %tbody
               %tr
                 %td= organization.company_name

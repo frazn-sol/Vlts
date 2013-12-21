@@ -52,8 +52,8 @@
           = f.submit "Add Configurations", {:class => "button1"}
 
 :javascript
-  var validator = new FormValidator('new_configuration', [{
-    name: 'configuration[user_id]',    
+  var validator = new FormValidator('new_user_config', [{
+    name: 'user_config[customer_id]',    
     rules: 'required'
   }], function(errors, event) {
     if (errors.length > 0) {

@@ -23,7 +23,6 @@ gem "audited-activerecord", "~> 3.0"
 
 gem 'better_errors', :group => :development
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

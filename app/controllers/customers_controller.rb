@@ -80,9 +80,11 @@ end
     @user.role = "customer"
     @user.save
     if @user.save
+      UserMailer.welcome_email(@user).deliver
       respond_to do |format|
         @customer.user_id = current_user.id
         if @customer.save
+          UserConfig.create(:user_id=> @user.id, :vehiclecapacity=>"15", :floorcapacity => "2", :usercapacity => "2", :customer_id => @customer.id)
           @user.update_attribute(:customer_id, @customer.id)
           format.html { redirect_to customers_path, notice: 'Customer was successfully created.' }
           format.json { render json: @customer, status: :created, location: @customer }
@@ -110,7 +112,7 @@ end
 
     respond_to do |format|
       if @customer.update_attributes(params[:customer])
-        format.html { redirect_to users_path, notice: 'Customer was successfully updated.' }
+        format.html { redirect_to customers_path, notice: 'Customer was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

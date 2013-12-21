@@ -59,18 +59,18 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.parent_id = current_user.id
-    if current_user.role == "customer"
+    if current_user.role == "customer" && params[:user][:role] == "user"
       user_count = User.where(:role => "user", :delflag => "false", :parent_id => "#{current_user.id}").count
       @children = current_user.children
       @children.each do |child|
-        user_count = user_count + User.where(:delflag => "false", :parent_id => child.id).count
+        user_count = user_count + User.where(:delflag => "false", :role => "user", :parent_id => child.id).count
       end
       restriction = UserConfig.where(:user_id => "#{current_user.id}")
-    elsif current_user.role == "supervisor"
+    elsif current_user.role == "supervisor" && params[:user][:role] == "user"
       user_count = User.where(:role => "user", :delflag => "false", :parent_id => "#{current_user.parent.id}").count
       @children = current_user.parent.children
       @children.each do |child|
-        user_count = user_count + User.where(:delflag => "false", :parent_id => child.id).count
+        user_count = user_count + User.where(:delflag => "false", :role => "user", :parent_id => child.id).count
       end
       restriction = UserConfig.where(:user_id => "#{current_user.parent_id}")
     end
@@ -78,8 +78,16 @@ class UsersController < ApplicationController
       respond_to do |format|
         if @user.save
           UserMailer.welcome_email(@user).deliver
-          format.html { redirect_to @user, notice: 'User was successfully created.' }
-          format.json { render json: @user, status: :created, location: @user }
+          if @user.role == "support"
+            format.html { redirect_to support_users_path, notice: 'Support Staff was successfully created.' }
+            format.json { render json: @user, status: :created, location: @user }
+          elsif @user.role == "supervisor" 
+            format.html { redirect_to supervisor_users_path, notice: 'Supervisor was successfully created.' }
+            format.json { render json: @user, status: :created, location: @user }
+          elsif @user.role == "user"
+            format.html { redirect_to user_users_path, notice: 'User was successfully created.' }
+            format.json { render json: @user, status: :created, location: @user }
+          end  
         else
           format.html { render action: "new" }
           format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -88,9 +96,16 @@ class UsersController < ApplicationController
     elsif restriction.present? && user_count < restriction[0].usercapacity  
       respond_to do |format|
         if @user.save
-          UserMailer.welcome_email(@user).deliver
-          format.html { redirect_to @user, notice: 'User was successfully created.' }
-          format.json { render json: @user, status: :created, location: @user }
+          if @user.role == "support"
+            format.html { redirect_to support_users_path, notice: 'Support Staff was successfully created.' }
+            format.json { render json: @user, status: :created, location: @user }
+          elsif @user.role == "supervisor" 
+            format.html { redirect_to supervisor_users_path, notice: 'Supervisor was successfully created.' }
+            format.json { render json: @user, status: :created, location: @user }
+          elsif @user.role == "user"
+            format.html { redirect_to user_users_path, notice: 'User was successfully created.' }
+            format.json { render json: @user, status: :created, location: @user }
+          end
         else
           format.html { render action: "new" }
           format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -98,7 +113,18 @@ class UsersController < ApplicationController
       end
     else
       flash[:notice] = "You are not allowed to create more users because you have already reach your limit"
-      render action: "new" and return
+      respond_to do |format|  
+        if @user.role == "support"
+          format.html { redirect_to support_users_path }
+          format.json { render json: @user, status: :created, location: @user }
+        elsif @user.role == "supervisor" 
+          format.html { redirect_to supervisor_users_path}
+          format.json { render json: @user, status: :created, location: @user }
+        elsif @user.role == "user"
+          format.html { redirect_to user_users_path}
+          format.json { render json: @user, status: :created, location: @user }
+        end
+      end 
     end    
   end
 
@@ -109,8 +135,13 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { head :no_content }
+        if params[:id] == current_user.id.to_s
+          format.html { redirect_to users_path, notice: 'User was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to @user, notice: 'User was successfully updated.' }
+          format.json { head :no_content }
+        end  
       else
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -224,7 +255,7 @@ def reset1
         UserMailer.reset_email(@user).deliver
         flash[:notice] = "Password has been successfully updated"
         # Sign in the user bypassing validation in case his password changed
-        redirect_to users_path
+        redirect_to reset_users_path
       else
         flash[:notice] = @user.errors.full_messages.join("&")
         render "reset"

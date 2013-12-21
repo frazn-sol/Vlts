@@ -71,7 +71,7 @@ class ReportsController < ApplicationController
 
 			@chart4 = LazyHighCharts::HighChart.new('pie') do |f|
 				support.each{|key, value|
-					support[key] = ((value.to_f/Customer.count.to_f)*100).to_i
+					support[key] = ((value.to_f/Customer.count.to_f)*100).to_f
 				}
 
 				f.chart({:defaultSeriesType=>"pie" , :margin=> [20], :height => [300], :width => [350]} )

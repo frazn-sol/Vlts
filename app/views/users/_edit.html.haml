@@ -32,7 +32,7 @@
       = f.submit 'Update Support Staff', {:class => "button1"}
 
 :javascript
-  var validator = new FormValidator('edit_user', [{
+  var validator = new FormValidator('edit_user_<%="#{@user.id.to_s}"%>', [{
     name: 'user[first_name]',    
     rules: 'required'
   }, {

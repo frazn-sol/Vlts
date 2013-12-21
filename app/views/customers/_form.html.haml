@@ -37,7 +37,7 @@
     = f.fields_for :user do |user|  
       .field
         = user.label :email, {:class => 'required'}
-        = user.text_field :email
+        = user.email_field :email
       .field
         = user.label :password, {:class => 'required'}
         = user.password_field :password

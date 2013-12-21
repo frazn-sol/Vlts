@@ -36,14 +36,14 @@
   .actions
     = f.submit 'Update', {:class => "button1"}
 :javascript
-  var validator = new FormValidator('edit_customer', [{
+  var validator = new FormValidator('edit_customer_<%= @customer.id.to_s%>', [{
     name: 'customer[company_name]',    
     rules: 'required'
   }, {
     name: 'customer[address1]',
     rules: 'required'
   }, {
-    name: 'customer[address2]',
+    name: 'customer[city]',
     rules: 'required'
   }, {
     name: 'customer[state]',
@@ -53,12 +53,6 @@
     rules: 'required'
   }, {
     name: 'customer[phone1]',
-    rules: 'required'
-  }, {
-    name: 'customer[phone2]',
-    rules: 'required'
-  }, {
-    name: 'customer[web]',
     rules: 'required'
   }], function(errors, event) {
     if (errors.length > 0) {
