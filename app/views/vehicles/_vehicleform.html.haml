@@ -1,13 +1,4 @@
-= form_for @vehicle, :url => "/vehicles/create_vehicles" do |f|
-  - if @vehicle.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@vehicle.errors.count, "error")} prohibited this vehicle from being saved:"
-      %ul
-        - @vehicle.errors.full_messages.each do |msg|
-          %li= msg
-
-          
-
+= form_for Vehicle.new, :url => create_vehicles_vehicles_path do |f|
   .field.allign
     = f.label :plate_number, {:class => "required"}
     = f.text_field :platenumber, {:class => "size"}
@@ -39,6 +30,7 @@
   .field.allign
     = f.label :badge_number
     = f.text_field :badge_number, {:class => "size"}
+    .clear  
   .actions
     = f.submit 'Create Vehicle', {:class => "button1"}
 

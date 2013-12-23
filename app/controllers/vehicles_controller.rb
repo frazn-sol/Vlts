@@ -226,14 +226,15 @@ end
           vehicle_count = vehicle_count + Vehicle.where(:delflag => "false", :user_id => child.id).count
         end
         vehicle_count = vehicle_count + Vehicle.where(:delflag => "false", :user_id => current_user.id).count
+        restriction = UserConfig.where(:user_id => "#{current_user.parent.parent_id}")
       else
         vehicle_count = Vehicle.where(:delflag => "false", :user_id => "#{current_user.parent.id}").count
         @children = current_user.parent.children
         @children.each do |child|
           vehicle_count = vehicle_count + Vehicle.where(:delflag => "false", :user_id => child.id).count
         end
+        restriction = UserConfig.where(:user_id => "#{current_user.parent_id}")
       end  
-      restriction = UserConfig.where(:user_id => "#{current_user.parent_id}")
       if restriction.blank?
         respond_to do |format|
           if @vehicle.save
