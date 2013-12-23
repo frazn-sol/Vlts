@@ -202,8 +202,10 @@ end
           @vehicles = @vehicles + @vehicle
           @parent = current_user.parent.parent
           @parent.children.each do |child|
-            @vehicle2 = Vehicle.where(:delflag => false, :user_id => child.id)
-            @vehicles = @vehicles + @vehicle2
+            if child.role != "user"
+              @vehicle2 = Vehicle.where(:delflag => false, :user_id => child.id)
+              @vehicles = @vehicles + @vehicle2
+            end  
           end
           @vehicles = @vehicles.paginate(:page => params[:page], :per_page => 5)
         end    
