@@ -115,7 +115,6 @@ class CustomerContactsController < ApplicationController
   # PUT /customer_contacts/1
   # PUT /customer_contacts/1.json
   def update
-    binding.pry
     @customer_contact = CustomerContact.find(params[:id])
     customer_id = Customer.find_by_company_name(params[:customer_contact][:customer_id]).id
     respond_to do |format|
