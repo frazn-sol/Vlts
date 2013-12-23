@@ -325,7 +325,7 @@ def reset1
       @user_config.user_id = User.where(:customer_id => params[:user_config][:customer_id])[0].id
       respond_to do |format|
         if @user_config.save
-          format.html { redirect_to change1_users_path, notice: 'configurations were successfully created.' }
+          format.html { redirect_to change1_users_path, notice: 'Configurations were successfully created.' }
           format.json { render json: @user_config, status: :created, location: @user_config }
         else
           format.html { render action: "config" }
