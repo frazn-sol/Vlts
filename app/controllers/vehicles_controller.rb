@@ -310,16 +310,8 @@ end
 
   def autocomplete
     if params[:term]
-      @vehicles = Vehicle.where(:user_id => "#{current_user.id}", :delflag => false) 
+      @vehicles = Vehicle.where(:user_id => ["#{current_user.id}", "#{current_user.parent.id}", "#{current_user.parent.parent_id}"], :delflag => false) 
       @vehicle = @vehicles.find(:all,:conditions => ['platenumber LIKE ?', "%#{params[:term]}%"])
-      if @vehicle.empty?
-        @vehicles = Vehicle.where(:user_id => "#{current_user.parent.id}", :delflag => false)
-        @vehicle = @vehicles.find(:all,:conditions => ['platenumber LIKE ?', "%#{params[:term]}%"])
-        if @vehicle.empty? 
-          @vehicles = @Vehicle.where(:user_id => "#{current_user.parent.parent_id}", :delflag => false)
-          @vehicle = @vehicles.find(:all,:conditions => ['platenumber LIKE ?', "%#{params[:term]}%"])
-        end
-      end 
       render json: @vehicle.as_json     
     end
   end
