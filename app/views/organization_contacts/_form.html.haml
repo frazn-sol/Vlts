@@ -1,4 +1,4 @@
-= form_for @organization_contact do |f|
+  = form_for @organization_contact do |f|
   - if @organization_contact.errors.any?
     #error_explanation
       %h2= "#{pluralize(@organization_contact.errors.count, "error")} prohibited this organization_contact from being saved:"
@@ -69,7 +69,7 @@
     }, {
       name: 'organization_contact[email]',
       display:'Email',
-      rules: 'required|valid_email'
+      rules: 'required|callback_check_email'
     }], function(errors, event) {
       if (errors.length > 0) {
       var temp;
@@ -113,7 +113,7 @@
     }, {
       name: 'organization_contact[email]',
       display:'Email',
-      rules: 'required|valid_email'
+      rules: 'required|callback_check_email'
     }], function(errors, event) {
       if (errors.length > 0) {
       var temp;
@@ -128,3 +128,12 @@
       $( "#" + temp).focus();
       }  
     });  
+    validator.registerCallback('check_email', function(value) {
+      var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+      if( !emailReg.test( value ) ) {
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .setMessage('check_email', 'Please enter a valid email address.');

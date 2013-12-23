@@ -68,7 +68,7 @@
     }, {
       name: 'customer_contact[email]',
       display:'Email',
-      rules: 'valid_email|required'
+      rules: 'callback_check_email|required'
     }], function(errors, event) {
       if (errors.length > 0) {
       var temp;
@@ -112,7 +112,7 @@
     }, {
       name: 'customer_contact[email]',
       display:'Email',
-      rules: 'valid_email|required'
+      rules: 'callback_check_email|required'
     }], function(errors, event) {
       if (errors.length > 0) {
       var temp;
@@ -124,3 +124,13 @@
       $( "#" + temp).focus();
       }  
     });  
+
+    validator.registerCallback('check_email', function(value) {
+      var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+      if( !emailReg.test( value ) ) {
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .setMessage('check_email', 'Please enter a valid email address.');  

@@ -64,7 +64,7 @@
   }, {
     name: 'user[email]',
     display:'Email',
-    rules: 'valid_email|required'
+    rules: 'callback_check_email|required'
   }, {
     name: 'user[password]',
     display:'Password',
@@ -83,3 +83,12 @@
     $( "#" + temp).focus();
     }  
   });
+  validator.registerCallback('check_email', function(value) {
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    if( !emailReg.test( value ) ) {
+      return false;
+    } else {
+      return true;
+    }
+  })
+  .setMessage('check_email', 'Please enter a valid email address.');

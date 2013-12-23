@@ -19,3 +19,30 @@
           = f.hidden_field :pass_change, :value => false
         .action  
           = f.submit "Change password", {:class => "button1"}
+:javascript
+  var validator = new FormValidator('edit_user_1', [{
+    name: 'user[try]',
+    display:'Current Password',    
+    rules: 'required'
+  }, {
+    name: 'user[password]',
+    display:'Password',
+    rules: 'required'
+  }, {
+    name: 'user[password_confirmation]',
+    display:'Password Confirmation',
+    rules: 'required'
+  }], function(errors, event) {
+    if (errors.length > 0) {
+    var temp;
+    $(":text").each(function(){
+        $(this).css("border","#cccccc 1px solid");      
+      });
+    for (var i=0; i<errors.length; i++){
+      temp = errors[i].id;
+      $("#" + temp).css("border","1px solid red");
+    }
+    temp = errors[0].id;
+    $( "#" + temp).focus();
+    }  
+  });    
