@@ -83,6 +83,9 @@
     }], function(errors, event) {
       if (errors.length > 0) {
       var temp;
+      $(":text").each(function(){
+        $(this).css("border","#cccccc 1px solid");      
+      });
       for (var i=0; i<errors.length; i++){
         temp = errors[i].id;
         $("#" + temp).css("border","1px solid red");
@@ -132,6 +135,9 @@
   }], function(errors, event) {
     if (errors.length > 0) {
     var temp;
+    $(":text").each(function(){
+        $(this).css("border","#cccccc 1px solid");      
+      });
     for (var i=0; i<errors.length; i++){
       temp = errors[i].id;
       $("#" + temp).css("border","1px solid red");
