@@ -35,7 +35,7 @@
     = f.text_field :cell
   .field
     = f.label :email, {:class => 'required'}
-    = f.email_field :email
+    = f.text_field :email
     = hidden_field "id", "org_id", "value" => "#{params[:org_id]}"
   .actions
     = f.submit 'Create Contacts', {:class => "button1"}
@@ -58,16 +58,18 @@
     rules: 'required'
   }, {
     name: 'organization_contact[cell]',
-    rules: 'required'
+    rules: 'required|numeric'
   }, {
     name: 'organization_contact[email]',
-    rules: 'required'
+    rules: 'required|valid_email'
   }], function(errors, event) {
     if (errors.length > 0) {
     var temp;
     for (var i=0; i<errors.length; i++){
       temp = errors[i].id;
-      $("#" + temp).css("border","2px solid red");
+      $("#" + temp).css("border","1px solid red");
     }
+    temp = errors[0].id;
+    $( "#" + temp).focus();
     }  
   });  

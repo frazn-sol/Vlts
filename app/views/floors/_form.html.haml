@@ -42,13 +42,15 @@
     rules: 'required'
   }, {
     name: 'floor[capacity]',
-    rules: 'required'
+    rules: 'numeric|required'
   }], function(errors, event) {
     if (errors.length > 0) {
     var temp;
     for (var i=0; i<errors.length; i++){
       temp = errors[i].id;
-      $("#" + temp).css("border","2px solid red");
+      $("#" + temp).css("border","1px solid red");
     }
+    temp = errors[0].id;
+    $( "#" + temp).focus();
     }  
   });   

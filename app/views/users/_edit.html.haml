@@ -32,7 +32,7 @@
       = f.submit 'Update Support Staff', {:class => "button1"}
 
 :javascript
-  var validator = new FormValidator('edit_user_<%="#{@user.id.to_s}"%>', [{
+  var validator = new FormValidator('edit_user_#{@user.id.to_s}', [{
     name: 'user[first_name]',    
     rules: 'required'
   }, {
@@ -40,16 +40,18 @@
     rules: 'required'
   }, {
     name: 'user[phone]',
-    rules: 'required'
+    rules: 'numeric|required'
   }, {
     name: 'user[cell]',
-    rules: 'required'
+    rules: 'numeric|required'
   }], function(errors, event) {
     if (errors.length > 0) {
     var temp;
     for (var i=0; i<errors.length; i++){
       temp = errors[i].id;
-      $("#" + temp).css("border","2px solid red");
+      $("#" + temp).css("border","1px solid red");
     }
+    temp = errors[0].id;
+    $( "#" + temp).focus();
     }  
   });

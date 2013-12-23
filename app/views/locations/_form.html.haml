@@ -38,7 +38,7 @@
     = f.text_field :web
   .field
     = f.label :email, {:class => 'required'}
-    = f.email_field :email
+    = f.text_field :email
   .actions
     = f.submit 'Create Location', {:class => "button1"}
 
@@ -58,13 +58,13 @@
     rules: 'required'
   }, {
     name: 'location[zipcode]',
-    rules: 'required'
+    rules: 'required|numeric'
   }, {
     name: 'location[phone1]',
-    rules: 'required'
+    rules: 'required|numeric'
   }, {
     name: 'location[email]',
-    rules: 'required'
+    rules: 'required|valid_email'
   }, {
     name: 'location[nickname]',
     rules: 'required'
@@ -76,7 +76,9 @@
     var temp;
     for (var i=0; i<errors.length; i++){
       temp = errors[i].id;
-      $("#" + temp).css("border","2px solid red");
+      $("#" + temp).css("border","1px solid red");
     }
-    }  
+    temp = errors[0].id;
+    $( "#" + temp).focus();
+    } 
   });  

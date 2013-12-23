@@ -35,38 +35,41 @@
     = f.text_field :cell
   .field
     = f.label :email, {:class => 'required'}
-    = f.email_field :email   
+    = f.text_field :email   
     = hidden_field "id", "customer_id", "value" => "#{params[:customer_id]}"
   .actions
     = f.submit 'Create Customer Contact', {:class => "button1"}
 :javascript
-  var validator = new FormValidator('new_customer_contact', [{
-    name: 'customer_contact[first_name]',    
-    rules: 'required'
-  }, {
-    name: 'customer_contact[last_name]',
-    rules: 'required'
-  }, {
-    name: 'customer_contact[customer_id]',
-    rules: 'required'
-  }, {
-    name: 'customer_contact[designation]',
-    rules: 'required'
-  }, {
-    name: 'customer_contact[phone]',
-    rules: 'required'
-  }, {
-    name: 'customer_contact[cell]',
-    rules: 'required'
-  }, {
-    name: 'customer_contact[email]',
-    rules: 'required'
-  }], function(errors, event) {
-    if (errors.length > 0) {
-    var temp;
-    for (var i=0; i<errors.length; i++){
-      temp = errors[i].id;
-      $("#" + temp).css("border","2px solid red");
-    }
-    }  
-  });   
+  <% if params[:id].present? %>
+    var validator = new FormValidator('new_customer_contact', [{
+      name: 'customer_contact[first_name]',    
+      rules: 'required'
+    }, {
+      name: 'customer_contact[last_name]',
+      rules: 'required'
+    }, {
+      name: 'customer_contact[customer_id]',
+      rules: 'required'
+    }, {
+      name: 'customer_contact[designation]',
+      rules: 'required'
+    }, {
+      name: 'customer_contact[phone]',
+      rules: 'numeric|required'
+    }, {
+      name: 'customer_contact[cell]',
+      rules: 'numeric|required'
+    }, {
+      name: 'customer_contact[email]',
+      rules: 'valid_email|required'
+    }], function(errors, event) {
+      if (errors.length > 0) {
+      var temp;
+      for (var i=0; i<errors.length; i++){
+        temp = errors[i].id;
+        $("#" + temp).css("border","1px solid red");
+      }
+      temp = errors[0].id;
+      $( "#" + temp).focus();
+      }  
+    });   

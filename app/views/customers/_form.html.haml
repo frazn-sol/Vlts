@@ -37,7 +37,7 @@
     = f.fields_for :user do |user|  
       .field
         = user.label :email, {:class => 'required'}
-        = user.email_field :email
+        = user.text_field :email
       .field
         = user.label :password, {:class => 'required'}
         = user.password_field :password
@@ -62,13 +62,13 @@
     rules: 'required'
   }, {
     name: 'customer[zipcode]',
-    rules: 'required'
+    rules: 'numeric|required'
   }, {
     name: 'customer[phone1]',
-    rules: 'required'
+    rules: 'numeric|required'
   }, {
     name: 'customer[user][email]',
-    rules: 'required'
+    rules: 'valid_email|required'
   }, {
     name: 'customer[user][password]',
     rules: 'required'
@@ -77,7 +77,9 @@
     var temp;
     for (var i=0; i<errors.length; i++){
       temp = errors[i].id;
-      $("#" + temp).css("border","2px solid red");
+      $("#" + temp).css("border","1px solid red");
     }
-    }  
+    temp = errors[0].id;
+    $( "#" + temp).focus();
+    }
   });    
