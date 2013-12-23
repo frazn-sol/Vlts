@@ -87,11 +87,11 @@ class UsersController < ApplicationController
           elsif @user.role == "user"
             format.html { redirect_to user_users_path, notice: 'User was successfully created.' }
             format.json { render json: @user, status: :created, location: @user }
-          end  
-        else
+          end 
+         else
           r = request.referrer
           p =  Rack::Utils.parse_query URI(r).query
-          parameter = p.keys[0] + "=" + p.values[0]
+          parameter = p.keys[0].to_s + "=" + p.values[0].to_s
           para1 = "param=2"
           para2 = "param=1"
           para3 = "param=3"
@@ -112,7 +112,7 @@ class UsersController < ApplicationController
           else
             format.html { render action: "new" }
             format.json { render json: @user.errors, status: :unprocessable_entity }  
-          end
+          end 
         end
       end
     elsif restriction.present? && user_count < restriction[0].usercapacity  
@@ -131,7 +131,7 @@ class UsersController < ApplicationController
         else
           r = request.referrer
           p =  Rack::Utils.parse_query URI(r).query
-          parameter = p.keys[0] + "=" + p.values[0]
+          parameter = p.keys[0].to_s + "=" + p.values[0].to_s
           para1 = "param=2"
           para2 = "param=1"
           para3 = "param=3"

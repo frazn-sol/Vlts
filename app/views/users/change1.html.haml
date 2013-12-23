@@ -8,7 +8,6 @@
       .box-content   
         = render ("layouts/breadcrumbs") 
         = form_for @system_config, :url => change_create_users_path, :html => { :multipart => true } do |f|
-          
           .field
             = f.label :company_logo
             = f.file_field :logo
