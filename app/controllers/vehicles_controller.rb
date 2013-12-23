@@ -239,7 +239,7 @@ end
           @vehicles = @vehicles.paginate(:page => params[:page], :per_page => 5)
         else
           @vehicles = Vehicle.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}" )
-          @vehicle = Vehicle.where(:delflag => false, :user_id => "#{current_user.id}")
+          @vehicle = Vehicle.where(:delflag => false, :user_id => "#{current_user.id}"  )
           @vehicles = @vehicles + @vehicle
           @parent = current_user.parent.parent
           @parent.children.each do |child|
@@ -251,7 +251,7 @@ end
           @vehicles = @vehicles.paginate(:page => params[:page], :per_page => 5)
         end    
       else
-        @vehicles = @search.where(:delflag => false, :user_id => "#{current_user.parent_id}" ).paginate(:page => params[:page], :per_page => 5)
+        @vehicles = @search.where(:delflag=>false, :user_id=>["#{current_user.id}", "#{current_user.parent.id}", "#{current_user.parent.parent_id}"]).paginate(:page => params[:page], :per_page => 5)
       end
     else
       redirect_to error_users_path and return
@@ -310,13 +310,13 @@ end
 
   def autocomplete
     if params[:term]
-      @vehicles = Vehicle.where(:user_id => "#{current_user.id}", :delflag => "false") 
+      @vehicles = Vehicle.where(:user_id => "#{current_user.id}", :delflag => false) 
       @vehicle = @vehicles.find(:all,:conditions => ['platenumber LIKE ?', "%#{params[:term]}%"])
       if @vehicle.empty?
-        @vehicles = Vehicle.where(:user_id => "#{current_user.parent.id}", :delflag => "false")
+        @vehicles = Vehicle.where(:user_id => "#{current_user.parent.id}", :delflag => false)
         @vehicle = @vehicles.find(:all,:conditions => ['platenumber LIKE ?', "%#{params[:term]}%"])
         if @vehicle.empty? 
-          @vehicles = @Vehicle.where(:user_id => "#{current_user.parent.parent_id}", :delflag => "false")
+          @vehicles = @Vehicle.where(:user_id => "#{current_user.parent.parent_id}", :delflag => false)
           @vehicle = @vehicles.find(:all,:conditions => ['platenumber LIKE ?', "%#{params[:term]}%"])
         end
       end 
