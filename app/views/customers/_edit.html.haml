@@ -37,22 +37,28 @@
     = f.submit 'Save', {:class => "button1"}
 :javascript
   var validator = new FormValidator('edit_customer_<%= @customer.id.to_s%>', [{
-    name: 'customer[company_name]',    
+    name: 'customer[company_name]',
+    display:'Company Name',    
     rules: 'required'
   }, {
     name: 'customer[address1]',
+    display:'Address1',
     rules: 'required'
   }, {
     name: 'customer[city]',
+    display:'City',
     rules: 'required'
   }, {
     name: 'customer[state]',
+    display:'State',
     rules: 'required'
   }, {
     name: 'customer[zipcode]',
+    display:'Zipcode',
     rules: 'numeric|required'
   }, {
     name: 'customer[phone1]',
+    display:'Phone1',
     rules: 'numeric|required'
   }], function(errors, event) {
     if (errors.length > 0) {

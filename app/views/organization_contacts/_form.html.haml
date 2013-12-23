@@ -42,25 +42,32 @@
 
 :javascript
   var validator = new FormValidator('new_organization_contact', [{
-    name: 'organization_contact[first_name]',    
+    name: 'organization_contact[first_name]',
+    display:'First Name',    
     rules: 'required'
   }, {
     name: 'organization_contact[last_name]',
+    display:'Last Name',
     rules: 'required'
   },{
     name: 'organization_contact[organization_id]',
+    display:'Organization Name',
     rules: 'required'
   }, {
     name: 'organization_contact[designation]',
+    display:'Designation',
     rules: 'required'
   }, {
     name: 'organization_contact[phone]',
+    display:'Phone',
     rules: 'required'
   }, {
     name: 'organization_contact[cell]',
+    display:'Cell',
     rules: 'required|numeric'
   }, {
     name: 'organization_contact[email]',
+    display:'Email',
     rules: 'required|valid_email'
   }], function(errors, event) {
     if (errors.length > 0) {

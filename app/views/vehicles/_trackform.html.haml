@@ -43,16 +43,20 @@
 
 :javascript
   var validator = new FormValidator('new_vehicle_history', [{
-    name: 'vehicle_history[platenumber]',    
+    name: 'vehicle_history[platenumber]',
+    display:'Plate Number',    
     rules: 'required'
   },{
     name: 'vehicle_history[slot]',
+    display:'Slot',
     rules: 'required'
   },{
     name: 'vehicle_history[location_id]',
+    display:'Location',
     rules: 'required'
   },{
     name: 'vehicle_history[floor_id]',
+    display:'Floor',
     rules: 'required'
   }], function(errors, event) {
     if (errors.length > 0) {

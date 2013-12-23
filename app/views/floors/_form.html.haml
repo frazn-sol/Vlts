@@ -32,16 +32,16 @@
 
 :javascript
   var validator = new FormValidator('new_floor', [{
-    name: 'floor[nickname]',    
-    rules: 'required'
-  }, {
-    name: 'floor[location]',
+    name: 'floor[nickname]',
+    display:'Nickname',    
     rules: 'required'
   }, {
     name: 'floor[location_id]',
+    display:'Location',
     rules: 'required'
   }, {
     name: 'floor[capacity]',
+    display:'Capacity',
     rules: 'numeric|required'
   }], function(errors, event) {
     if (errors.length > 0) {

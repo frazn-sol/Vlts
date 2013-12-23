@@ -33,16 +33,20 @@
 
 :javascript
   var validator = new FormValidator('edit_user_#{@user.id.to_s}', [{
-    name: 'user[first_name]',    
+    name: 'user[first_name]',
+    display:'First Name',    
     rules: 'required'
   }, {
     name: 'user[last_name]',
+    display:'Last Name',
     rules: 'required'
   }, {
     name: 'user[phone]',
+    display:'Phone',
     rules: 'numeric|required'
   }, {
     name: 'user[cell]',
+    display:'Cell',
     rules: 'numeric|required'
   }], function(errors, event) {
     if (errors.length > 0) {

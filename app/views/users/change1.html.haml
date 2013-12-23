@@ -53,7 +53,8 @@
 
 :javascript
   var validator = new FormValidator('new_user_config', [{
-    name: 'user_config[customer_id]',    
+    name: 'user_config[customer_id]', 
+    display:'Customer',   
     rules: 'required'
   }], function(errors, event) {
     if (errors.length > 0) {
