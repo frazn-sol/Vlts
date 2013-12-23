@@ -26,6 +26,18 @@
   .field.allign
     = f.label :slot, {:class => "required"}
     = f.text_field :slot, {:class => "size"}
+  .field.allign
+    = f.label :visitor
+    %label{title: "Red"}
+      %input{name: "vehicle_history[visitor]", type: "radio", value: "Red"}
+      Red
+    %label{title: "Green"}
+      %input{name: "vehicle_history[visitor]", type: "radio", value: "Green"}
+      Green
+    %label{title: "Blue"}
+      %input{name: "vehicle_history[visitor]", type: "radio", value: "Blue"}
+      Blue
+    .clrear    
   .actions
     = f.submit 'Create Record', {:class => "button1 push"}
 
