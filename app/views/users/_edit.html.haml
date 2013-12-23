@@ -21,6 +21,9 @@
   .field
     = f.label :cell, {:class => 'required'}
     = f.text_field :cell 
+  .field
+    = f.label :passwordhint
+    = f.text_field :passwordhint  
   .actions
     -if params[:param]=="1"    
       = f.submit 'Save', {:class => "button1"}
