@@ -83,7 +83,16 @@
       temp = errors[0].id;
       $( "#" + temp).focus();
       }  
-    });  
+    }); 
+    validator.registerCallback('check_email', function(value) {
+      var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+      if( !emailReg.test( value ) ) {
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .setMessage('check_email', 'Please enter a valid email address.'); 
 -else  
   :javascript
     var validator = new FormValidator('new_organization_contact', [{

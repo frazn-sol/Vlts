@@ -9,7 +9,7 @@
       = form_for @user, :url => reset1_user_path(@user) do |f| 
         .field
           = f.label :try, "Email", {:class => 'required'}
-          = f.email_field :try
+          = f.text_field :try
         .field  
           = f.label :password, "New password", {:class => 'required'}
           = f.password_field :password 
@@ -22,8 +22,8 @@
 :javascript
   var validator = new FormValidator('edit_user_1', [{
     name: 'user[try]',
-    display:'Current Password',    
-    rules: 'required'
+    display:'Eamil',    
+    rules: 'required|callback_check_email'
   }, {
     name: 'user[password]',
     display:'Password',
@@ -45,4 +45,13 @@
     temp = errors[0].id;
     $( "#" + temp).focus();
     }  
-  });    
+  });  
+  validator.registerCallback('check_email', function(value) {
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    if( !emailReg.test( value ) ) {
+      return false;
+    } else {
+      return true;
+    }
+  })
+  .setMessage('check_email', 'Please enter a valid email address.');  

@@ -83,6 +83,16 @@
       $( "#" + temp).focus();
       }  
     });   
+    
+    validator.registerCallback('check_email', function(value) {
+      var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+      if( !emailReg.test( value ) ) {
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .setMessage('check_email', 'Please enter a valid email address.');  
 -else  
   :javascript
     var validator = new FormValidator('new_customer_contact', [{
@@ -116,6 +126,9 @@
     }], function(errors, event) {
       if (errors.length > 0) {
       var temp;
+      $(":text").each(function(){
+        $(this).css("border","#cccccc 1px solid");      
+      });
       for (var i=0; i<errors.length; i++){
         temp = errors[i].id;
         $("#" + temp).css("border","1px solid red");
