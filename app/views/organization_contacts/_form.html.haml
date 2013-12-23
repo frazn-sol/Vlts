@@ -1,4 +1,4 @@
-  = form_for @organization_contact do |f|
+= form_for @organization_contact do |f|
   - if @organization_contact.errors.any?
     #error_explanation
       %h2= "#{pluralize(@organization_contact.errors.count, "error")} prohibited this organization_contact from being saved:"
