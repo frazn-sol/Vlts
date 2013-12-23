@@ -42,8 +42,57 @@
   .actions
     = f.submit 'Save', {:class => "button1"}
 
-
-:javascript
+-if params[:id].present?
+  :javascript
+    var validator = new FormValidator('edit_location_#{@location.id.to_s}', [{
+      name: 'location[company_name]',  
+      display:'Company Name',  
+      rules: 'required'
+    }, {
+      name: 'location[address1]',
+      display:'Addres1',  
+      rules: 'required'
+    }, {
+      name: 'location[state]',
+      display:'State',  
+      rules: 'required'
+    }, {
+      name: 'location[city]',
+      display:'City',
+      rules: 'required'
+    }, {
+      name: 'location[zipcode]',
+      display:'Zipcode',
+      rules: 'required|numeric'
+    }, {
+      name: 'location[phone1]',
+      display:'Phone1',
+      rules: 'required|numeric'
+    }, {
+      name: 'location[email]',
+      display:'Email',
+      rules: 'required|valid_email'
+    }, {
+      name: 'location[nickname]',
+      display:'Nickname',
+      rules: 'required'
+    }, {
+      name: 'location[description]',
+      display:'Description',
+      rules: 'required'
+    }], function(errors, event) {
+      if (errors.length > 0) {
+      var temp;
+      for (var i=0; i<errors.length; i++){
+        temp = errors[i].id;
+        $("#" + temp).css("border","1px solid red");
+      }
+      temp = errors[0].id;
+      $( "#" + temp).focus();
+      } 
+    }); 
+-else
+  :javascript
   var validator = new FormValidator('new_location', [{
     name: 'location[company_name]',  
     display:'Company Name',  
@@ -90,4 +139,4 @@
     temp = errors[0].id;
     $( "#" + temp).focus();
     } 
-  });  
+  });       

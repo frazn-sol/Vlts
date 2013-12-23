@@ -36,7 +36,7 @@
   .actions
     = f.submit 'Save', {:class => "button1"}
 :javascript
-  var validator = new FormValidator('edit_customer_<%= @customer.id.to_s%>', [{
+  var validator = new FormValidator('edit_customer_#{@customer.id.to_s}', [{
     name: 'customer[company_name]',
     display:'Company Name',    
     rules: 'required'

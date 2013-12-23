@@ -39,43 +39,85 @@
     = hidden_field "id", "customer_id", "value" => "#{params[:customer_id]}"
   .actions
     = f.submit 'Save', {:class => "button1"}
-:javascript
-  var validator = new FormValidator('new_customer_contact', [{
-    name: 'customer_contact[first_name]', 
-    display:'First Name',   
-    rules: 'required'
-  }, {
-    name: 'customer_contact[last_name]',
-    display:'Last Name',
-    rules: 'required'
-  }, {
-    name: 'customer_contact[customer_id]',
-    display:'Company Name',
-    rules: 'required'
-  }, {
-    name: 'customer_contact[designation]',
-    display:'Designation',
-    rules: 'required'
-  }, {
-    name: 'customer_contact[phone]',
-    display:'Phone',
-    rules: 'numeric|required'
-  }, {
-    name: 'customer_contact[cell]',
-    display:'Cell',
-    rules: 'numeric|required'
-  }, {
-    name: 'customer_contact[email]',
-    display:'Email',
-    rules: 'valid_email|required'
-  }], function(errors, event) {
-    if (errors.length > 0) {
-    var temp;
-    for (var i=0; i<errors.length; i++){
-      temp = errors[i].id;
-      $("#" + temp).css("border","1px solid red");
-    }
-    temp = errors[0].id;
-    $( "#" + temp).focus();
-    }  
-  });   
+-if params[:id].present?    
+  :javascript
+    var validator = new FormValidator('edit_customer_contact_#{@customer_contact.id.to_s}', [{
+      name: 'customer_contact[first_name]', 
+      display:'First Name',   
+      rules: 'required'
+    }, {
+      name: 'customer_contact[last_name]',
+      display:'Last Name',
+      rules: 'required'
+    }, {
+      name: 'customer_contact[customer_id]',
+      display:'Company Name',
+      rules: 'required'
+    }, {
+      name: 'customer_contact[designation]',
+      display:'Designation',
+      rules: 'required'
+    }, {
+      name: 'customer_contact[phone]',
+      display:'Phone',
+      rules: 'numeric|required'
+    }, {
+      name: 'customer_contact[cell]',
+      display:'Cell',
+      rules: 'numeric|required'
+    }, {
+      name: 'customer_contact[email]',
+      display:'Email',
+      rules: 'valid_email|required'
+    }], function(errors, event) {
+      if (errors.length > 0) {
+      var temp;
+      for (var i=0; i<errors.length; i++){
+        temp = errors[i].id;
+        $("#" + temp).css("border","1px solid red");
+      }
+      temp = errors[0].id;
+      $( "#" + temp).focus();
+      }  
+    });   
+-else  
+  :javascript
+    var validator = new FormValidator('new_customer_contact', [{
+      name: 'customer_contact[first_name]', 
+      display:'First Name',   
+      rules: 'required'
+    }, {
+      name: 'customer_contact[last_name]',
+      display:'Last Name',
+      rules: 'required'
+    }, {
+      name: 'customer_contact[customer_id]',
+      display:'Company Name',
+      rules: 'required'
+    }, {
+      name: 'customer_contact[designation]',
+      display:'Designation',
+      rules: 'required'
+    }, {
+      name: 'customer_contact[phone]',
+      display:'Phone',
+      rules: 'numeric|required'
+    }, {
+      name: 'customer_contact[cell]',
+      display:'Cell',
+      rules: 'numeric|required'
+    }, {
+      name: 'customer_contact[email]',
+      display:'Email',
+      rules: 'valid_email|required'
+    }], function(errors, event) {
+      if (errors.length > 0) {
+      var temp;
+      for (var i=0; i<errors.length; i++){
+        temp = errors[i].id;
+        $("#" + temp).css("border","1px solid red");
+      }
+      temp = errors[0].id;
+      $( "#" + temp).focus();
+      }  
+    });  

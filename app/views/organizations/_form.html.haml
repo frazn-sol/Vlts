@@ -38,8 +38,49 @@
     = f.email_field :email
   .actions
     = f.submit 'Save', {:class => "button1"}
-
-:javascript
+-if params[:id].present?
+  :javascript
+    var validator = new FormValidator('edit_organization_#{@organization.id.to_s}', [{
+      name: 'organization[company_name]', 
+      display:'Company Name',   
+      rules: 'required'
+    }, {
+      name: 'organization[address1]',
+      display:'Address1',
+      rules: 'required'
+    }, {
+      name: 'organization[city]',
+      display:'City',
+      rules: 'required'
+    }, {
+      name: 'organization[state]',
+      display:'State',
+      rules: 'required'
+    }, {
+      name: 'organization[zipcode]',
+      display:'Zipcode',
+      rules: 'required|numeric'
+    }, {
+      name: 'organization[phone1]',
+      display:'Phone1',
+      rules: 'required|numeric'
+    }, {
+      name: 'organization[email]',
+      display:'Email',
+      rules: 'required|valid_email'
+    }], function(errors, event) {
+      if (errors.length > 0) {
+      var temp;
+      for (var i=0; i<errors.length; i++){
+        temp = errors[i].id;
+        $("#" + temp).css("border","1px solid red");
+      }
+      temp = errors[0].id;
+      $( "#" + temp).focus();
+      }  
+    });
+-else
+  :javascript
   var validator = new FormValidator('new_organization', [{
     name: 'organization[company_name]', 
     display:'Company Name',   
@@ -78,4 +119,4 @@
     temp = errors[0].id;
     $( "#" + temp).focus();
     }  
-  });
+  });    

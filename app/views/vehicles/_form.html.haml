@@ -38,8 +38,29 @@
   .actions
     = f.submit 'Save', {:class => "button1"}
 
-
-:javascript
+-if params[:id].present?
+  :javascript
+    var validator = new FormValidator('edit_vehicle_#{@vehicle.id.to_s}', [{
+      name: 'vehicle[platenumber]',  
+      display:'Plate Number',  
+      rules: 'required'
+    },{
+      name: 'vehicle[organization_id]',
+      display:'Organization',    
+      rules: 'required'
+    }], function(errors, event) {
+      if (errors.length > 0) {
+      var temp;
+      for (var i=0; i<errors.length; i++){
+        temp = errors[i].id;
+        $("#" + temp).css("border","1px solid red");
+      }
+      temp = errors[0].id;
+      $( "#" + temp).focus();
+      }  
+    }); 
+-else
+  :javascript
   var validator = new FormValidator('new_vehicle', [{
     name: 'vehicle[platenumber]',  
     display:'Plate Number',  
