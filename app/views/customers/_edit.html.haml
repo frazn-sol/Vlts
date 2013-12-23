@@ -34,7 +34,7 @@
     = f.label :web
     = f.text_field :web
   .actions
-    = f.submit 'Update', {:class => "button1"}
+    = f.submit 'Save', {:class => "button1"}
 :javascript
   var validator = new FormValidator('edit_customer_<%= @customer.id.to_s%>', [{
     name: 'customer[company_name]',    

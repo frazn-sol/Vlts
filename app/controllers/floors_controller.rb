@@ -143,10 +143,11 @@ class FloorsController < ApplicationController
   # PUT /floors/1.json
   def update
     @floor = Floor.find(params[:id])
-
+    params[:floor][:location_id] = params[:floor][:loc_id]
+    params[:floor].delete :loc_id
     respond_to do |format|
       if @floor.update_attributes(params[:floor])
-        format.html { redirect_to @floor, notice: 'Floor was successfully updated.' }
+        format.html { redirect_to floors_path, notice: 'Floor was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

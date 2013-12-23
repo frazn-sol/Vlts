@@ -23,13 +23,13 @@
     = f.text_field :cell 
   .actions
     -if params[:param]=="1"    
-      = f.submit 'Update Supervisor', {:class => "button1"}
+      = f.submit 'Save', {:class => "button1"}
     -elsif params[:param]=="2"   
-      = f.submit 'Update User', {:class => "button1"}   
+      = f.submit 'Save', {:class => "button1"}   
     -elsif params[:param]=="3"
-      = f.submit 'Update Profile', {:class => "button1"}
+      = f.submit 'Save', {:class => "button1"}
     -else         
-      = f.submit 'Update Support Staff', {:class => "button1"}
+      = f.submit 'Save', {:class => "button1"}
 
 :javascript
   var validator = new FormValidator('edit_user_#{@user.id.to_s}', [{

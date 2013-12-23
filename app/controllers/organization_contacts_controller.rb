@@ -117,10 +117,11 @@ end
   # PUT /organization_contacts/1.json
   def update
     @organization_contact = OrganizationContact.find(params[:id])
-
+    org_id = Organization.find_by_company_name(params[:organization_contact][:organization_id]).id
     respond_to do |format|
+      params[:organization_contact][:organization_id] = org_id
       if @organization_contact.update_attributes(params[:organization_contact])
-        format.html { redirect_to organization_contacts_path(:org_id => params[:id][:org_id]), notice: 'Organization contact was successfully updated.' }
+        format.html { redirect_to organization_contacts_path(:org_id => org_id), notice: 'Organization contact was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

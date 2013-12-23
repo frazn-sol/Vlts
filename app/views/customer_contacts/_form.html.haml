@@ -38,7 +38,7 @@
     = f.text_field :email   
     = hidden_field "id", "customer_id", "value" => "#{params[:customer_id]}"
   .actions
-    = f.submit 'Create Customer Contact', {:class => "button1"}
+    = f.submit 'Save', {:class => "button1"}
 :javascript
   var validator = new FormValidator('new_customer_contact', [{
     name: 'customer_contact[first_name]', 
