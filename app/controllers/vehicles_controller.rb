@@ -229,50 +229,46 @@ end
       @vehicle = Vehicle.new
       @search = Vehicle.search(params[:search])
       if (params[:search].blank?)
-        if !current_user.parent.parent.present?
-          @vehicles = Vehicle.where(:delflag => false, :user_id => "#{current_user.parent_id}" )
-          @parent = current_user.parent
-          @parent.children.each do |child|
-            @vehicle2 = Vehicle.where(:delflag => false, :user_id => child.id)
-            @vehicles = @vehicles + @vehicle2
+        if current_user.parent.role == "customer"
+          @customer = current_user.parent
+        elsif current_user.parent.role == "supervisor"
+          @customer = current_user.parent.parent
+        end
+        @vehicles =  Vehicle.where("user_id=? AND delflag=?",@customer.id,false)
+        @customer.children.each do |child|
+          if child.delflag == false
+            @temp = Vehicle.where("user_id=? AND delflag=?",child.id,false)
+            @vehicles += @temp
+              child.children.each do |chil|
+                if chil.delflag == false
+                  @supervisor = Vehicle.where("user_id=? AND delflag=?",chil.id,false)
+                  @vehicles += @supervisor
+                end
+              end
           end
-          @vehicles = @vehicles.paginate(:page => params[:page], :per_page => 5)
-        else
-          @vehicles = Vehicle.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}" )
-          @vehicle = Vehicle.where(:delflag => false, :user_id => "#{current_user.id}"  )
-          @vehicles = @vehicles + @vehicle
-          @parent = current_user.parent.parent
-          @parent.children.each do |child|
-            if child.role != "user"
-              @vehicle2 = Vehicle.where(:delflag => false, :user_id => child.id)
-              @vehicles = @vehicles + @vehicle2
-            end  
-          end
-          @vehicles = @vehicles.paginate(:page => params[:page], :per_page => 5)
-        end    
+        end 
+        @vehicles = @vehicles.paginate(:page => params[:page], :per_page => 5)   
       else
-        if !current_user.parent.parent.present?
-          @vehicles = @search.where(:delflag => false, :user_id => "#{current_user.parent_id}" )
-          @parent = current_user.parent
-          @parent.children.each do |child|
-            @vehicle2 = @search.where(:delflag => false, :user_id => child.id)
-            @vehicles = @vehicles + @vehicle2
+        if current_user.parent.role == "customer"
+          @customer = current_user.parent
+        elsif current_user.parent.role == "supervisor"
+          @customer = current_user.parent.parent
+        end
+        @vehicles =  @search.where("user_id=? AND delflag=?",@customer.id,false)
+        @customer.children.each do |child|
+          if child.delflag == false
+            @temp = @search.where("user_id=? AND delflag=?",child.id,false)
+            @vehicles += @temp
+              child.children.each do |chil|
+                if chil.delflag == false
+                  @supervisor = @search.where("user_id=? AND delflag=?",chil.id,false)
+                  @vehicles += @supervisor
+                end
+              end
           end
-          @vehicles = @vehicles.paginate(:page => params[:page], :per_page => 5)
-        else
-          @vehicles = @search.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}" )
-          @vehicle = @search.where(:delflag => false, :user_id => "#{current_user.id}"  )
-          @vehicles = @vehicles + @vehicle
-          @parent = current_user.parent.parent
-          @parent.children.each do |child|
-            if child.role != "user"
-              @vehicle2 = @search.where(:delflag => false, :user_id => child.id)
-              @vehicles = @vehicles + @vehicle2
-            end  
-          end
-          @vehicles = @vehicles.paginate(:page => params[:page], :per_page => 5)
-        end    
-      end
+        end 
+        @vehicles = @vehicles.paginate(:page => params[:page], :per_page => 5)
+      end  
     else
       redirect_to error_users_path and return
     end
@@ -335,21 +331,20 @@ end
       elsif current_user.parent.role == "supervisor"
         @customer = current_user.parent.parent
       end
-      @vehicles =  Vehicle.where(:user_id => @customer.id, :delflag => false)
+      @vehicle =  Vehicle.where("user_id=? AND delflag=? AND platenumber like ?",@customer.id,false,"%#{params[:term]}%")
       @customer.children.each do |child|
         if child.delflag == false
-          @temp = Vehicle.where(:user_id => child.id, :delflag => false)
-          @vehicles = @vehicle1 + @vehicles
+          @temp = Vehicle.where("user_id=? AND delflag=? AND platenumber like ?",child.id,false,"%#{params[:term]}%")
+          @vehicle += @temp
             child.children.each do |chil|
               if chil.delflag == false
-                @supervisor = Vehicle.where(:user_id => chil.id, :delflag => false)
-                @vehicles = @vehicle2 + @vehicles
+                @supervisor = Vehicle.where("user_id=? AND delflag=? AND platenumber like ?",chil.id,false,"%#{params[:term]}%")
+                @vehicle += @supervisor
               end
             end
         end
       end
-      @vehicle = @vehicles.find(:all,:conditions => ['platenumber LIKE ?', "%#{params[:term]}%"])
-      render json: @vehicle.as_json     
+      render json: @vehicle.as_json    
     end
   end
 
