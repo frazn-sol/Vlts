@@ -30,9 +30,9 @@
                 %td.center= location.phone1
                 %td.center= location.web
                 %td.center= location.email
-                %td.center
+                %td.center.colwidth1
                   = link_to "View All".html_safe, floors_path(:location_id => location.id), :class => "btn btn-success"
-                %td.center
+                %td.center.colwidth
                   = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, location, :class => "btn btn-success"
                   = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_location_path(location), :class => "btn btn-info"
                   = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, location, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"

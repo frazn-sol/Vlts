@@ -23,7 +23,7 @@
             = f.label :copyright_text
             = f.text_area :copytext
           .actions  
-            = f.submit "Add Configurations", {:class => "button1"}   
+            = f.submit "Save Configurations", {:class => "button1"}   
 .row-fluid.sortable
   .box.span12
     .box-header.well{"data-original-title" => ""}
@@ -36,9 +36,9 @@
         .field
           = f.label :Customer, {:class => "required"}
           -if current_user.role == "admin"
-            = f.collection_select(:customer_id, Customer.all, :id, :company_name, { :include_blank => true })
+            = f.collection_select(:customer_id, Customer.where(:delflag=>false), :id, :company_name, { :include_blank => true })
           -else
-            = f.collection_select(:customer_id, Customer.where(:user_id => "#{current_user.id}"), :id, :company_name, { :include_blank => true })        
+            = f.collection_select(:customer_id, Customer.where(:delflag=>false, :user_id => "#{current_user.id}"), :id, :company_name, { :include_blank => true })        
         .field
           = f.label :floor_capacity
           = f.text_field :floorcapacity
@@ -49,7 +49,7 @@
           = f.label :user_capacity
           = f.text_field :usercapacity
         .actions  
-          = f.submit "Add Configurations", {:class => "button1"}
+          = f.submit "Save Configurations", {:class => "button1"}
 
 :javascript
   var validator = new FormValidator('new_user_config', [{

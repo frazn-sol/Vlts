@@ -309,7 +309,7 @@ def reset1
     @system_config = SystemConfig.last
     respond_to do |format|
       if @system_config.update_attributes(params[:system_config])
-        format.html { redirect_to change1_users_path, notice: 'configurations were successfully created.' }
+        format.html { redirect_to change1_users_path, notice: 'Configurations were successfully created.' }
         format.json { render json: @system_config, status: :created, location: @system_config }
       else
         format.html { render action: "config" }

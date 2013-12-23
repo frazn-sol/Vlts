@@ -32,7 +32,7 @@
                 %td.center= customer_contact.phone
                 %td.center= customer_contact.cell
                 %td.center= customer_contact.email
-                %td.center
+                %td.center.colwidth
                   = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, customer_contact_path(customer_contact, :customer_id =>"#{params[:customer_id]}"), :class => "btn btn-success"
                   = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe,edit_customer_contact_path(customer_contact, :customer_id => "#{params[:customer_id]}"), :class => "btn btn-info"
                   = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, customer_contact, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"            

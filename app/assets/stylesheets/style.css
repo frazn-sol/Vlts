@@ -469,3 +469,10 @@ label
 {
 	font-weight: bold;
 }
+
+.colwidth{
+	width:120px;
+}
+.colwidth1{
+	width:75px;
+}
