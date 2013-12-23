@@ -180,11 +180,16 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         if params[:id] == current_user.id.to_s
-          format.html { redirect_to users_path, notice: 'User was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
-          format.json { head :no_content }
+          if @user.role == "support"
+            format.html { redirect_to support_users_path, notice: 'Support Staff was successfully updated.' }
+            format.json { render json: @user, status: :created, location: @user }
+          elsif @user.role == "supervisor" 
+            format.html { redirect_to supervisor_users_path, notice: 'Supervisor was successfully updated.' }
+            format.json { render json: @user, status: :created, location: @user }
+          elsif @user.role == "user"
+            format.html { redirect_to user_users_path, notice: 'User was successfully updated.' }
+            format.json { render json: @user, status: :created, location: @user }
+          end
         end  
       else
         format.html { render action: "edit" }
@@ -200,13 +205,49 @@ class UsersController < ApplicationController
     @action = request.referrer
     @user.delflag = true
     if @user.update_attributes(params[:user])
-      @customer = Customer.where(:user_id => "#{@user.id}", :delflag => "false")
+      @customer = Customer.where(:user_id => "#{@user.id}", :delflag => false)
       if @customer.present?
         @customer.each do |c|
          c.delflag = true
          Customer.where(:id => c.id).update_all(:deflag => true)
        end
-     end 
+      end
+      @vehicle = Vehicle.where(:user_id => "#{@user.id}", :delflag => false)
+      if @vehicle.present?
+        @vehicle.each do |v|
+         v.delflag = true
+         Vehicle.where(:id => v.id).update_all(:deflag => true)
+        end
+      end
+      @location = Location.where(:user_id => "#{@user.id}", :delflag => false)
+      if @location.present?
+        @location.each do |l|
+         l.delflag = true
+         Location.where(:id => l.id).update_all(:deflag => true)
+        end
+      end
+      @org = Organization.where(:user_id => "#{@user.id}", :delflag => false)
+      if @org.present?
+        @org.each do |o|
+         o.delflag = true
+         Organization.where(:id => o.id).update_all(:deflag => true)
+        end
+      end
+      @floor = Floor.where(:user_id => "#{@user.id}", :delflag => false)
+      if @floor.present?
+        @floor.each do |f|
+         f.delflag = true
+         Floor.where(:id => f.id).update_all(:deflag => true)
+        end
+      end
+      @user = User.where(:parent_id => "#{@user.id}", :delflag => false)
+      if @user.present?
+        @user.each do |u|
+         u.delflag = true
+         user.where(:id => u.id).update_all(:deflag => true)
+        end
+      end
+
      flash[:notice] = "Successfully Deleted"
      respond_to do |format|
       format.html { redirect_to @action }
@@ -243,6 +284,12 @@ end
 def user
   if (current_user.role == "customer" || current_user.role == "supervisor")
     @user = User.where(:role => "user", :parent_id => "#{current_user.id}", :delflag => false)
+    current_user.children.each do |child|
+      if child.role == "supervisor" && child.delflag == false
+        @user1 = User.where(:role=>"user", :parent_id => child.id, :delflag => false)
+        @user = @user1 + @user
+      end
+    end
     @users = @user.paginate(:page => params[:page], :per_page => 5)
   else 
     redirect_to error_users_path   

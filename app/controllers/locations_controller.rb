@@ -4,16 +4,40 @@ class LocationsController < ApplicationController
   # GET /locations.json
   def index
     if (current_user.role == "customer" ||  current_user.role == "supervisor")
-      @locations = Location.where(:delflag => false).paginate(:page => params[:page], :per_page => 5)
-
+     @locations = Location.where(:delflag => false, :user_id => "#{current_user.id}")
+      @location = Location.where(:delflag => false, :user_id => "#{current_user.parent_id}")   
+      @locations = @locations + @location
+      if current_user.role == "customer"
+        current_user.children.each do |child|
+          if child.delflag == false && child.role == "supervisor"
+            @location1 = Location.where(:user_id => child.id, :delflag => false)
+            @locations = @location1 + @locations
+          end
+        end
+      else
+        current_user.children.each do |child|
+          if child.delflag == false
+            @location1 = Location.where(:user_id => child.id, :delflag => false)
+            @locations = @location1 + @locations
+          end
+        end
+        current_user.parent.children.each do |child|
+          if child.delflag == false && child.id != current_user.id
+            @location1 = Location.where(:user_id => child.id, :delflag => false)
+            @locations = @location1 + @locations
+          end
+        end
+      end  
+      @locations = @locations.paginate(:page => params[:page], :per_page => 5)
+      
       respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @locations }
-      end
-    else
-      redirect_to error_users_path and return
-    end              
+      format.html # index.html.erb
+      format.json { render json: @locations }
+    end
+  else
+    redirect_to error_users_path and return
   end
+end
   # GET /locations/1
   # GET /locations/1.json
   def show

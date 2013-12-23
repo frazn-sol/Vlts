@@ -6,7 +6,48 @@ class VehiclesController < ApplicationController
   # GET /vehicles.json
   def index
     if (current_user.role == "customer" || current_user.role == "supervisor")
-      @vehicles = Vehicle.where(:delflag => false, :user_id => "#{current_user.id}").paginate(:page => params[:page], :per_page => 5) 
+      @vehicles = Vehicle.where(:delflag => false, :user_id => "#{current_user.id}")
+      @vehicle = Vehicle.where(:delflag => false, :user_id => "#{current_user.parent_id}")   
+      @vehicles = @vehicles + @vehicle
+      if current_user.role == "customer"
+        current_user.children.each do |child|
+          if child.delflag == false
+            @vehicle1 = Vehicle.where(:user_id => child.id, :delflag => false)
+            @vehicles = @vehicle1 + @vehicles
+          end
+        end
+        current_user.children.each do |child|
+          if child.delflag == false
+            child.children.each do |chil|
+              @vehicle1 = Vehicle.where(:user_id => chil.id, :delflag => false)
+              @vehicles = @vehicle1 + @vehicles
+            end  
+          end
+        end
+      else
+        current_user.children.each do |child|
+          if child.delflag == false
+            @vehicle1 = Vehicle.where(:user_id => child.id, :delflag => false)
+            @vehicles = @vehicle1 + @vehicles
+          end
+        end
+        current_user.parent.children.each do |child|
+          if child.delflag == false && child.id != current_user.id
+            @vehicle1 = Vehicle.where(:user_id => child.id, :delflag => false)
+            @vehicles = @vehicle1 + @vehicles
+          end
+        end
+        current_user.parent.children.each do |child|
+          if child.delflag == false && child.id != current_user.id
+            child.children.each do |chil|
+              @vehicle1 = Vehicle.where(:user_id => chil.id, :delflag => false)
+              @vehicles = @vehicle1 + @vehicles
+            end  
+          end
+        end
+      end  
+      @vehicles = @vehicles.paginate(:page => params[:page], :per_page => 5)
+      
       respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @vehicles }
@@ -198,7 +239,7 @@ end
           @vehicles = @vehicles.paginate(:page => params[:page], :per_page => 5)
         else
           @vehicles = Vehicle.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}" )
-          @vehicle = Vehicle.where(:delflag => false, :user_id => "#{current_user.id}" )
+          @vehicle = Vehicle.where(:delflag => false, :user_id => "#{current_user.id}")
           @vehicles = @vehicles + @vehicle
           @parent = current_user.parent.parent
           @parent.children.each do |child|

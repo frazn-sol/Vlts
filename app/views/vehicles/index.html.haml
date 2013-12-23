@@ -29,7 +29,8 @@
               %td.center= vehicle.permit_date
               %td.center= vehicle.expiry_date
               %td.center= vehicle.badge_number
-              %td.center= vehicle.organization.company_name
+              -if vehicle.organization.present?
+                %td.center= vehicle.organization.company_name 
               %td.center
                 = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, vehicle, :class => "btn btn-success"
                 = link_to "<i class=\"icon-edit icon-white\"></i>".html_safe, edit_vehicle_path(vehicle), :class => "btn btn-info"

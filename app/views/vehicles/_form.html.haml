@@ -5,9 +5,6 @@
       %ul
         - @vehicle.errors.full_messages.each do |msg|
           %li= msg
-
-          
-
   .field
     = f.label :plate_number, {:class => "required"}
     = f.text_field :platenumber
@@ -64,26 +61,26 @@
     }); 
 -else
   :javascript
-  var validator = new FormValidator('new_vehicle', [{
-    name: 'vehicle[platenumber]',  
-    display:'Plate Number',  
-    rules: 'required'
-  },{
-    name: 'vehicle[organization_id]',
-    display:'Organization',    
-    rules: 'required'
-  }], function(errors, event) {
-    if (errors.length > 0) {
-    var temp;
-    $(":text").each(function(){
-        $(this).css("border","#cccccc 1px solid");      
-      });
-    for (var i=0; i<errors.length; i++){
-      temp = errors[i].id;
-      $("#" + temp).css("border","1px solid red");
-    }
-    temp = errors[0].id;
-    $( "#" + temp).focus();
-    }  
-  }); 
+    var validator = new FormValidator('new_vehicle', [{
+      name: 'vehicle[platenumber]',  
+      display:'Plate Number',  
+      rules: 'required'
+    },{
+      name: 'vehicle[organization_id]',
+      display:'Organization',    
+      rules: 'required'
+    }], function(errors, event) {
+      if (errors.length > 0) {
+      var temp;
+      $(":text").each(function(){
+          $(this).css("border","#cccccc 1px solid");      
+        });
+      for (var i=0; i<errors.length; i++){
+        temp = errors[i].id;
+        $("#" + temp).css("border","1px solid red");
+      }
+      temp = errors[0].id;
+      $( "#" + temp).focus();
+      }  
+    }); 
 

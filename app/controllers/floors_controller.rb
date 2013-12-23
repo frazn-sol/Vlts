@@ -16,17 +16,41 @@ class FloorsController < ApplicationController
           format.json { render json: @floors }
         end
       else
-        @floors = Floor.where(:delflag => false, :user_id => "#{current_user.id}").paginate(:page => params[:page], :per_page => 5)
-
+        @floors = Floor.where(:delflag => false, :user_id => "#{current_user.id}")
+        @floor = Floor.where(:delflag => false, :user_id => "#{current_user.parent_id}")   
+        @floors = @floors + @floor
+        if current_user.role == "customer"
+          current_user.children.each do |child|
+            if child.delflag == false && child.role == "supervisor"
+              @floor1 = Floor.where(:user_id => child.id, :delflag => false)
+              @floors = @floor1 + @floors
+            end
+          end
+        else
+          current_user.children.each do |child|
+            if child.delflag == false
+              @floor1 = Floor.where(:user_id => child.id, :delflag => false)
+              @floors = @floor1 + @floors
+            end
+          end
+          current_user.parent.children.each do |child|
+            if child.delflag == false && child.id != current_user.id
+              @floor1 = Floor.where(:user_id => child.id, :delflag => false)
+              @floors = @floor1 + @floors
+            end
+          end
+        end  
+        @floors = @floors.paginate(:page => params[:page], :per_page => 5)
+      
         respond_to do |format|
           format.html # index.html.erb
           format.json { render json: @floors }
         end
       end  
-    else
-      redirect_to error_users_path and return
-    end        
+  else
+    redirect_to error_users_path and return
   end
+end
 
   # GET /floors/1
   # GET /floors/1.json

@@ -4,8 +4,32 @@ class OrganizationsController < ApplicationController
   # GET /organizations.json
   def index
     if (current_user.role == "customer" || current_user.role == "supervisor")
-      @organizations = Organization.where(:delflag => false).paginate(:page => params[:page], :per_page => 5)
-
+      @organizations = Organization.where(:delflag => false, :user_id => "#{current_user.id}")
+      @organization = Organization.where(:delflag => false, :user_id => "#{current_user.parent_id}")   
+      @organizations = @organizations + @organization
+      if current_user.role == "customer"
+        current_user.children.each do |child|
+          if child.delflag == false && child.role == "supervisor"
+            @organization1 = Organization.where(:user_id => child.id, :delflag => false)
+            @organizations = @organization1 + @organizations
+          end
+        end
+      else
+        current_user.children.each do |child|
+          if child.delflag == false
+            @organization1 = Organization.where(:user_id => child.id, :delflag => false)
+            @organizations = @organization1 + @organizations
+          end
+        end
+        current_user.parent.children.each do |child|
+          if child.delflag == false && child.id != current_user.id
+            @organization1 = Organization.where(:user_id => child.id, :delflag => false)
+            @organizations = @organization1 + @organizations
+          end
+        end
+      end  
+      @organizations = @organizations.paginate(:page => params[:page], :per_page => 5)
+      
       respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @organizations }
