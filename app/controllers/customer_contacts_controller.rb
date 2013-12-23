@@ -115,11 +115,13 @@ class CustomerContactsController < ApplicationController
   # PUT /customer_contacts/1
   # PUT /customer_contacts/1.json
   def update
+    binding.pry
     @customer_contact = CustomerContact.find(params[:id])
-
+    customer_id = Customer.find_by_company_name(params[:customer_contact][:customer_id]).id
     respond_to do |format|
+      params[:customer_contact][:customer_id] = customer_id
       if @customer_contact.update_attributes(params[:customer_contact])
-        format.html { redirect_to customer_contacts_path(:customer_id => params[:id][:customer_id]), notice: 'Customer contact was successfully updated.' }
+        format.html { redirect_to customer_contacts_path(:customer_id => customer_id), notice: 'Customer contact was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
