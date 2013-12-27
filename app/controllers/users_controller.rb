@@ -176,20 +176,17 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        if params[:id] == current_user.id.to_s
-          if @user.role == "support"
-            format.html { redirect_to support_users_path, notice: 'Support Staff was successfully updated.' }
-            format.json { render json: @user, status: :created, location: @user }
-          elsif @user.role == "supervisor" 
-            format.html { redirect_to supervisor_users_path, notice: 'Supervisor was successfully updated.' }
-            format.json { render json: @user, status: :created, location: @user }
-          elsif @user.role == "user"
-            format.html { redirect_to user_users_path, notice: 'User was successfully updated.' }
-            format.json { render json: @user, status: :created, location: @user }
-          end
+        if @user.role == "support"
+          format.html { redirect_to support_users_path, notice: 'Support Staff was successfully updated.' }
+          format.json { render json: @user, status: :created, location: @user }
+        elsif @user.role == "supervisor" 
+          format.html { redirect_to supervisor_users_path, notice: 'Supervisor was successfully updated.' }
+          format.json { render json: @user, status: :created, location: @user }
+        elsif @user.role == "user"
+          format.html { redirect_to user_users_path, notice: 'User was successfully updated.' }
+          format.json { render json: @user, status: :created, location: @user }
         end  
       else
         format.html { render action: "edit" }

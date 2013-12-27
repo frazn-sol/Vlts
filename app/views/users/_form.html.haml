@@ -17,9 +17,11 @@
   .field
     = f.label :phone, {:class => 'required'}
     = f.text_field :phone
+    Number Format is xxx-xxxx-xxxx
   .field
     = f.label :cell, {:class => 'required'}
     = f.text_field :cell
+    Number Format is xxxx-xxxx-xxx
   .field
     = f.label :email, {:class => 'required'}
     = f.text_field :email
@@ -56,11 +58,11 @@
   }, {
     name: 'user[phone]',
     display:'Phone',
-    rules: 'numeric|required'
+    rules: 'callback_check_phone|required'
   }, {
     name: 'user[cell]',
     display:'Cell',
-    rules: 'numeric|required'
+    rules: 'callback_check_mobile|required'
   }, {
     name: 'user[email]',
     display:'Email',
@@ -92,3 +94,23 @@
     }
   })
   .setMessage('check_email', 'Please enter a valid email address.');
+
+  validator.registerCallback('check_phone', function(value) {
+      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{4}(-|\s)\d{4}$/;  
+      if( !value.match(phoneno) ) {
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .setMessage('check_phone', 'Please enter number according to format');
+
+    validator.registerCallback('check_mobile', function(value) {
+      var mobileno = /^(\()?\d{4}(\))?(-|\s)?\d{4}(-|\s)\d{3}$/;  
+      if( !value.match(mobileno) ) {
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .setMessage('check_mobile', 'Please enter number according to format');

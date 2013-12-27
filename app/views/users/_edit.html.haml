@@ -18,9 +18,11 @@
   .field
     = f.label :phone, {:class => 'required'}
     = f.text_field :phone
+    Number Format is xxx-xxxx-xxxx
   .field
     = f.label :cell, {:class => 'required'}
     = f.text_field :cell 
+    Number Format is xxxx-xxxx-xxx
   .field
     = f.label :passwordhint
     = f.text_field :passwordhint  
@@ -46,11 +48,11 @@
   }, {
     name: 'user[phone]',
     display:'Phone',
-    rules: 'numeric|required'
+    rules: 'callback_check_phone|required'
   }, {
     name: 'user[cell]',
     display:'Cell',
-    rules: 'numeric|required'
+    rules: 'callback_check_mobile|required'
   }], function(errors, event) {
     if (errors.length > 0) {
     var temp;
@@ -65,3 +67,23 @@
     $( "#" + temp).focus();
     }  
   });
+
+  validator.registerCallback('check_phone', function(value) {
+      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{4}(-|\s)\d{4}$/;  
+      if( !value.match(phoneno) ) {
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .setMessage('check_phone', 'Please enter number according to format');
+
+    validator.registerCallback('check_mobile', function(value) {
+      var mobileno = /^(\()?\d{4}(\))?(-|\s)?\d{4}(-|\s)\d{3}$/;  
+      if( !value.match(mobileno) ) {
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .setMessage('check_mobile', 'Please enter number according to format');

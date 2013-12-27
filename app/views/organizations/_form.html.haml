@@ -27,9 +27,11 @@
   .field
     = f.label :phone1, {:class => 'required'}
     = f.text_field :phone1
+     Number Format is xxx-xxxx-xxxx
   .field
     = f.label :phone2
     = f.text_field :phone2
+     Number Format is xxx-xxxx-xxxx
   .field
     = f.label :web
     = f.text_field :web
@@ -63,7 +65,11 @@
     }, {
       name: 'organization[phone1]',
       display:'Phone1',
-      rules: 'required|numeric'
+      rules: 'required|callback_check_phone'
+    }, {
+      name: 'organization[phone2]',
+      display:'Phone2',
+      rules: 'callback_check_phone'
     }, {
       name: 'organization[email]',
       display:'Email',
@@ -91,6 +97,15 @@
       }
     })
     .setMessage('check_email', 'Please enter a valid email address.');
+    validator.registerCallback('check_phone', function(value) {
+      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{4}(-|\s)\d{4}$/;  
+      if( !value.match(phoneno) ) {
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .setMessage('check_phone', 'Please enter number according to format');
 -else
   :javascript
     var validator = new FormValidator('new_organization', [{
@@ -116,7 +131,11 @@
     }, {
       name: 'organization[phone1]',
       display:'Phone1',
-      rules: 'required|numeric'
+      rules: 'required|callback_check_phone'
+    }, {
+      name: 'organization[phone2]',
+      display:'Phone2',
+      rules: 'callback_check_phone'
     }, {
       name: 'organization[email]',
       display:'Email',
@@ -145,3 +164,12 @@
       }
     })
     .setMessage('check_email', 'Please enter a valid email address.');
+    validator.registerCallback('check_phone', function(value) {
+      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{4}(-|\s)\d{4}$/;  
+      if( !value.match(phoneno) ) {
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .setMessage('check_phone', 'Please enter number according to format');
