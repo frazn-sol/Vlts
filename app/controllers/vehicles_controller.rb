@@ -196,9 +196,27 @@ end
         @history = nil
       elsif (params[:search][:platenumber_equals].blank? && params[:search][:slot_like].blank?)
         @history = nil
-      else  
-        @history = @search.where(:delflag => "false").paginate(:page => params[:page], :per_page => 5)
-        @vehicle = Vehicle.where(:platenumber => "#{params[:search][:platenumber_equals]}", :delflag=>false) if params[:search].present?
+      else
+        if current_user.parent.parent.present?
+          @customer = current_user.parent.parent
+        else
+          @customer = current_user.parent
+        end    
+        @history = @search.where(:delflag => "false", :user_id => @customer.id)
+        @vehicle = Vehicle.where(:platenumber => "#{params[:search][:platenumber_equals]}", :delflag=>false, :user_id => @customer.id) if params[:search].present?
+        @customer.children.each do |children|
+          @h = @search.where(:delflag => "false", :user_id => children.id)
+          @v = Vehicle.where(:platenumber => "#{params[:search][:platenumber_equals]}", :delflag=>false, :user_id => children.id) if params[:search].present?
+          @history += @h
+          @vehicle += @v
+          children.children.each do |child|
+            @h = @search.where(:delflag => "false", :user_id => child.id)
+            @v = Vehicle.where(:platenumber => "#{params[:search][:platenumber_equals]}", :delflag=>false, :user_id => child.id) if params[:search].present?
+            @history += @h
+            @vehicle += @v
+          end
+        end
+        @history = @history.paginate(:page => params[:page], :per_page => 5)
       end
     else
       redirect_to error_users_path and return
@@ -208,6 +226,7 @@ end
   def track_create
     if current_user.role == "user"    
       @vehicle_history = VehicleHistory.new(params[:vehicle_history])
+      @vehicle_history.user_id = current_user.id
       @vehicle = Vehicle.find_by_platenumber(params[:vehicle_history][:platenumber])
       if @vehicle != nil
         @vehicle_history.vehicle_id = Vehicle.find_by_platenumber(params[:vehicle_history][:platenumber]).id.to_s

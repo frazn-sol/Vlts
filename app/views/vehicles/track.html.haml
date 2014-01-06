@@ -89,7 +89,7 @@
                       %td= link_to "<i class=\"icon-minus icon-white\"></i> Remove".html_safe, "#", :class => "btn btn-primary removebtn", :id => "#{history.id}"
                       %td{:id => "parking_#{history.id}"}= sprintf "%.1f", (Time.now - history.created_at)/3600
                     -else
-                      %td= link_to "<i class=\"icon-minus icon-white\"></i> Remove".html_safe, "#", :class => "btn btn-primary disable"
+                      %td= link_to "<i class=\"icon-ok icon-white\"></i> Completed".html_safe, "#", :class => "btn btn-success disable"
                       %td= history.parking_time
                     %td= history.remarks
                     %td.center

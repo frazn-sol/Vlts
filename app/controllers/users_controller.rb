@@ -280,8 +280,13 @@ end
 
 def user
   if (current_user.role == "customer" || current_user.role == "supervisor")
-    @user = User.where(:role => "user", :parent_id => "#{current_user.id}", :delflag => false)
-    current_user.children.each do |child|
+    if current_user.role == "customer"
+      @customer = current_user
+    elsif current_user.role == "supervisor"
+      @customer = current_user.parent
+    end
+    @user = User.where(:role => "user", :parent_id => @customer.id, :delflag => false)
+    @customer.children.each do |child|
       if child.role == "supervisor" && child.delflag == false
         @user1 = User.where(:role=>"user", :parent_id => child.id, :delflag => false)
         @user = @user1 + @user
