@@ -24,22 +24,26 @@
       = f.collection_select(:location_id, Location.where(:delflag => false, :user_id => "#{current_user.parent_id}"), :id, :nickname, {}, :class => "size2")     
   .clear
   .field.allign
-    = f.label :slot, {:class => "required"}
-    = f.text_field :slot, {:class => "size"}
+    = f.label :remarks
+    = f.text_field :remarks 
   .field.allign
-    = f.label :visitor
+    = f.label :slot, {:class => "required"}
+    = f.text_field :slot, {:class => "size"} 
+  .clear  
+  .field.allign
+    = f.label :flag
     %label{title: "Red"}
-      %input{name: "vehicle_history[visitor]", type: "radio", value: "Red"}
+      %input{name: "vehicle_history[flag]", type: "radio", value: "Red"}
       Red
+    %label{title: "Yellow"}
+      %input{name: "vehicle_history[flag]", type: "radio", value: "Yellow"}
+      Yellow  
     %label{title: "Green"}
-      %input{name: "vehicle_history[visitor]", type: "radio", value: "Green"}
+      %input{name: "vehicle_history[flag]", type: "radio", value: "Green"}
       Green
-    %label{title: "Blue"}
-      %input{name: "vehicle_history[visitor]", type: "radio", value: "Blue"}
-      Blue
     .clear    
   .actions
-    = f.submit 'Save', {:class => "button1 push"}
+    = f.submit 'Save', {:class => "button2 push"}
 
 :javascript
   var validator = new FormValidator('new_vehicle_history', [{
@@ -115,3 +119,8 @@
                 .appendTo( ul );
         };        
     });
+:css
+  .button1{
+    margin-top:25px;
+    margin-left:115px;
+  }    

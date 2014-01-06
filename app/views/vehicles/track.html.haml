@@ -18,8 +18,12 @@
           = f.label :slot
           = f.text_field :slot_like, {:class => "slot slot_like size"}
         .actions  
-          = button_tag(type: 'submit', class: "push btn btn-primary") do 
-            <i class="icon-search icon-white"></i> Search
+          = button_tag(type: 'submit', class: "push btn btn-primary search") do 
+            <i class="icon-search icon-white"></i>
+          = button_tag(type: 'button', class: "push btn btn-success", id: "addbutton") do 
+            <i class="icon-plus icon-white"></i>
+          -if @vehicle.present?    
+            = link_to "<i class=\"icon-pencil icon-white\"></i>".html_safe, edit_vehicle_path(@vehicle[0]), :class => "btn btn-warning place"    
       -if @vehicle.present?
         %h2
           %i.icon-list{:style => "bottom: 3px; position: relative;"}
@@ -51,14 +55,27 @@
           %span
             =@vehicle[0].expiry_date 
           %br
-
+          %label
+            Visitor:
+          %span
+            =@vehicle[0].visitor 
+          %br 
+        %h3
+          Locations Found: 
+          = button_tag(type: 'submit', class: "push btn btn-primary", id: "addlocation") do 
+            <i class="icon-plus icon-white"></i> 
+            Add New  
+      .clear      
       %table.table.table-striped.table-bordered
         %thead
           %tr
             %th Date & Time
             %th Floor
             %th Location
-            %th Slot            
+            %th Slot
+            %th Remove
+            %th Parking Time
+            %th Remarks    
             %th Actions 
             -if @history.present?   
               - @history.each do |history|
@@ -68,6 +85,13 @@
                     %td= history.floor.nickname if history.floor.present?
                     %td= history.location.nickname if history.location.present?
                     %td= history.slot
+                    -if history.remove_flag != true
+                      %td= link_to "<i class=\"icon-minus icon-white\"></i> Remove".html_safe, "#", :class => "btn btn-primary removebtn", :id => "#{history.id}"
+                      %td{:id => "parking_#{history.id}"}= sprintf "%.1f", (Time.now - history.created_at)/3600
+                    -else
+                      %td= link_to "<i class=\"icon-minus icon-white\"></i> Remove".html_safe, "#", :class => "btn btn-primary disable"
+                      %td= history.parking_time
+                    %td= history.remarks
                     %td.center
                       = link_to "<i class=\"icon-zoom-in icon-white\"></i>".html_safe, track_view_vehicle_path(history), :class => "btn btn-success"
                       = link_to "<i class=\"icon-trash icon-white\"></i>".html_safe, track_delete_vehicle_path(history), confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"
@@ -76,11 +100,64 @@
                 %tr
                   %td{:colspan => "5"} No Vehicle Track Found 
       -if @history.present? 
-        = will_paginate @history            
-      %h2
-        %i.icon-search{:style => "bottom: 3px; position: relative;"}
-        Track Vehicle                                      
-        = render"trackform"  
+        = will_paginate @history  
+      #trackform.hidden           
+        %h2
+          %i.icon-search{:style => "bottom: 3px; position: relative;"}
+          Track Vehicle                                      
+          = render"trackform" 
+      .clear    
+      #vehicleform.hidden
+        %h2
+          Vehicles                                   
+          = render"vehicleform"  
+
+:javascript
+  $( document ).ready(function() {
+    $( "#addbutton" ).click(function() {
+    $("#trackform").addClass("hidden");
+    $("#vehicleform").removeClass("hidden");
+  });
+
+  $( "#addlocation" ).click(function() {
+    $("#trackform").removeClass("hidden");
+    $("#vehicleform").addClass("hidden");
+  });  
+
+  }); 
+
+  $('.removebtn').click(function(){
+      var id = $(this).attr("id");
+      var time = $("#parking_"+id).text();
+      var remarks = $("#remarks_"+id).text();
+      var data = new Array();
+      data[0]= $(this).attr("id");
+      data[1]= $("#parking_"+id).text();
+      save_time(data);  
+  });
+
+  function save_time(data){
+    return $.ajax({
+      'beforeSend': function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content')); },
+      url:'/vehicles/parking_time',
+      type:"POST",
+      dataType:'json',
+      data: data,
+      processData:false,
+      success: function (json)
+      {
+        if(json["status"]==true)
+          location.reload();
+        else
+          return false;
+      },
+      error: function (xhr, status)
+      {
+        return false;
+      }
+    });
+  }     
+
 :css 
   .allign {
     padding-right: 90px;
@@ -91,6 +168,9 @@
     color: #000000;
   }
   .search{
+    height:28px!important;
+    width:36px!important;
+    margin-right:40px;
   }
   .ui-autocomplete{
     background: #999999 !important;
@@ -110,4 +190,20 @@
     display: inline-block;
     width:120px;
   }
-  
+  .place{
+    margin-top:15px;
+  }
+
+  #addlocation{
+    margin-top:15px;
+    margin-left:15px;
+    margin-bottom:20px;
+  }
+  .hidden{
+    display:none;
+  }
+  a.disable {
+   pointer-events: none;
+   cursor: default;
+   opacity:0.65;
+  }

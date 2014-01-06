@@ -27,11 +27,9 @@
   .field
     = f.label :phone1, {:class => 'required'}
     = f.text_field :phone1
-     Number Format is xxx-xxxx-xxxx
   .field
     = f.label :phone2
     = f.text_field :phone2
-     Number Format is xxx-xxxx-xxxx
   .field
     = f.label :web
     = f.text_field :web
@@ -42,6 +40,10 @@
     = f.submit 'Save', {:class => "button1"}
 -if params[:id].present?
   :javascript
+    jQuery(function($){
+      $("#organization_phone1").mask("999-999-9999");
+      $("#organization_phone2").mask("999-999-9999");
+    });
     var validator = new FormValidator('edit_organization_#{@organization.id.to_s}', [{
       name: 'organization[company_name]', 
       display:'Company Name',   
@@ -98,7 +100,7 @@
     })
     .setMessage('check_email', 'Please enter a valid email address.');
     validator.registerCallback('check_phone', function(value) {
-      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{4}(-|\s)\d{4}$/;  
+      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;  
       if( !value.match(phoneno) ) {
         return false;
       } else {
@@ -108,6 +110,10 @@
     .setMessage('check_phone', 'Please enter number according to format');
 -else
   :javascript
+    jQuery(function($){
+      $("#organization_phone1").mask("999-999-9999");
+      $("#organization_phone2").mask("999-999-9999");
+    });
     var validator = new FormValidator('new_organization', [{
       name: 'organization[company_name]', 
       display:'Company Name',   
@@ -165,7 +171,7 @@
     })
     .setMessage('check_email', 'Please enter a valid email address.');
     validator.registerCallback('check_phone', function(value) {
-      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{4}(-|\s)\d{4}$/;  
+      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;  
       if( !value.match(phoneno) ) {
         return false;
       } else {

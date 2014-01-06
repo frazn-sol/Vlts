@@ -1,3 +1,4 @@
+require 'will_paginate/array'
 class OrganizationsController < ApplicationController
   before_filter :authenticate_user!
   # GET /organizations

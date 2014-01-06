@@ -27,12 +27,21 @@
   .field.allign
     = f.label :expiry_date
     = f.date_select :expiry_date, {}, :class => "size2"
+  .clear
   .field.allign
     = f.label :badge_number
     = f.text_field :badge_number, {:class => "size"}
     .clear  
+  .field.allign
+    = f.label :visitor
+    %label{title: "Yes"}
+      = f.radio_button :visitor, "Yes"
+      Yes
+    %label{title: "No"}
+      = f.radio_button :visitor, "No"
+      No        
   .actions
-    = f.submit 'Save', {:class => "button1"}
+    = f.submit 'Save', {:class => "button3"}
 
 
 :javascript
@@ -58,3 +67,9 @@
     $( "#" + temp).focus();
     }  
   });  
+
+:css
+  .button3{
+    margin-top:20px;
+    margin-left:40px;
+  }  

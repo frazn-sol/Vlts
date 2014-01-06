@@ -1,6 +1,6 @@
 require 'will_paginate/array'
 class VehiclesController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:parking_time]
   autocomplete :vehicle, :platenumber, :full => true
   # GET /vehicles
   # GET /vehicles.json
@@ -149,8 +149,13 @@ end
 
     respond_to do |format|
       if @vehicle.update_attributes(params[:vehicle])
-        format.html { redirect_to @vehicle, notice: 'Vehicle was successfully updated.' }
-        format.json { head :no_content }
+        if current_user.role == "user"
+          format.html { redirect_to track_vehicles_path, notice: 'Vehicle was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to vehicles_path, notice: 'Vehicle was successfully updated.' }
+          format.json { head :no_content }
+        end   
       else
         format.html { render action: "edit" }
         format.json { render json: @vehicle.errors, status: :unprocessable_entity }
@@ -193,7 +198,7 @@ end
         @history = nil
       else  
         @history = @search.where(:delflag => "false").paginate(:page => params[:page], :per_page => 5)
-        @vehicle = Vehicle.where(:platenumber => "#{params[:search][:platenumber_equals]}") if params[:search].present?
+        @vehicle = Vehicle.where(:platenumber => "#{params[:search][:platenumber_equals]}", :delflag=>false) if params[:search].present?
       end
     else
       redirect_to error_users_path and return
@@ -297,7 +302,7 @@ end
       if restriction.blank?
         respond_to do |format|
           if @vehicle.save
-            format.html { redirect_to add_vehicle_vehicles_path, notice: 'Vehicle was successfully created.' }
+            format.html { redirect_to track_vehicles_path, notice: 'Vehicle was successfully created.' }
             format.json { render json: @vehicle, status: :created, location: @vehicle }
           else
             format.html { render action: "add_vehicle" }
@@ -307,7 +312,7 @@ end
       elsif restriction.present? && vehicle_count < restriction[0].vehiclecapacity
         respond_to do |format|
           if @vehicle.save
-            format.html { redirect_to add_vehicle_vehicles_path, notice: 'Vehicle was successfully created.' }
+            format.html { redirect_to track_vehicles_path, notice: 'Vehicle was successfully created.' }
             format.json { render json: @vehicle, status: :created, location: @vehicle }
           else
             format.html { render action: "add_vehicle" }
@@ -346,6 +351,23 @@ end
       end
       render json: @vehicle.as_json    
     end
+  end
+
+  def parking_time  
+    result = params.first[0].split(/,/)
+    id = result[0]
+    parking_time = result[1]
+    @history = VehicleHistory.find(id)
+    @history.remove_flag = true
+    @history.parking_time = parking_time 
+    @json = Hash.new 
+    @history.attributes = @history
+    if @history.save
+      @json[:status] = true
+    else
+      @json[:status] = false
+    end
+    render json: @json.as_json  
   end
 
   def track_view

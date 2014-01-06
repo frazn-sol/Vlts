@@ -14,6 +14,7 @@ VLTS::Application.routes.draw do
       get :autocomplete
       get :add_vehicle
       post :create_vehicles
+      post :parking_time
     end
   end
 

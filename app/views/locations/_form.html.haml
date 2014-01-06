@@ -44,6 +44,10 @@
 
 -if params[:id].present?
   :javascript
+    jQuery(function($){
+      $("#location_phone1").mask("999-999-9999");
+      $("#location_phone2").mask("999-999-9999");
+    });
     var validator = new FormValidator('edit_location_#{@location.id.to_s}', [{
       name: 'location[company_name]',  
       display:'Company Name',  
@@ -104,7 +108,7 @@
     })
     .setMessage('check_email', 'Please enter a valid email address.');   
     validator.registerCallback('check_phone', function(value) {
-      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{4}(-|\s)\d{4}$/;  
+      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;  
       if( !value.match(phoneno) ) {
         return false;
       } else {
@@ -114,6 +118,10 @@
     .setMessage('check_phone', 'Please enter number according to format');     
 -else
   :javascript
+    jQuery(function($){
+      $("#location_phone1").mask("999-999-9999");
+      $("#location_phone2").mask("999-999-9999");
+    });
     var validator = new FormValidator('new_location', [{
       name: 'location[company_name]',  
       display:'Company Name',  
@@ -174,7 +182,7 @@
     })
     .setMessage('check_email', 'Please enter a valid email address.');        
     validator.registerCallback('check_phone', function(value) {
-      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{4}(-|\s)\d{4}$/;  
+      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;  
       if( !value.match(phoneno) ) {
         return false;
       } else {

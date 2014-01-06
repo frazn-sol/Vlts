@@ -30,11 +30,9 @@
   .field
     = f.label :phone, {:class => 'required'}
     = f.text_field :phone
-    Number Format is xxx-xxxx-xxxx
   .field
     = f.label :cell, {:class => 'required'}
     = f.text_field :cell
-    Number Format is xxxx-xxxx-xxx
   .field
     = f.label :email, {:class => 'required'}
     = f.text_field :email   
@@ -43,6 +41,10 @@
     = f.submit 'Save', {:class => "button1"}
 -if params[:id].present?    
   :javascript
+    jQuery(function($){
+      $("#customer_contact_phone").mask("999-999-9999");
+      $("#customer_contact_cell").mask("999-999-9999");
+    });
     var validator = new FormValidator('edit_customer_contact_#{@customer_contact.id.to_s}', [{
       name: 'customer_contact[first_name]', 
       display:'First Name',   
@@ -97,7 +99,7 @@
     .setMessage('check_email', 'Please enter a valid email address.');
 
     validator.registerCallback('check_phone', function(value) {
-      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{4}(-|\s)\d{4}$/;  
+      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;  
       if( !value.match(phoneno) ) {
         return false;
       } else {
@@ -107,7 +109,7 @@
     .setMessage('check_phone', 'Please enter number according to format');
 
     validator.registerCallback('check_mobile', function(value) {
-      var mobileno = /^(\()?\d{4}(\))?(-|\s)?\d{4}(-|\s)\d{3}$/;  
+      var mobileno = /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;  
       if( !value.match(mobileno) ) {
         return false;
       } else {
@@ -117,6 +119,10 @@
     .setMessage('check_mobile', 'Please enter number according to format');  
 -else  
   :javascript
+    jQuery(function($){
+      $("#customer_contact_phone").mask("999-999-9999");
+      $("#customer_contact_cell").mask("999-999-9999");
+    });
     var validator = new FormValidator('new_customer_contact', [{
       name: 'customer_contact[first_name]', 
       display:'First Name',   
@@ -171,7 +177,7 @@
     .setMessage('check_email', 'Please enter a valid email address.');  
 
     validator.registerCallback('check_phone', function(value) {
-      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{4}(-|\s)\d{4}$/;  
+      var phoneno = /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;  
       if( !value.match(phoneno) ) {
         return false;
       } else {
@@ -181,7 +187,7 @@
     .setMessage('check_phone', 'Please enter number according to format');
 
     validator.registerCallback('check_mobile', function(value) {
-      var mobileno = /^(\()?\d{4}(\))?(-|\s)?\d{4}(-|\s)\d{3}$/;  
+      var mobileno = /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;  
       if( !value.match(mobileno) ) {
         return false;
       } else {

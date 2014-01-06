@@ -32,6 +32,14 @@
   .field
     = f.label :badge_number
     = f.text_field :badge_number
+  .field
+    = f.label :visitor
+    %label{title: "Yes"}
+      = f.radio_button :visitor, "Yes"
+      Yes
+    %label{title: "No"}
+      = f.radio_button :visitor, "No"
+      No   
   .actions
     = f.submit 'Save', {:class => "button1"}
 

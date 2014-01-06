@@ -35,6 +35,7 @@
   <%= javascript_include_tag "application" %><!-- 
   <%= javascript_include_tag "highcharts.js" %>   -->
   <%= javascript_include_tag "validate.min.js" %>
+  <%= javascript_include_tag "jquery.maskedinput.min.js" %>
   <%=javascript_include_tag "autocomplete-rails.js"%>
   <%= csrf_meta_tags %>
   <!--
@@ -60,8 +61,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-
-
+</head>
 <body>
   
 <% if current_user.present? && current_user.role == "admin" %> 
