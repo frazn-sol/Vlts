@@ -1,6 +1,7 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_user!
   # GET /locations
+  require 'will_paginate/array'
   # GET /locations.json
   def index
     if (current_user.role == "customer" ||  current_user.role == "supervisor")
