@@ -12,10 +12,8 @@ class LocationsController < ApplicationController
       end
       @locations = Location.where(:delflag => false, :user_id => @customer.id)
         @customer.children.each do |child|
-          if child.delflag == false && child.role == "supervisor"
-            @location1 = Location.where(:user_id => child.id, :delflag => false)
-            @locations = @location1 + @locations
-          end
+          @location1 = Location.where(:user_id => child.id, :delflag => false)
+          @locations = @location1 + @locations
         end
       @locations = @locations.paginate(:page => params[:page], :per_page => 5)
       

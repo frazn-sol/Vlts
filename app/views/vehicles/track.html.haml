@@ -98,7 +98,7 @@
             -else
               %tbody
                 %tr
-                  %td{:colspan => "5"} No Vehicle Track Found 
+                  %td{:colspan => "8"} No Vehicle Track Found 
       -if @history.present? 
         = will_paginate @history  
       #trackform.hidden           
@@ -107,7 +107,7 @@
           Track Vehicle                                      
           = render"trackform" 
       .clear    
-      #vehicleform.hidden
+      #vehicleform
         %h2
           Vehicles                                   
           = render"vehicleform"  
