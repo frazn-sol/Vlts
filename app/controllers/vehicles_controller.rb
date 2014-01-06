@@ -1,6 +1,6 @@
 require 'will_paginate/array'
 class VehiclesController < ApplicationController
-  before_filter :authenticate_user!, :except => [:parking_time]
+  before_filter :authenticate_user!
   autocomplete :vehicle, :platenumber, :full => true
   # GET /vehicles
   # GET /vehicles.json
