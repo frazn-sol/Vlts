@@ -4,30 +4,18 @@ class LocationsController < ApplicationController
   # GET /locations.json
   def index
     if (current_user.role == "customer" ||  current_user.role == "supervisor")
-     @locations = Location.where(:delflag => false, :user_id => "#{current_user.id}")
-      @location = Location.where(:delflag => false, :user_id => "#{current_user.parent_id}")   
-      @locations = @locations + @location
       if current_user.role == "customer"
-        current_user.children.each do |child|
+        @customer = current_user
+      else
+        @customer = current_user.parent
+      end
+      @locations = Location.where(:delflag => false, :user_id => @customer.id)
+        @customer.children.each do |child|
           if child.delflag == false && child.role == "supervisor"
             @location1 = Location.where(:user_id => child.id, :delflag => false)
             @locations = @location1 + @locations
           end
         end
-      else
-        current_user.children.each do |child|
-          if child.delflag == false
-            @location1 = Location.where(:user_id => child.id, :delflag => false)
-            @locations = @location1 + @locations
-          end
-        end
-        current_user.parent.children.each do |child|
-          if child.delflag == false && child.id != current_user.id
-            @location1 = Location.where(:user_id => child.id, :delflag => false)
-            @locations = @location1 + @locations
-          end
-        end
-      end  
       @locations = @locations.paginate(:page => params[:page], :per_page => 5)
       
       respond_to do |format|
