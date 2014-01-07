@@ -248,9 +248,8 @@ end
     end
   end
 
-  def add_vehicle
+  def search_vehicle
     if current_user.role == "user"    
-      @vehicle = Vehicle.new
       @search = Vehicle.search(params[:search])
       if (params[:search].blank?)
         if current_user.parent.role == "customer"
@@ -324,7 +323,7 @@ end
             format.html { redirect_to track_vehicles_path, notice: 'Vehicle was successfully created.' }
             format.json { render json: @vehicle, status: :created, location: @vehicle }
           else
-            format.html { render action: "add_vehicle" }
+            format.html { render action: "track" }
             format.json { render json: @vehicle.errors, status: :unprocessable_entity }
           end
         end
@@ -334,7 +333,7 @@ end
             format.html { redirect_to track_vehicles_path, notice: 'Vehicle was successfully created.' }
             format.json { render json: @vehicle, status: :created, location: @vehicle }
           else
-            format.html { render action: "add_vehicle" }
+            format.html { render action: "track" }
             format.json { render json: @vehicle.errors, status: :unprocessable_entity }
           end
         end

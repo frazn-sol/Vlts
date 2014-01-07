@@ -77,6 +77,9 @@ end
     @user.email = a[:email]
     @user.password = a[:password]
     @user.passwordhint = a[:passwordhint]
+    @user.first_name = a[:first_name]
+    @user.last_name = a[:last_name]
+    @user.middle_name = a[:middle_name]    
     @user.role = "customer"
     @user.save
     if @user.save

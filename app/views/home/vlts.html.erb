@@ -4,7 +4,22 @@
 		<header class="header">
 			<div class="shell">
 				<div class="header-top">
-					<h1 id="logo"><%= image_tag "logo1.png" %></h1>
+					<h1 id="logo">
+					<div id="company_logo" class="aleft">
+    					<% if SystemConfig.last.present? && !SystemConfig.last.logo.url.empty? %>
+      						<%= image_tag SystemConfig.last.logo.url, {:class => "logo", :size => "227x60"} %>
+    					<% else %>
+      						<%= image_tag "logo1.png", {:class => "logo"} %>
+    					<% end %> 
+    					<div id="company_name">
+      						<% if SystemConfig.last.present? && !SystemConfig.last.companyname.empty? %>
+        						Powered By <%== SystemConfig.last.companyname%>
+      						<% else %>
+        						Powered By VLTS
+        					<%end%>
+    					</div>
+  					</div>
+  				</h1>
 					<nav id="navigation">
 						<a href="#" class="nav-btn">Home<span></span></a>
 						<ul>
@@ -133,7 +148,14 @@
 				<!-- end of footer-cols -->
 			</div>
 			<!-- end of shell -->
+    <div class = "copytext">
+    <% if SystemConfig.last.present? && !SystemConfig.last.copytext.empty? %>
+    &copy; <%== SystemConfig.last.copytext.to_s %>
+    <% else %>
+    &copy; This is a copyright text
+    <% end %>
+  </div>	
 		</div>
 		<!-- footer -->
 	</div>
-	<!-- end of wrapper -->
+	<!-- end of wrapper -->	

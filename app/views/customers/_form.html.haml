@@ -36,6 +36,15 @@
   .field
     = f.fields_for :user do |user|  
       .field
+        = user.label :first_name, {:class => 'required'}
+        = user.text_field :first_name
+      .field
+        = user.label :middle_name
+        = user.text_field :middle_name  
+      .field
+        = user.label :last_name, {:class => 'required'}
+        = user.text_field :last_name
+      .field
         = user.label :email, {:class => 'required'}
         = user.text_field :email
       .field
@@ -43,7 +52,7 @@
         = user.password_field :password
       .field
         = user.label :passwordhint
-        = user.text_field :passwordhint      
+        = user.text_field :passwordhint          
   .actions
     = f.submit 'Save', {:class => "button1"}
 
@@ -87,6 +96,14 @@
   }, {
     name: 'customer[user][password]',
     display:'Password',
+    rules: 'required'
+  }, {
+    name: 'customer[user][first_name]',
+    display:'First Name',
+    rules: 'required'
+  }, {
+    name: 'customer[user][last_name]',
+    display:'Last Name',
     rules: 'required'
   }], function(errors, event) {
     if (errors.length > 0) {

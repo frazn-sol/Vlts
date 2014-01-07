@@ -7,13 +7,21 @@
       %h2
         %i.icon-search{:style => "bottom: 3px; position: relative;"}
         Vehicle Search
-      = form_for @search, :url => add_vehicle_vehicles_path, :method => "get"  do |f|
+      = form_for @search, :url => search_vehicle_vehicles_path, :method => "get"  do |f|
         .field.allign
           = f.label :plate_number 
           = f.text_field :platenumber_like, {:class => "size"}
         .field.allign
           = f.label :driver_name
-          = f.text_field :driver_first_name_or_driver_last_name_contains, {:class => "size"}   
+          = f.text_field :driver_first_name_or_driver_last_name_contains, {:class => "size"} 
+          (First Name or Last Name)
+        .clear
+        .field.allign
+          = f.label :badge_number
+          = f.text_field :badge_number_like, {:class => "size"}
+        .field.allign
+          = f.label :organization
+          = f.collection_select(:organization_id_eq, Organization.where(:user_id => "#{current_user.parent_id}", :delflag => false) + Organization.where(:user_id => "#{current_user.parent.parent_id}", :delflag => false), :id, :company_name, {:include_blank => ''}, :class => "size")    
         .actions  
           = button_tag(type: 'submit', class: "push btn btn-primary") do 
             <i class="icon-search icon-white"></i> Search
