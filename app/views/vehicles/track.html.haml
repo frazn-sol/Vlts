@@ -17,7 +17,7 @@
         .actions  
           = button_tag(type: 'submit', class: "push btn btn-primary search") do 
             <i class="icon-search icon-white"></i>
-          = button_tag(type: 'button', class: "push btn btn-success", id: "addbutton") do 
+          = button_tag(type: 'button', class: "push btn btn-success shift", id: "addbutton") do 
             <i class="icon-plus icon-white"></i>
           -if @vehicle.present?    
             = link_to "<i class=\"icon-pencil icon-white\"></i>".html_safe, edit_vehicle_path(@vehicle[0]), :class => "btn btn-warning place"    
@@ -167,7 +167,10 @@
   .search{
     height:28px!important;
     width:36px!important;
-    margin-right:40px;
+    margin-right:45px;
+  }
+  .shift{
+    margin-right:5px;
   }
   .ui-autocomplete{
     background: #999999 !important;
