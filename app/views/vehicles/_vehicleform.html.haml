@@ -1,7 +1,7 @@
 = form_for Vehicle.new, :url => create_vehicles_vehicles_path do |f|
   .field.allign
     = f.label :plate_number
-    = f.text_field :platenumber, {:class => "size"}
+    = f.text_field :platenumber, {:class => "size", :readonly => true}
   .field.allign
     = f.label :driver_first_name
     = f.text_field :driver_first_name, {:class => "size"}
