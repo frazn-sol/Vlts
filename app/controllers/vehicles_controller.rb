@@ -150,7 +150,7 @@ end
     respond_to do |format|
       if @vehicle.update_attributes(params[:vehicle])
         if current_user.role == "user"
-          format.html { redirect_to track_vehicles_path, notice: 'Vehicle was successfully updated.' }
+          format.html { redirect_to track_vehicles_path(:v_id => @vehicle), notice: 'Vehicle was successfully updated.' }
           format.json { head :no_content }
         else
           format.html { redirect_to vehicles_path, notice: 'Vehicle was successfully updated.' }
@@ -190,10 +190,20 @@ end
 
   def track
     if current_user.role == "user"
+      if params[:add_button]
+        session[:button]=1
+      else
+        session[:button]=0
+      end  
       @vehicle_history = VehicleHistory.new
       @search = VehicleHistory.search(params[:search])
       if (params[:search].blank?)
-        @history = nil
+        if (params[:v_id].present?)
+          @vehicle = Vehicle.where(:id => "#{params[:v_id]}", :delflag=>false)
+          @history = VehicleHistory.where(:delflag => false, :platenumber => @vehicle[0].platenumber).paginate(:page => params[:page], :per_page => 5)
+        else
+          @history = nil
+        end
       elsif (params[:search][:platenumber_equals].blank? && params[:search][:slot_like].blank?)
         @history = nil
       else
@@ -216,8 +226,8 @@ end
             @vehicle += @v
           end
         end
-        @history = @history.paginate(:page => params[:page], :per_page => 5)
-      end
+          @history = @history.paginate(:page => params[:page], :per_page => 5)
+        end          
     else
       redirect_to error_users_path and return
     end
@@ -232,7 +242,7 @@ end
         @vehicle_history.vehicle_id = Vehicle.find_by_platenumber(params[:vehicle_history][:platenumber]).id.to_s
         respond_to do |format|
           if @vehicle_history.save
-            format.html { redirect_to track_vehicles_path , notice: 'Record was successfully created.' }
+            format.html { redirect_to track_vehicles_path(:v_id => @vehicle) , notice: 'Record was successfully created.' }
             format.json { render json: @vehicle_history, status: :created, location: @vehicle_history }
           else
             format.html { render action: "track" }
@@ -320,7 +330,7 @@ end
       if restriction.blank?
         respond_to do |format|
           if @vehicle.save
-            format.html { redirect_to track_vehicles_path, notice: 'Vehicle was successfully created.' }
+            format.html { redirect_to track_vehicles_path(:v_id => @vehicle), notice: 'Vehicle was successfully created.' }
             format.json { render json: @vehicle, status: :created, location: @vehicle }
           else
             format.html { render action: "track" }
@@ -330,7 +340,7 @@ end
       elsif restriction.present? && vehicle_count < restriction[0].vehiclecapacity
         respond_to do |format|
           if @vehicle.save
-            format.html { redirect_to track_vehicles_path, notice: 'Vehicle was successfully created.' }
+            format.html { redirect_to track_vehicles_path(:v_id => @vehicle), notice: 'Vehicle was successfully created.' }
             format.json { render json: @vehicle, status: :created, location: @vehicle }
           else
             format.html { render action: "track" }
@@ -422,5 +432,17 @@ def track_delete
   else
     redirect_to error_users_path and return
   end
-end
+  end
+  
+  def search
+    result = params.first[0].split(/,/)
+    @json = Hash.new
+    @vehicle = Vehicle.where(:delflag => false, :platenumber => result[0])
+    if @vehicle.present?
+      @json[:status] = false
+    else
+      @json[:status] = true
+    end
+    render json: @json.as_json  
+  end
 end

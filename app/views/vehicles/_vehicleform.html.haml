@@ -1,6 +1,6 @@
 = form_for Vehicle.new, :url => create_vehicles_vehicles_path do |f|
   .field.allign
-    = f.label :plate_number, {:class => "required"}
+    = f.label :plate_number
     = f.text_field :platenumber, {:class => "size"}
   .field.allign
     = f.label :driver_first_name
@@ -41,7 +41,7 @@
       = f.radio_button :visitor, "No"
       No        
   .actions
-    = f.submit 'Save', {:class => "button3"}
+    = f.submit 'Save', {:class => "button3", :id => "vehicle_save"}
 
 
 :javascript

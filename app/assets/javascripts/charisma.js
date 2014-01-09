@@ -135,7 +135,6 @@ function docReady(){
 		cancel:'.btn,.box-content,.nav-header',
 		update:function(event,ui){
 			//line below gives the ids of elements, you can make ajax call here to save it to the database
-			//console.log($(this).sortable('toArray'));
 		}
 	});
 

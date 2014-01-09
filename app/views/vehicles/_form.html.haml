@@ -18,7 +18,7 @@
     = f.label :driver_last_name
     = f.text_field :driver_last_name
   .field
-    = f.label :organization, {:class =>"required"}
+    = f.label :organization
     -if current_user.role == "customer"
       = f.collection_select(:organization_id, Organization.where(:delflag => false, :user_id => "#{current_user.id}"), :id, :company_name, { :include_blank => true })
     -else
@@ -48,10 +48,6 @@
     var validator = new FormValidator('edit_vehicle_#{@vehicle.id.to_s}', [{
       name: 'vehicle[platenumber]',  
       display:'Plate Number',  
-      rules: 'required'
-    },{
-      name: 'vehicle[organization_id]',
-      display:'Organization',    
       rules: 'required'
     }], function(errors, event) {
       if (errors.length > 0) {

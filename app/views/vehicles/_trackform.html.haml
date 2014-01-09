@@ -6,22 +6,22 @@
         - @vehicle_history.errors.full_messages.each do |msg|
           %li= msg               
   .field.allign
-    = f.label :plate_number, {:class => "required"} 
-    = f.text_field :platenumber, {:class => "size"} 
+    = f.label :plate_number
+    = f.text_field :platenumber, {:class => "size", :readonly => true} 
     = f.hidden_field :vehicle_id 
   .field.allign
     = f.label :floor, {:class => "required"}
     - if current_user.parent.parent.present?
-      = f.collection_select(:floor_id, Floor.where(:delflag => false, :user_id => "#{current_user.parent_id}") + Floor.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}"), :id, :nickname, {}, :class => "size2")
+      = f.collection_select(:floor_id, Floor.where(:delflag => false, :user_id => "#{current_user.parent_id}") + Floor.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}"), :id, :nickname, {:include_blank => ''}, :class => "size2")
     -else   
-      = f.collection_select(:floor_id, Floor.where(:delflag => false, :user_id => "#{current_user.parent_id}"), :id, :nickname, {}, :class => "size2")
+      = f.collection_select(:floor_id, Floor.where(:delflag => false, :user_id => "#{current_user.parent_id}"), :id, :nickname, {:include_blank => ''}, :class => "size2")
 
   .field.allign
     = f.label :location, {:class => "required"}
     - if current_user.parent.parent.present?
-      = f.collection_select(:location_id, Location.where(:delflag => false, :user_id => "#{current_user.parent_id}") + Location.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}"), :id, :nickname, {}, :class => "size2")
+      = f.collection_select(:location_id, Location.where(:delflag => false, :user_id => "#{current_user.parent_id}") + Location.where(:delflag => false, :user_id => "#{current_user.parent.parent_id}"), :id, :nickname, {:include_blank => ''}, :class => "size2")
     -else   
-      = f.collection_select(:location_id, Location.where(:delflag => false, :user_id => "#{current_user.parent_id}"), :id, :nickname, {}, :class => "size2")     
+      = f.collection_select(:location_id, Location.where(:delflag => false, :user_id => "#{current_user.parent_id}"), :id, :nickname, {:include_blank => ''}, :class => "size2")     
   .clear
   .field.allign
     = f.label :remarks

@@ -11,13 +11,16 @@
       = form_for @search, :url => track_vehicles_path, :method => "get"  do |f|
         .field.allign
           = f.label :plate_number
-          = f.text_field :platenumber_equals
+          -if @vehicle.present?
+            = f.text_field :platenumber_equals, :required => true, :value => @vehicle[0].platenumber
+          -else
+            = f.text_field :platenumber_equals, :required => true  
           %span.suggestion
             (Plese select from suggestions)
         .actions  
-          = button_tag(type: 'submit', class: "push btn btn-primary search") do 
+          = button_tag(type: 'submit', class: "push btn btn-primary search", id: "search") do 
             <i class="icon-search icon-white"></i>
-          = button_tag(type: 'button', class: "push btn btn-success shift", id: "addbutton") do 
+          = button_tag(type: 'submit', class: "push btn btn-success shift", id: "addbutton", :name => 'add_button') do 
             <i class="icon-plus icon-white"></i>
           -if @vehicle.present?    
             = link_to "<i class=\"icon-pencil icon-white\"></i>".html_safe, edit_vehicle_path(@vehicle[0]), :class => "btn btn-warning place"    
@@ -84,7 +87,7 @@
                     %td= history.slot
                     -if history.remove_flag != true
                       %td= link_to "<i class=\"icon-minus icon-white\"></i> Remove".html_safe, "#", :class => "btn btn-primary removebtn", :id => "#{history.id}"
-                      %td{:id => "parking_#{history.id}"}= sprintf "%.1f", (Time.now - history.created_at)/3600
+                      %td{:id => "parking_#{history.id}"}= ((Time.now - history.created_at)/3600).to_s.split(".")[0] + " hours and " +((Time.now - history.created_at)/3600).round(2).to_s.split(".")[1] + " minutes"
                     -else
                       %td= link_to "<i class=\"icon-ok icon-white\"></i> Completed".html_safe, "#", :class => "btn btn-success disable"
                       %td= history.parking_time
@@ -103,24 +106,30 @@
           %i.icon-search{:style => "bottom: 3px; position: relative;"}
           Track Vehicle                                      
           = render"trackform" 
-      .clear    
-      #vehicleform
+      .clear 
+      #message.hidden
+        %h4
+          %i.icon-warning-sign
+          Plate number exists 
+      .clear      
+      #vehicleform.hidden
         %h2
           Vehicles                                   
           = render"vehicleform"  
 
 :javascript
   $( document ).ready(function() {
-    $( "#addbutton" ).click(function() {
-    $("#trackform").addClass("hidden");
-    $("#vehicleform").removeClass("hidden");
-  });
+    if (#{session[:button]} == 1 && #{!@vehicle.present?}){
+      $("#trackform").addClass("hidden");
+      $("#vehicleform").removeClass("hidden");
+      $("#vehicle_platenumber").val($("#search_platenumber_equals").val());
+    }
 
-  $( "#addlocation" ).click(function() {
-    $("#trackform").removeClass("hidden");
-    $("#vehicleform").addClass("hidden");
-  });  
-
+    $( "#addlocation" ).click(function() {
+      $("#trackform").removeClass("hidden");
+      $("#vehicleform").addClass("hidden");
+      $("#vehicle_history_platenumber").val("#{@vehicle[0].platenumber if @vehicle.present?}");
+    }); 
   }); 
 
   $('.removebtn').click(function(){
@@ -131,6 +140,12 @@
       data[0]= $(this).attr("id");
       data[1]= $("#parking_"+id).text();
       save_time(data);  
+  });
+
+   $("#vehicle_save").click(function(){
+      data = $("#vehicle_platenumber").val();
+      search_platenumber(data);
+      return false;
   });
 
   function save_time(data){
@@ -153,8 +168,34 @@
         return false;
       }
     });
-  }     
+  }          
 
+
+  function search_platenumber(data){
+    return $.ajax({
+      'beforeSend': function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content')); },
+      url:'/vehicles/search',
+      type:"POST",
+      dataType:'json',
+      data: data,
+      processData:false,
+      success: function (json)
+      {
+        console.log(json["status"]);
+        if(json["status"]== true){
+          console.log("inside");
+          $("#new_vehicle").submit();
+        }
+        else{
+          $("#message").removeClass("hidden");
+        }
+      },
+      error: function (xhr, status)
+      {
+        return false;
+      }
+    });
+  }          
 :css 
   .allign {
     padding-right: 90px;

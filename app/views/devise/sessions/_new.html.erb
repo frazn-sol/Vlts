@@ -4,7 +4,7 @@
 			<div class="row-fluid">
 				<div class="span12 center login-header">
 					<% if SystemConfig.last.present? && !SystemConfig.last.systemname.empty? %>
-					<h2>Welcome to <%== SystemConfig.last.systemname.capitalize %></h2>
+					<h2>Welcome to <%== SystemConfig.last.systemname %></h2>
 					<% else %>
 					<h2>Welcome to VLTS</h2>
 					<% end %>

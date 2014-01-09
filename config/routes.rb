@@ -15,6 +15,7 @@ VLTS::Application.routes.draw do
       get :search_vehicle
       post :create_vehicles
       post :parking_time
+      get :search
     end
   end
 
