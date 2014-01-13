@@ -24,6 +24,15 @@
     -else
       = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}", :delflag => false) + Organization.where(:user_id => "#{current_user.parent_id}", :delflag => false), :id, :company_name, { :include_blank => true })  
   .field
+    = f.label :colour
+    = f.text_field :colour
+  .field
+    = f.label :make
+    = f.text_field :make
+  .field
+    = f.label :model
+    = f.text_field :model 
+  .field
     = f.label :permit_date
     = f.date_select :permit_date
   .field

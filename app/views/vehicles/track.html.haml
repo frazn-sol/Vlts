@@ -12,9 +12,9 @@
         .field.allign
           = f.label :plate_number
           -if @vehicle.present?
-            = f.text_field :platenumber_equals, :required => true, :value => @vehicle[0].platenumber
+            = f.text_field :platenumber_like, :required => true, :value => @vehicle[0].platenumber
           -else
-            = f.text_field :platenumber_equals, :required => true  
+            = f.text_field :platenumber_like, :required => true  
           %span.suggestion
             (Plese select from suggestions)
         .actions  
@@ -122,7 +122,7 @@
     if (#{session[:button]} == 1 && #{!@vehicle.present?}){
       $("#trackform").addClass("hidden");
       $("#vehicleform").removeClass("hidden");
-      $("#vehicle_platenumber").val($("#search_platenumber_equals").val());
+      $("#vehicle_platenumber").val($("#search_platenumber_like").val());
     }
 
     $( "#addlocation" ).click(function() {

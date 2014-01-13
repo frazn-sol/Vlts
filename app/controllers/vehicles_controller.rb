@@ -204,24 +204,24 @@ end
         else
           @history = nil
         end
-      elsif (params[:search][:platenumber_equals].blank? && params[:search][:slot_like].blank?)
+      elsif (params[:search][:platenumber_like].blank? && params[:search][:slot_like].blank?)
         @history = nil
       else
         if current_user.parent.parent.present?
           @customer = current_user.parent.parent
         else
           @customer = current_user.parent
-        end    
+        end
         @history = @search.where(:delflag => "false", :user_id => @customer.id)
-        @vehicle = Vehicle.where(:platenumber => "#{params[:search][:platenumber_equals]}", :delflag=>false, :user_id => @customer.id) if params[:search].present?
+        @vehicle = Vehicle.where("user_id=? AND delflag=? AND platenumber ILIKE ?",@customer.id,false,"%#{params[:search][:platenumber_like]}%") if params[:search].present?
         @customer.children.each do |children|
           @h = @search.where(:delflag => "false", :user_id => children.id)
-          @v = Vehicle.where(:platenumber => "#{params[:search][:platenumber_equals]}", :delflag=>false, :user_id => children.id) if params[:search].present?
+          @v = Vehicle.where("user_id=? AND delflag=? AND platenumber ILIKE ?",children.id,false,"%#{params[:search][:platenumber_like]}%") if params[:search].present?
           @history += @h
           @vehicle += @v
           children.children.each do |child|
             @h = @search.where(:delflag => "false", :user_id => child.id)
-            @v = Vehicle.where(:platenumber => "#{params[:search][:platenumber_equals]}", :delflag=>false, :user_id => child.id) if params[:search].present?
+            @v = Vehicle.where("user_id=? AND delflag=? AND platenumber ILIKE ?",child.id,false,"%#{params[:search][:platenumber_like]}%") if params[:search].present?
             @history += @h
             @vehicle += @v
           end
@@ -364,14 +364,14 @@ end
       elsif current_user.parent.role == "supervisor"
         @customer = current_user.parent.parent
       end
-      @vehicle =  Vehicle.where("user_id=? AND delflag=? AND platenumber like ?",@customer.id,false,"%#{params[:term]}%")
+      @vehicle =  Vehicle.where("user_id=? AND delflag=? AND platenumber ILIKE ?",@customer.id,false,"%#{params[:term]}%")
       @customer.children.each do |child|
         if child.delflag == false
-          @temp = Vehicle.where("user_id=? AND delflag=? AND platenumber like ?",child.id,false,"%#{params[:term]}%")
+          @temp = Vehicle.where("user_id=? AND delflag=? AND platenumber ILIKE ?",child.id,false,"%#{params[:term]}%")
           @vehicle += @temp
             child.children.each do |chil|
               if chil.delflag == false
-                @supervisor = Vehicle.where("user_id=? AND delflag=? AND platenumber like ?",chil.id,false,"%#{params[:term]}%")
+                @supervisor = Vehicle.where("user_id=? AND delflag=? AND platenumber ILIKE ?",chil.id,false,"%#{params[:term]}%")
                 @vehicle += @supervisor
               end
             end
@@ -437,7 +437,7 @@ def track_delete
   def search
     result = params.first[0].split(/,/)
     @json = Hash.new
-    @vehicle = Vehicle.where(:delflag => false, :platenumber => result[0])
+    @vehicle = Vehicle.where("delflag=? AND platenumber ILIKE ?",false,result[0])
     if @vehicle.present?
       @json[:status] = false
     else

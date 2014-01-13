@@ -15,12 +15,22 @@
   .field.allign
     = f.label :organization
     -if current_user.role == "customer"
-      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}", :delflag => false)  , :id, :company_name, {}, :class => "size2")
+      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.id}", :delflag => false)  , :id, :company_name, {:include_blank => true}, :class => "size2")
     -elsif current_user.role == "supervisor"
-      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.parent_id}", :delflag => false) + Organization.where(:user_id => "#{current_user.id}", :delflag => false), :id, :company_name, {}, :class => "size2")  
+      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.parent_id}", :delflag => false) + Organization.where(:user_id => "#{current_user.id}", :delflag => false), :id, :company_name, {:include_blank => true}, :class => "size2")  
     -else
-      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.parent_id}", :delflag => false) + Organization.where(:user_id => "#{current_user.parent.parent_id}", :delflag => false)  , :id, :company_name, {}, :class => "size2")    
+      = f.collection_select(:organization_id, Organization.where(:user_id => "#{current_user.parent_id}", :delflag => false) + Organization.where(:user_id => "#{current_user.parent.parent_id}", :delflag => false)  , :id, :company_name, {:include_blank => true}, :class => "size2")    
   .clear
+  .field.allign
+    = f.label :colour
+    = f.text_field :colour, {:class => "size"}
+  .field.allign
+    = f.label :make
+    = f.text_field :make, {:class => "size"}
+  .field.allign
+    = f.label :model
+    = f.text_field :model, {:class => "size"}
+  .clear  
   .field.allign
     = f.label :permit_date
     = f.date_select :permit_date, {}, :class => "size2"  
