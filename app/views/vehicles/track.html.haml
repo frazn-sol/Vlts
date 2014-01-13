@@ -43,11 +43,6 @@
             =@vehicle[0].organization.company_name
           %br
           %label
-            Badge number:
-          %span
-            =@vehicle[0].badge_number
-          %br
-          %label
             Colour:
           %span
             =@vehicle[0].colour
@@ -73,6 +68,11 @@
           %span
             =@vehicle[0].visitor 
           %br 
+          %label
+            Badge number:
+          %span
+            =@vehicle[0].badge_number
+          %br  
         %h3
           Locations Found: 
           = button_tag(type: 'submit', class: "push btn btn-primary", id: "addlocation") do 
