@@ -40,7 +40,8 @@
           %label
             Organization:
           %span
-            =@vehicle[0].organization.company_name
+            -if @vehicle[0].organization.present?
+              =@vehicle[0].organization.company_name 
           %br
           %label
             Colour:
