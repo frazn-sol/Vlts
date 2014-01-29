@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Dear Admin,</h1>
+    <p>
+      <b>You have recieved a contact request from user</b> <%= @message.name %></br>
+      <b>From:</b> <%= @message.email %></br>
+      <b>With Message:</b></br>
+      <%= @message.content %></br>
+      At time <%= Time.now %>
+    </p>
+    <p>Have a great day!</p>
+  </body>
+</html>

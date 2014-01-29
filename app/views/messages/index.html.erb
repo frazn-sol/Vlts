@@ -1,0 +1,140 @@
+  <!-- wrapper -->
+  <div class="wrapper">
+    <!-- header -->
+    <header class="header">
+      <div class="shell">
+        <div class="header-top">
+          <h1 id="logo">
+          <div id="company_logo" class="aleft">
+              <% if SystemConfig.last.present? && !SystemConfig.last.logo.url.empty? %>
+                  <%= image_tag SystemConfig.last.logo.url, {:class => "logo", :size => "227x60"} %>
+              <% else %>
+                  <%= image_tag "logo1.png", {:class => "logo"} %>
+              <% end %> 
+              <div id="company_name">
+                  <% if SystemConfig.last.present? && !SystemConfig.last.companyname.empty? %>
+                    Powered By <%== SystemConfig.last.companyname%>
+                  <% else %>
+                    Powered By VLTS
+                  <%end%>
+              </div>
+            </div>
+          </h1>
+          <nav id="navigation">
+            <a href="#" class="nav-btn">Home<span></span></a>
+            <ul>
+              <li class="active home"><a href=<%root_url%>>Home</a></li>
+              <li><a href="/home/about">About Us</a></li>
+              <li><a href="/messages/new">Contact Us</a></li>
+              <li><a href="/users/sign_in">Login</a></li>
+            </ul>
+          </nav>
+          <div class="cl">&nbsp;</div>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- end of header -->
+    <!-- shell -->
+    <div class="shell">
+      <!-- main -->
+      <div class="main">
+        <!-- end of cols -->
+        <section class="post">
+          <%= form_for @message, :url => messages_path, :method => :post do |f| %>
+  <% if @message.errors.any? %>
+    <div class="error_messages">
+      <% @message.errors.full_messages.each do |msg| %>
+        -><%= msg %><br>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :content, "Message" %><br />
+    <%= f.text_area :content, :rows => 5 %>
+  </div>
+  <div class="actions"><%= f.submit "Send Message" %></div>
+<% end %>
+
+        </section>
+
+        <section class="content">
+          <h2>WHO WE ARE</h2>
+          <p>Maecenas vel est sit amet massa dignissim <span>hendrerit</span> sit amet ac ante. Praesent dapibus neque vel enim adipiscing vel feugiat leo luctus. Nulla semper varius nulla, eu euismod turpis volutpat in. Nullam neque diam, facilisis vitae suscipit eu, gravida ut tortor. Duis faucibus lectus nec metus elementum ac <a href="#">adipiscing</a> lorem consectetur. Nulla dui ipsum, <em>iaculis a mollis vel</em>, sodales a ipsum. Nam tincidunt consequat lacus eget imperdiet. Nullam posuere convallis libero, vitae lobortis libero fermentum eu. Ut id venenatis lectus. <strong>Donec eget</strong> quam et dolor facilisis commodo nullam tempor aliquet vulputate phasellus ac libero sed justo luctus vehicula.<br /> <a href="#" class="more">meet the team</a></p>
+        </section>
+
+      <!-- end of main -->
+    </div>
+    <!-- end of shell --> 
+    <!-- footer -->
+    <div id="footer">
+      <!-- shell -->
+      <div class="shell">
+        <!-- footer-cols -->
+        <div class="footer-cols">
+          <div class="col">
+            <h2>Heading1</h2>
+            <ul>
+              <li><a href="#">Nullam euismod quam vel</a></li>
+              <li><a href="#">Quisque nec lacuss volutpat</a></li>
+              <li><a href="#">Aenean bibendum lacus varius </a></li>
+              <li><a href="#">Pellentesque sed nulla nec </a></li>
+              <li><a href="#">Donec a velit nisi, ac dignissim</a></li>
+            </ul>
+          </div>
+
+          <div class="col">
+            <h2>Heading2</h2>
+            <ul>
+              <li><a href="#">Quisque nec lacuss volutpat</a></li>
+              <li><a href="#">Aenean bibendum lacus varius </a></li>
+              <li><a href="#">Nullam euismod quam vel</a></li>
+              <li><a href="#">Pellentesque sed nulla nec </a></li>
+              <li><a href="#">Donec a velit nisi, ac dignissim </a></li>
+            </ul>
+          </div>
+
+          <div class="col">
+          </div>
+
+          <div class="col">
+            <h2>CONTACT us</h2>
+
+            <p>Email: <a href="#">info@websitename.com</a></p>
+            <p>Phone: 655-606-605</p>
+            <p>Address: East Pixel Bld. 99, </p>
+            <p>Template City, 9000</p>
+          </div>
+          <div class="cl">&nbsp;</div>
+        </div>
+        <!-- end of footer-cols -->
+      </div>
+      <!-- end of shell -->
+    <div class = "copytext">
+    <% if SystemConfig.last.present? && !SystemConfig.last.copytext.empty? %>
+    &copy; <%== SystemConfig.last.copytext.to_s %>
+    <% else %>
+    &copy; This is a copyright text
+    <% end %>
+  </div>  
+    </div>
+    <!-- footer -->
+  </div>
+  <!-- end of wrapper --> 

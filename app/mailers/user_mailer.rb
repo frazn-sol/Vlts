@@ -1,10 +1,24 @@
 class UserMailer < ActionMailer::Base
-  default from: "no.reply.vlts@gmail.com"
+  @from_email = SystemConfig.find(1).from.to_s
+  if @from_email.blank?
+    @from_email = "no.reply.vlts@gmail.com"
+  end
+
+  default from: @from_email
 
   def welcome_email(user)
     @user = user
     @url  = "#{root_url}users"
     mail(to: @user.email, subject: 'Account successfully created')
+  end
+
+  def contact_message(message)
+    @to_email = SystemConfig.find(1).to.to_s
+    if @to_email.blank?
+      @to_email = "no.reply.vlts@gmail.com"
+    end
+    @message = message
+    mail(to: @to_email, subject: 'Contact Request')
   end
 
   def forgot_email_to_user(user)

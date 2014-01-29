@@ -15,10 +15,10 @@
     = f.label :last_name, {:class => 'required'}
     = f.text_field :last_name
   .field
-    = f.label :phone, {:class => 'required'}
+    = f.label :phone
     = f.text_field :phone
   .field
-    = f.label :cell, {:class => 'required'}
+    = f.label :cell
     = f.text_field :cell
   .field
     = f.label :email, {:class => 'required'}
@@ -36,12 +36,7 @@
     -else    
       = f.hidden_field :role, :value => "support"    
   .actions
-    -if params[:param]=="1"    
-      = f.submit 'Save', {:class => "button1"}
-    -elsif params[:param]=="2"   
-      = f.submit 'Save', {:class => "button1"}   
-    -else         
-      = f.submit 'Save', {:class => "button1"}
+    = f.submit 'Save', {:class => "button1"}
     
 
 :javascript
@@ -57,14 +52,6 @@
     name: 'user[last_name]',
     display:'Last Name',
     rules: 'required'
-  }, {
-    name: 'user[phone]',
-    display:'Phone',
-    rules: 'callback_check_phone|required'
-  }, {
-    name: 'user[cell]',
-    display:'Cell',
-    rules: 'callback_check_mobile|required'
   }, {
     name: 'user[email]',
     display:'Email',

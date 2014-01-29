@@ -1,5 +1,7 @@
 VLTS::Application.routes.draw do
 
+  resources :messages 
+
 
   resources :vehicles do
 
@@ -78,6 +80,7 @@ VLTS::Application.routes.draw do
   resources :home do
     collection do
       get :vlts
+      get :about
     end
   end
 

@@ -7,8 +7,12 @@ class ApplicationController < ActionController::Base
 		if resource.pass_change == false && resource.role != "admin"
 			flash[:notice] = "You must change your password"
 			password_user_path(resource) 
-		else	
-			users_path
+		else
+			if resource.role == "user"
+				track_vehicles_path
+			else	
+				users_path
+			end
 		end
 	end
 

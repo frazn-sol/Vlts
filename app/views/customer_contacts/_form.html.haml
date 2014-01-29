@@ -25,13 +25,13 @@
       -else
         = f.collection_select(:customer_id, Customer.where(:user_id => "#{current_user.id}", :delflag => false), :id, :company_name, { :include_blank => true })     
   .field
-    = f.label :designation, {:class => 'required'}
+    = f.label :designation
     = f.text_field :designation
   .field
-    = f.label :phone, {:class => 'required'}
+    = f.label :phone
     = f.text_field :phone
   .field
-    = f.label :cell, {:class => 'required'}
+    = f.label :cell
     = f.text_field :cell
   .field
     = f.label :email, {:class => 'required'}
@@ -57,18 +57,6 @@
       name: 'customer_contact[customer_id]',
       display:'Company Name',
       rules: 'required'
-    }, {
-      name: 'customer_contact[designation]',
-      display:'Designation',
-      rules: 'required'
-    }, {
-      name: 'customer_contact[phone]',
-      display:'Phone',
-      rules: 'required|callback_check_phone'
-    }, {
-      name: 'customer_contact[cell]',
-      display:'Cell',
-      rules: 'required|callback_check_mobile'
     }, {
       name: 'customer_contact[email]',
       display:'Email',
@@ -135,18 +123,6 @@
       name: 'customer_contact[customer_id]',
       display:'Company Name',
       rules: 'required'
-    }, {
-      name: 'customer_contact[designation]',
-      display:'Designation',
-      rules: 'required'
-    }, {
-      name: 'customer_contact[phone]',
-      display:'Phone',
-      rules: 'required|callback_check_phone'
-    }, {
-      name: 'customer_contact[cell]',
-      display:'Cell',
-      rules: 'callback_check_mobile|required'
     }, {
       name: 'customer_contact[email]',
       display:'Email',

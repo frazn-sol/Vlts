@@ -94,8 +94,11 @@
     </div>
   </div>
 
-
-<%= render "devise/sessions/new"%>
+<%if params[:controller] !="messages"%>
+  <%= render "devise/sessions/new"%>
+<%else%>
+  <%=yield%>  
+<%end%>
 
 <div class="navbar-inner footer">
   <div class="container-fluid1">
